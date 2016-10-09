@@ -17,7 +17,7 @@ class WAPCreatHandler(BaseHandler):
 
     retjson = {'code':'','contents':''}
 
-    def post(self,):
+    def get(self):
         W_title = self.get_argument('title') #约拍标题
         W_type = self.get_argument('type') #约拍类型 0为约模特，1为摄影师
         W_price = self.get_argument('price')
