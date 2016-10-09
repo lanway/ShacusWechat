@@ -303,3 +303,26 @@ class WeAcToken(Base):
     WACid = Column(Integer,primary_key=True)
     WACtoken = Column(VARCHAR(512))
     WACexpire = Column(Integer,nullable=False,default=0)
+
+class WAppointment(Base):
+    __tablename__ = 'WAppointment'
+
+    WAPid = Column(Integer, primary_key=True, nullable=False)
+    WAPtitle = Column(VARCHAR(24), nullable=False) #标题
+    WAPlocation = Column(VARCHAR(128), nullable=False, default='') #地点描述
+    WAPcontent = Column(VARCHAR(128), nullable=False, default='') #内容描述
+    WAPfree = Column(Boolean) #0为免费，1为收费
+    WAPtime = Column(VARCHAR(128), nullable=False, default='') #时间描述
+    WAPcreateT = Column(DateTime(timezone=True), default=func.now())
+    WAPtype = Column(Boolean, nullable=False, default=0)  # 约拍类型，模特约摄影师(1)或摄影师约模特(0)
+    WAPlikeN = Column(Integer, default=0, nullable=False)
+    WAPvalid = Column(Boolean, default=1, nullable=False)
+    WAPregistN = Column(Integer, nullable=False, default=0)
+    WAPstatus = Column(Integer, nullable=False, default=0)
+
+class WAppointmentImage(Base):
+    __tablename__ = 'WAppointImage'
+
+    WAPIapid = Column(Integer,ForeignKey("WAppointment.WAPid",onupdate="CASCADE"))
+    WAPIimid = Column(Integer,ForeignKey("Image.IMid",onupdate="CASCADE"),primary_key=True)
+    WAPIurl = Column(VARCHAR(128))

@@ -2,13 +2,38 @@
 import time
 
 from Database.models import get_db
-from Database.tables import UserImage,Image,AppointmentImage,ActivityImage
+from Database.tables import UserImage,Image,AppointmentImage,ActivityImage, WAppointmentImage
+
 '''
  创建者：兰威 黄鑫晨
  创建时间：2016-08-30 18:05
 '''
 class ImageHandler(object):
     #def __init__(self):
+
+    # @staticmethod
+    def insert_wappointment_image(self, list, wap_id):
+        '''
+
+        Args:
+            list: 图片名字的数组
+            ap_id: 微信约拍的ID
+
+
+        Returns:
+
+        '''
+        imids = self.insert(list)
+        for i in range(len(imids)):
+            image = WAppointmentImage(
+                WAPIapid=wap_id,
+                WAPIimid=imids[i],
+                WAPIurl=list[i]
+            )
+            db = get_db()
+            db.merge(image)
+            db.commit()
+
     # @staticmethod
     def insert(self,list):
         '''
@@ -111,6 +136,28 @@ class ImageHandler(object):
                 im.IMvalid = 0
         db.commit()
         self.insert_user_image(newimage,uid)
+
+        def insert_appointment_image(self, list, ap_id):
+            '''
+
+            Args:
+                list: 图片名字的数组
+                ap_id: 约拍的ID
+
+
+            Returns:
+
+            '''
+            imids = self.insert(list)
+            for i in range(len(imids)):
+                image = AppointmentImage(
+                    APIapid=ap_id,
+                    APIimid=imids[i],
+                    APIurl=list[i]
+                )
+                db = get_db()
+                db.merge(image)
+                db.commit()
 
 
 
