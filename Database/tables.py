@@ -21,9 +21,10 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uid = Column(Integer, nullable=False, primary_key=True)  # 主键
     Upassword = Column(VARCHAR(16), nullable=False)
     Utel = Column(CHAR(11),nullable=False,unique=True,)
-    Ualais = Column(VARCHAR(24),nullable=False,unique=True) # 昵称
+    Ualais = Column(VARCHAR(24),nullable=False,unique=True) # 昵称，可能为微信昵称
     Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
     Ulocation = Column(VARCHAR(128))
+
     Umailbox = Column(VARCHAR(32))#unique=True) # unique表示唯一性
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
@@ -64,16 +65,12 @@ class WCourse(Base):
     @author:黄鑫晨
     @name：教程表
     '''
-    __tablename__ = "Course"
-    '''
-    标题
-    链接 图片 简介
-    '''
+    __tablename__ = "WCourse"
     WCid = Column(Integer,primary_key=True)
     WCurl = Column(VARCHAR(128), nullable=False)  # 链接
     WCintroduce = Column(VARCHAR(64))  # 教程简介
-    WCimageurl = Column(VARCHAR(128), nullable=False)  # 图片
-    Ctitle = Column(VARCHAR(32), nullable=False)  # 标题
+    WCimageurl = Column(VARCHAR(128), nullable=False)  # 封面图片
+    WCtitle = Column(VARCHAR(32), nullable=False)  # 标题
     WCvalid = Column(Integer, nullable=False, default=1)
 
 
@@ -82,7 +79,7 @@ class WeAcToken(Base):
     用于存放微信accesstoken
     '''
     __tablename__ = 'WeAcToken'
-    WACid = Column(Integer,primary_key=True)
+    WACid = Column(Integer, primary_key=True)
     WACtoken = Column(VARCHAR(512))
     WACexpire = Column(Integer,nullable=False,default=0)
 
@@ -107,20 +104,20 @@ class WAppointment(Base):
     WAPstatus = Column(Integer, nullable=False, default=0)  # 1为发布中，2为已确定（结束）
 
 
-class WAppointmentImage(Base):
-    __tablename__ = 'WAppointImage'
+class WApImage(Base):
+    __tablename__ = 'WApImage'
 
     WAPIapid = Column(Integer, ForeignKey("WAppointment.WAPid", onupdate="CASCADE"))
     WAPIimid = Column(Integer, ForeignKey("Image.IMid",onupdate="CASCADE"), primary_key=True)
     WAPIurl = Column(VARCHAR(128))
 
 
-class WAppointmentInfo(Base):
+class WApInfo(Base):
     '''
     @author:黄鑫晨
     @name:约拍评论表，即每一个确定的约拍对应的表，选择人后在此加一项
     '''
-    __tablename__ = "WAppointmentinfo"
+    __tablename__ = "WApinfo"
 
     WAIid = Column(Integer, primary_key=True)
     WAImid = Column(Integer, ForeignKey('User.Uid', ondelete='CASCADE'))  # 模特的Id
@@ -129,7 +126,7 @@ class WAppointmentInfo(Base):
     WAIpscore = Column(Integer, default=0)  # 摄影师获得的得分
     WAImcomment = Column(VARCHAR(128))  # 模特对摄影师的评论
     WAIpcomment = Column(VARCHAR(128))  # 摄影师对模特的评论
-    WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid',onupdate='CASCADE'))  # 约拍Id
+    WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
 
 
 class WAppointEntry(Base):
@@ -140,7 +137,7 @@ class WAppointEntry(Base):
     __tablename__ = "WAppointEntry"
 
     WAEid = Column(Integer, primary_key=True)
-    WAEapid=Column(Integer, ForeignKey('Appointment.APid', onupdate="CASCADE"))  # 约拍id
+    WAEapid=Column(Integer, ForeignKey('WAppointment.WAPid', onupdate="CASCADE"))  # 约拍id
     WAEregisterID = Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))  # 报名人id
     WAEvalid = Column(Boolean, nullable=False,default=1)  # 报名是否有效
     WAEchoosed = Column(Boolean, nullable=False,default=0)  # 是否被选中
@@ -168,19 +165,48 @@ class WActivity(Base):#活动表
     WACvalid = Column(Boolean, nullable=False, default=1)  # 活动是否已经删除
 
 
-class WActivityImage(Base):
-    __tablename__ = "WActivityImage"
+class WAcImage(Base):
+    __tablename__ = "WAcImage"
 
-    WACIacid = Column(Integer, ForeignKey('WActivity.ACid',onupdate='CASCADE'))
+    WACIacid = Column(Integer, ForeignKey('WActivity.WACid',onupdate='CASCADE'))
     WACIimid = Column(Integer, ForeignKey('Image.IMid',onupdate='CASCADE'),primary_key=True)
     WACIurl = Column(VARCHAR(128))  # 活动图片链接
 
 
-class WActivityEntry(Base):  # 活动报名表
-    __tablename__ = 'WActivityaentry'
+class WAcEntry(Base):  # 活动报名表
+    '''
+    @author:黄鑫晨
+    @name:活动报名表
+    '''
+    __tablename__ = 'WAcEntry'
 
-    WACEid = Column(Integer,primary_key=True)
-    WACEacid = Column(Integer,ForeignKey('WActivity.ACid',onupdate='CASCADE'))  # 活动ID
-    WACEregisterid = Column(Integer,ForeignKey('User.Uid',onupdate='CASCADE'))  # 报名人ID
+    WACEid = Column(Integer, primary_key=True)
+    WACEacid = Column(Integer, ForeignKey('WActivity.WACid', onupdate='CASCADE'))  # 活动ID
+    WACEregisterid = Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))  # 报名人ID
     WACEregistvalid = Column(Boolean, default=1)  # 报名是否有效
     WACEregisterT = Column(DateTime(timezone=True), default=func.now())  # 报名时间
+
+class WApCompanions(Base):
+    '''
+    @author:黄鑫晨
+    @name:约拍伴侣表
+    '''
+    __tablename__ = 'WApCompanions'
+    WAPCid = Column(Integer, primary_key=True)
+    WAPCname = Column(VARCHAR(64), nullable=False)   # 约拍伴侣名
+    WAPCOrganintro = Column(VARCHAR(128), nullable=False)  # 组织/个人介绍
+    WAPCServeintro = Column(VARCHAR(256), nullable=False)  # 提供服务介绍
+    WAPCContact = Column(VARCHAR(128), nullable=False)  # 联系方式
+
+
+class WApCompanionImage(Base):
+    '''
+    @author:黄鑫晨
+    @name:约拍伴侣图片表
+    '''
+    __tablename__ = "WApCompanionImage"
+
+    WAPCid = Column(Integer, ForeignKey('WApCompanions.WAPCid', onupdate='CASCADE'))
+    WAPCimid = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'), primary_key=True)
+    WAPCurl = Column(VARCHAR(128))  # 约拍伴侣图片链接
+
