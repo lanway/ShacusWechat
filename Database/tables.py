@@ -25,7 +25,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
     Ulocation = Column(VARCHAR(128))
 
-    Umailbox = Column(VARCHAR(32))#unique=True) # unique表示唯一性
+    Umailbox = Column(VARCHAR(32))  #unique=True) # unique表示唯一性
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
@@ -35,7 +35,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uchattoken = Column(VARCHAR(128), nullable=False)
 
 
-class Verification(Base): # 短信验证码及生成用户auth_key时间
+class Verification(Base):  # 短信验证码及生成用户auth_key时间
     __tablename__ = 'Verification'
 
     Vphone = Column(CHAR(11),primary_key=True) #
@@ -143,7 +143,8 @@ class WAppointEntry(Base):
     WAEchoosed = Column(Boolean, nullable=False,default=0)  # 是否被选中
     WAEregistT = Column(DateTime(timezone=True), default=func.now())  # 报名时间
 
-class WActivity(Base):#活动表
+
+class WActivity(Base):  #活动表
     __tablename__ = 'WActivity'
 
     WACid = Column(Integer, nullable=False, primary_key=True)

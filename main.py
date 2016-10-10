@@ -16,7 +16,6 @@ from Activity.ACentryHandler import AskEntry
 from Appointment.APAskHandler import APaskHandler
 from Appointment.APCreateHandler import APcreateHandler
 from Appointment.APRegistHandler import APregistHandler
-from Appointment.APpraseHandler import APprase
 from Appointment.Ranklist import Ranklist
 from Course.Chomepage import Chomepage
 from Course.CourseAsk import CourseAsk
@@ -24,12 +23,8 @@ from Course.CourseLike import Courselike
 from Course.Coursefav import Coursefav
 from Database.models import engine
 from ImageCallback import ImageCallback
-from Pressuretest import login
-from Pressuretest.Simplerequest import Simplerequest
 from RegisterHandler import RegisterHandler
 from Settings import PaswChange
-from TRends.TRendspost import TRendspost
-from TRends.TrendHandler import TrendHandler
 from Userinfo.UserFavoriteHandler import UserFavorite
 from Userinfo.UserIndent import UserIndent
 from Userinfo.UserInfo import UserInfo
