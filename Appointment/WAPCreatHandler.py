@@ -18,15 +18,22 @@ class WAPCreatHandler(BaseHandler):
     retjson = {'code':'','contents':''}
 
     def get(self):
+        '''
+
+        注释为post请求写法
+        Returns:
+
+        '''
         W_title = self.get_argument('title') #约拍标题
         W_type = self.get_argument('type') #约拍类型 0为约模特，1为摄影师
         W_price = self.get_argument('price')
         W_time = self.get_argument("time")
         W_location = self.get_argument('location')
         W_content = self.get_argument('content')
-        W_mediaIds = self.get_arguments('serverIds[]')
-        print("我是一条漂亮的分割线————————————————————————————")
-        print W_mediaIds
+        W_mediaIds = self.get_arguments('serverIds[]',strip=True)
+        #W_mediaIds = self.get_argument('serverIds')
+        #print("我是一条漂亮的分割线————————————————————————————")
+        #print W_mediaIds
 
         try:
             appointment = self.db.query(WAppointment).filter(WAppointment.WAPtitle == W_title).one()
