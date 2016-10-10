@@ -10,27 +10,27 @@ import tornado.web
 from sqlalchemy.orm import scoped_session, sessionmaker
 from tornado.options import define, options
 
-from Activity.ACHandler import ActivityCreate, ActivityRegister
-from Activity.ACaskHandler import AskActivity
-from Activity.ACentryHandler import AskEntry
-from Appointment.APAskHandler import APaskHandler
-from Appointment.APCreateHandler import APcreateHandler
-from Appointment.APRegistHandler import APregistHandler
-from Appointment.Ranklist import Ranklist
-from Course.Chomepage import Chomepage
-from Course.CourseAsk import CourseAsk
-from Course.CourseLike import Courselike
-from Course.Coursefav import Coursefav
-from Database.models import engine
-from ImageCallback import ImageCallback
-from RegisterHandler import RegisterHandler
-from Settings import PaswChange
-from Userinfo.UserFavoriteHandler import UserFavorite
-from Userinfo.UserIndent import UserIndent
-from Userinfo.UserInfo import UserInfo
-from Userinfo.UserLike import FindUlike
-from Userinfo.Userhomepager import Userhomepager
-from loginHandler import LoginHandler
+# from Activity.ACHandler import ActivityCreate, ActivityRegister
+# from Activity.ACaskHandler import AskActivity
+# from Activity.ACentryHandler import AskEntry
+# from Appointment.APAskHandler import APaskHandler
+# from Appointment.APCreateHandler import APcreateHandler
+# from Appointment.APRegistHandler import APregistHandler
+# from Appointment.Ranklist import Ranklist
+# from Course.Chomepage import Chomepage
+# from Course.CourseAsk import CourseAsk
+# from Course.CourseLike import Courselike
+# from Course.Coursefav import Coursefav
+# from Database.models import engine
+# from ImageCallback import ImageCallback
+# from RegisterHandler import RegisterHandler
+# from Settings import PaswChange
+# from Userinfo.UserFavoriteHandler import UserFavorite
+# from Userinfo.UserIndent import UserIndent
+# from Userinfo.UserInfo import UserInfo
+# from Userinfo.UserLike import FindUlike
+# from Userinfo.Userhomepager import Userhomepager
+# from loginHandler import LoginHandler
 from Wechatserver.Wver import Wver
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
@@ -43,10 +43,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
              (r"/appointment/create", APcreateHandler),
-             (r"/pressuretest",Simplerequest),
-             (r"/pressuretest2", login.login),
              (r"/appointment/ask", APaskHandler),
-             (r"/appointment/prase", APprase),
              (r"/appointment/regist", APregistHandler),
              (r"/login", LoginHandler),
              (r"/regist", RegisterHandler),
@@ -61,8 +58,6 @@ class Application(tornado.web.Application):
              (r"/activity/register",ActivityRegister),
              (r"/ImageCallback",ImageCallback),
              (r"/PaswChange",PaswChange),
-             (r"/trend/Trendspost",TRendspost),
-             (r"/trend/Trendhanler",TrendHandler),
              (r"/course/homepage",Chomepage),
              (r"/course/ask",CourseAsk),
              (r"/course/like",Courselike),
