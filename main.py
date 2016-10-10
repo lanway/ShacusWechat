@@ -21,7 +21,7 @@ from tornado.options import define, options
 # from Course.CourseAsk import CourseAsk
 # from Course.CourseLike import Courselike
 # from Course.Coursefav import Coursefav
-# from Database.models import engine
+from Database.models import engine
 # from ImageCallback import ImageCallback
 # from RegisterHandler import RegisterHandler
 # from Settings import PaswChange
@@ -36,33 +36,33 @@ from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
-define("port", default=800, help="run on the given port", type=int)
+define("port", default=80, help="run on the given port", type=int)
 
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-             (r"/appointment/create", APcreateHandler),
-             (r"/appointment/ask", APaskHandler),
-             (r"/appointment/regist", APregistHandler),
-             (r"/login", LoginHandler),
-             (r"/regist", RegisterHandler),
-             (r"/user/homepager",Userhomepager),
-             (r"/user/mylike", FindUlike),
-             (r"/user/favorite", UserFavorite),
-             (r"/user/info",UserInfo),
-             (r"/user/indent",UserIndent),
-             (r"/Activity/ask", AskActivity),
-             (r"/Activity/entry", AskEntry),
-             (r"/activity/create", ActivityCreate),
-             (r"/activity/register",ActivityRegister),
-             (r"/ImageCallback",ImageCallback),
-             (r"/PaswChange",PaswChange),
-             (r"/course/homepage",Chomepage),
-             (r"/course/ask",CourseAsk),
-             (r"/course/like",Courselike),
-             (r"/course/fav",Coursefav),
-             (r"/ranklist", Ranklist),
+             # (r"/appointment/create", APcreateHandler),
+             # (r"/appointment/ask", APaskHandler),
+             # (r"/appointment/regist", APregistHandler),
+             # (r"/login", LoginHandler),
+             # (r"/regist", RegisterHandler),
+             # (r"/user/homepager",Userhomepager),
+             # (r"/user/mylike", FindUlike),
+             # (r"/user/favorite", UserFavorite),
+             # (r"/user/info",UserInfo),
+             # (r"/user/indent",UserIndent),
+             # (r"/Activity/ask", AskActivity),
+             # (r"/Activity/entry", AskEntry),
+             # (r"/activity/create", ActivityCreate),
+             # (r"/activity/register",ActivityRegister),
+             # (r"/ImageCallback",ImageCallback),
+             # (r"/PaswChange",PaswChange),
+             # (r"/course/homepage",Chomepage),
+             # (r"/course/ask",CourseAsk),
+             # (r"/course/like",Courselike),
+             # (r"/course/fav",Coursefav),
+             # (r"/ranklist", Ranklist),
              (r"/", WBasic),
              (r"/weixin/getsign",WgetSign),
              (r"/weixin/appointment/ask",WAPCreatHandler),
