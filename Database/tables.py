@@ -24,14 +24,13 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Ualais = Column(VARCHAR(24),nullable=False,unique=True) # 昵称，可能为微信昵称
     Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
     Ulocation = Column(VARCHAR(128))
-
     Umailbox = Column(VARCHAR(32))  #unique=True) # unique表示唯一性
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
     Usex = Column(Boolean,nullable=False)
     Usign = Column(VARCHAR(256))
-    Uauthkey = Column(VARCHAR(32))
+    Uopenid = Column(VARCHAR(64))  # openid
     Uchattoken = Column(VARCHAR(128), nullable=False)
 
 
@@ -211,3 +210,13 @@ class WApCompanionImage(Base):
     WAPCimid = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'), primary_key=True)
     WAPCurl = Column(VARCHAR(128))  # 约拍伴侣图片链接
 
+class WAcAuth(Base):
+    '''
+    @author：黄鑫晨
+    @name: 记录发布活动权限的表
+    '''
+    __tablename__ = 'WAcAuth'
+
+    WAAid = Column(Integer, primary_key=True)
+    WAAacid = Column(Integer, ForeignKey('WActivity.WACid', onupdate='CASCADE'))  # 活动ID
+    WAAused = Column(Boolean, nullable=False, default=0)  # 为0则未用， 1则用过
