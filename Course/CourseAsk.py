@@ -8,7 +8,6 @@ from sqlalchemy import desc
 
 from BaseHandlerh import BaseHandler
 from Course import Coursemodel
-from Database.tables import Course, CourseTagEntry, CourseTag, CourseLike, Usercourse
 from Userinfo import Ufuncs
 
 

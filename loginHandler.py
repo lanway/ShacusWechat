@@ -11,7 +11,7 @@ from tornado.concurrent import Future
 from tornado.web import asynchronous
 
 from BaseHandlerh import BaseHandler
-from Database.tables import Appointment, User
+from Database.tables import  User
 from Userinfo import Usermodel
 from Userinfo.Ufuncs import Ufuncs
 from Userinfo.Usermodel import Model_daohanglan

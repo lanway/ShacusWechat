@@ -6,7 +6,6 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import Course, Usercourse
 from Userinfo import Ufuncs
 
 

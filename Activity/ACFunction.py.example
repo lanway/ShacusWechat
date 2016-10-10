@@ -5,7 +5,6 @@
 from tokenize import String
 
 from Database.models import get_db
-from Database.tables import ActivityLike, Activity
 from FileHandler.Upload import AuthKeyHandler
 
 def response(item,retdata,url,Usermodel,issponsor,userid):#查看活动更多详情

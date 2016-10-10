@@ -4,7 +4,6 @@
 @attention: Model为模型，model为模特
 '''
 from Database.models import get_db
-from Database.tables import AppointLike, AppointmentImage
 from FileHandler.Upload import AuthKeyHandler
 from Userinfo.Ufuncs import Ufuncs
 

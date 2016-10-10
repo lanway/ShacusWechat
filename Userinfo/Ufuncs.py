@@ -4,7 +4,7 @@
 #create_time:2016-09-01
 '''
 from Database.models import get_db
-from Database.tables import User, AppointEntry, UserImage, Image
+from Database.tables import User, UserImage, Image
 from FileHandler.Upload import AuthKeyHandler
 
 

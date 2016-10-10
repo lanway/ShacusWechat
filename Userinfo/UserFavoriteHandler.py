@@ -5,7 +5,7 @@ import Userinfo.Ufuncs
 from Activity import ACFunction
 from Appointment.APmodel import APmodelHandler
 from BaseHandlerh import BaseHandler
-from Database.tables import Favorite, Appointment, Activity, User, ActivityImage, UserImage, Image
+from Database.tables import  User, UserImage, Image
 
 '''
 @author:黄鑫晨，王佳镭
