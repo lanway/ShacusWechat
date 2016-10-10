@@ -24,7 +24,7 @@ class WAPCreatHandler(BaseHandler):
         W_time = self.get_argument("time")
         W_location = self.get_argument('location')
         W_content = self.get_argument('content')
-        W_mediaIds = self.get_argument('serverIds')
+        W_mediaIds = self.get_argument('serverIds[]')
 
         try:
             appointment = self.db.query(WAppointment).filter(WAppointment.WAPtitle == W_title).one()
