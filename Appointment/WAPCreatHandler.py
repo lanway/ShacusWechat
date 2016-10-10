@@ -38,7 +38,7 @@ class WAPCreatHandler(BaseHandler):
         try:
             appointment = self.db.query(WAppointment).filter(WAppointment.WAPtitle == W_title).one()
             if appointment:
-                self.retjson['code'] = '10210'
+                self.retjson['code'] = '10201'
                 self.retjson['contents'] = r'该约拍已存在'
         except Exception, e:
             print e
@@ -50,7 +50,6 @@ class WAPCreatHandler(BaseHandler):
                 WAPcontent=W_content,  # 活动介绍
                 WAPfree=W_price,
                 WAPtime=W_time,
-                WAPlikeN=0,
                 WAPvalid=0,
             )
             self.db.merge(new_appointment)
@@ -58,7 +57,7 @@ class WAPCreatHandler(BaseHandler):
                 self.db.commit()
             except Exception,e:
                 self.db.roolback()
-                self.retjson['code'] = '10211'
+                self.retjson['code'] = '10202'
                 self.retjson['contents'] = '服务器错误'
             wpicture = Wpichandler()
             image = ImageHandler()
@@ -69,5 +68,6 @@ class WAPCreatHandler(BaseHandler):
                 #image.insert_wappointment_image(mediaids,W_apid)
                 image.insert_wappointment_image(W_mediaIds, W_apid)
                 Wap.WAPvalid = 1
+                self.db.commit()
             self.retjson['contents'] = '创建约拍成功'
         self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))

@@ -40,6 +40,7 @@ from Wechatserver.Wver import Wver
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
+from Appointment.WAPList import WAPList
 define("port", default=800, help="run on the given port", type=int)
 
 
@@ -74,7 +75,8 @@ class Application(tornado.web.Application):
              (r"/ranklist", Ranklist),
              (r"/", WBasic),
              (r"/weixin/getsign",WgetSign),
-             (r"/weixin/appointment/ask",WAPCreatHandler)
+             (r"/weixin/appointment/ask",WAPCreatHandler),
+             (r"/weixin/appointment/list",WAPList)
         ]
         tornado.web.Application.__init__(self, handlers)
         self.db = scoped_session(sessionmaker(bind=engine,

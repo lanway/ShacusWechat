@@ -315,7 +315,6 @@ class WAppointment(Base):
     WAPtime = Column(VARCHAR(128), nullable=False, default='') #时间描述
     WAPcreateT = Column(DateTime(timezone=True), default=func.now())
     WAPtype = Column(Boolean, nullable=False, default=0)  # 约拍类型，模特约摄影师(1)或摄影师约模特(0)
-    WAPlikeN = Column(Integer, default=0, nullable=False)
     WAPvalid = Column(Boolean, default=1, nullable=False)
     WAPregistN = Column(Integer, nullable=False, default=0)
     WAPstatus = Column(Integer, nullable=False, default=0)
