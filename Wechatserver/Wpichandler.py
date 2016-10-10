@@ -37,7 +37,7 @@ class Wpichandler(BaseHandler):
 
         '''
         media_ids = json.loads(media_ids)
-        names = json.loads(names)
+        #names = json.loads(names)
         for media_id,name in zip(media_ids,names):
             response = self.wechat.download_media(media_id=media_id)
             with open('./{address}'.format(address=name), 'wb') as fd:
@@ -54,7 +54,7 @@ class Wpichandler(BaseHandler):
 
         '''
         auth = AuthKeyHandler()
-        names = json.loads(names)
+        #names = json.loads(names)
         bucket_name = 'shacus'
         q = Auth(auth.access_key,auth.secret_key)
         for name in names:
@@ -78,7 +78,7 @@ class Wpichandler(BaseHandler):
 
         self.getfromwechat(media_ids=media_ids,names=names)
         if self.upload(names=names):
-            names = json.loads(names)
+            #names = json.loads(names)
             for name in names:
                 filename = '{mulu}/{address}'.format(address=name,mulu=sys.path[0])
                 if os.path.exists(filename):

@@ -25,6 +25,8 @@ class WAPCreatHandler(BaseHandler):
         W_location = self.get_argument('location')
         W_content = self.get_argument('content')
         W_mediaIds = self.get_argument('serverIds[]')
+        print("我是一条漂亮的分割线————————————————————————————")
+        print W_mediaIds
 
         try:
             appointment = self.db.query(WAppointment).filter(WAppointment.WAPtitle == W_title).one()
@@ -55,9 +57,10 @@ class WAPCreatHandler(BaseHandler):
             image = ImageHandler()
             Wap = self.db.query(WAppointment).filter(WAppointment.WAPtitle == W_title).one()
             W_apid = Wap.WAPid
-            mediaids = json.loads(W_mediaIds)
+            #mediaids = json.loads(W_mediaIds)
             if wpicture.pichandler(W_mediaIds,W_mediaIds):
-                image.insert_wappointment_image(mediaids,W_apid)
+                #image.insert_wappointment_image(mediaids,W_apid)
+                image.insert_wappointment_image(W_mediaIds, W_apid)
                 Wap.WAPvalid = 1
             self.retjson['contents'] = '创建约拍成功'
         self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
