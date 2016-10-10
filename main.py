@@ -36,7 +36,7 @@ from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
-define("port", default=800, help="run on the given port", type=int)
+define("port", default=80, help="run on the given port", type=int)
 
 
 class Application(tornado.web.Application):
