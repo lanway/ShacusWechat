@@ -11,7 +11,7 @@ from sqlalchemy import desc
 
 from Appointment.Ranklist import RanklistHandler
 from  BaseHandlerh import BaseHandler
-from Database.tables import User, UCinfo, Image, UserImage, Appointment
+from Database.tables import User,  Image, UserImage
 from Database.tables import Verification
 from Userinfo import Usermodel
 from Userinfo.Userctoken import get_token

@@ -43,10 +43,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
              (r"/appointment/create", APcreateHandler),
-             (r"/pressuretest",Simplerequest),
-             (r"/pressuretest2", login.login),
              (r"/appointment/ask", APaskHandler),
-             (r"/appointment/prase", APprase),
              (r"/appointment/regist", APregistHandler),
              (r"/login", LoginHandler),
              (r"/regist", RegisterHandler),
@@ -61,8 +58,6 @@ class Application(tornado.web.Application):
              (r"/activity/register",ActivityRegister),
              (r"/ImageCallback",ImageCallback),
              (r"/PaswChange",PaswChange),
-             (r"/trend/Trendspost",TRendspost),
-             (r"/trend/Trendhanler",TrendHandler),
              (r"/course/homepage",Chomepage),
              (r"/course/ask",CourseAsk),
              (r"/course/like",Courselike),

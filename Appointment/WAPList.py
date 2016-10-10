@@ -9,7 +9,7 @@ import json
 from BaseHandlerh import BaseHandler
 import sys
 sys.path.append("..")
-from Database.tables import WAppointment, WAppointmentImage
+from Database.tables import WAppointment, WApImage
 from WAPmodel import WAPmodel
 
 class WAPList(BaseHandler):
@@ -22,7 +22,7 @@ class WAPList(BaseHandler):
             waps = self.db.query(WAppointment).filter(WAppointment.WAPstatus == 0,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).limit(10).all()
             picurls = []
             for wap in waps:
-                data = self.db.query(WAppointmentImage).filter(WAppointmentImage.WAPIapid == wap.WAPid).all()
+                data = self.db.query(WApImage).filter(WApImage.WAPIapid == wap.WAPid).all()
                 picurls.append(data[0].WAPIurl)
             retdata =  wapmodel.wap_model_simply_more(waps,picurls)
             self.retjson['code'] = '10210'
