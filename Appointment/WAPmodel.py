@@ -1,7 +1,7 @@
 # -*-coding:utf-8 -*-
 '''
 @author :兰威
-@type：微信约拍模型
+@type：微信的约拍模型
 @datatime：2016.10.10
 '''
 from Database.models import get_db
