@@ -88,5 +88,3 @@ class Wpichandler(BaseHandler):
 
 
 
-test = Wpichandler()
-test.pichandler(media_ids='["VpQVBqOPSll_D77e-8-qD3XJVjVTHypzuzq-45Lqp8uzbRVOQmo8aUuhgg4AQxmS","VpQVBqOPSll_D77e-8-qD3XJVjVTHypzuzq-45Lqp8uzbRVOQmo8aUuhgg4AQxmS"]',names='["lanweitest1.jpg","lanweitest2.jpg"]')
