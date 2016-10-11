@@ -20,17 +20,19 @@ class User(Base): # 用户表   #添加聊天专用chattoken
 
     Uid = Column(Integer, nullable=False, primary_key=True)  # 主键
     Upassword = Column(VARCHAR(16), nullable=False)
-    Utel = Column(CHAR(11),nullable=False,unique=True,)
+    Utel = Column(CHAR(11),nullable=False,unique=True)
     Ualais = Column(VARCHAR(24),nullable=False,unique=True)  # 昵称，可能为微信昵称
-    Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
+    Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
-    Umailbox = Column(VARCHAR(32))  #unique=True) # unique表示唯一性
+    Uopenid = Column(VARCHAR(128))
+    Umailbox = Column(VARCHAR(32))
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
     Usex = Column(Boolean, nullable=False)
     Usign = Column(VARCHAR(256))
-    Uopenid = Column(VARCHAR(64))  # openid
+    Usessionid = Column(VARCHAR(32))    #用于验证用户
+
 
 
 
