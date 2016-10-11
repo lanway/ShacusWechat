@@ -9,6 +9,7 @@ import random
 
 import datetime
 from sqlalchemy import desc
+from tornado.escape import json_encode
 
 from  BaseHandlerh import BaseHandler
 from Database.tables import User,  Image, UserImage
@@ -40,6 +41,7 @@ class WRegisterHandler(BaseHandler):
     print "进入regist"
     retjson = {'code': '400', 'contents': 'None'}
     def get(self):
+        callback = self.get_argument("jsoncallback")
         type = self.get_argument('type', default='unsolved')
         if type == '10001':  # 验证手机号
             m_phone=self.get_argument('phone')
@@ -133,5 +135,6 @@ class WRegisterHandler(BaseHandler):
                         self.db.rollback()
                         self.retjson['code'] = 10009  # Request Timeout
                         self.retjson['contents'] = u'Some errors when commit to database, please try again'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
 
