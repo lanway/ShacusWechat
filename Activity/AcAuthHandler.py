@@ -1,5 +1,10 @@
 # coding=utf-8
+import json
 import random
+
+from BaseHandlerh import BaseHandler
+from Database.tables import WAcAuth
+
 '''
 @author:黄鑫晨
 @introduction:返回活动创建权限
@@ -8,7 +13,7 @@ import random
 活动发布后
 '''
 
-class AcAuthHandler(object):
+class AcAuthFunc(object):
     '''
         生成随机的字符串
     '''
@@ -22,5 +27,18 @@ class AcAuthHandler(object):
         print salt
         return salt
 
-auth_handler = AcAuthHandler()
-auth_handler.get_auth()
+
+class AcAuthHandler(BaseHandler):
+    def post(self):
+        auth_handler = AcAuthFunc()
+        auth_string = auth_handler.get_auth()
+        retjson = {'auth': auth_string}
+        new_ac_auth = WAcAuth(
+          WAauth = auth_string
+        )
+        self.db.merge(new_ac_auth)
+        try:
+            self.db.commit()
+        except Exception, e:
+            print e
+        self.write(json.dumps(retjson, ensure_ascii=False, indent=2))
