@@ -51,8 +51,9 @@ class WLoginHandler(BaseHandler):
                 print e
                 self.retjson['contents'] = u'该用户名不存在'
                 self.retjson['code'] = '10113'  # '该用户名不存在'
-
-
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
 
     @asynchronous
     @gen.coroutine
