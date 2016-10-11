@@ -24,6 +24,13 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
+<<<<<<< HEAD
+from Activity.WAcListAsk import AskActivity
+from Activity.WAcregist import WAcregist
+from Activity.WAcquitregist import WAquitcregist
+=======
+from  Activity.AcInfo import AcInfoHandler
+>>>>>>> ea07830a8da45215087dfa6727658755f89338a3
 # from ImageCallback import ImageCallback
 # from RegisterHandler import RegisterHandler
 # from Settings import PaswChange
@@ -33,12 +40,19 @@ from Activity.AcCreateHandler import AcCreateHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
+<<<<<<< HEAD
 #from Wechatserver.Wver import Wver
+=======
+from Wechatserver.Wver import Wver
+>>>>>>> 4c2e04c0be6680cc7ede14960eb6b33de4007d78
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
+<<<<<<< HEAD
 from RegistandLogin.WRegisterHandler import WRegisterHandler
+=======
+>>>>>>> 4c2e04c0be6680cc7ede14960eb6b33de4007d78
 define("port", default=800, help="run on the given port", type=int)
 
 
@@ -48,6 +62,11 @@ class Application(tornado.web.Application):
 
              (r"/", WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
+             (r"/weixin/activity/create", AcCreateHandler),
+             (r"/weixin/activity/aclist",AskActivity),
+             (r"/weixin/activity/regist",WAcregist),
+             (r"/weixin/activity/quitregist",WAquitcregist),
+             (r"/weixin/activity/detail",AcInfoHandler),
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/getsign", WgetSign),
              (r"/weixin/appointment/ask", WAPCreatHandler),
