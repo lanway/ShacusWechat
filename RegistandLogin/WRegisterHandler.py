@@ -71,15 +71,15 @@ class WRegisterHandler(BaseHandler):
             code=self.get_argument('code')
             try:
                item=self.db.query(Verification).filter(Verification.Vphone==m_phone).one()
-               exist = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
-               delta = datetime.datetime.now() - exist.VT
+               #exist = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
+               #delta = datetime.datetime.now() - exist.VT
                if item.Vcode==code:
-                   if delta<datetime.timedelta(minutes=10):
-                        self.retjson['code']=10004
-                        self.retjson['contents']=u'验证码验证成功'
-                   else :
-                       self.retjson['code'] = 10006
-                       self.retjson['contents'] = u'验证码验证失败'
+                   #if delta<datetime.timedelta(minutes=10):
+                    self.retjson['code']=10004
+                    self.retjson['contents']=u'验证码验证成功'
+                   #else :
+                       #self.retjson['code'] = 10006
+                       #self.retjson['contents'] = u'验证码验证失败'
                else:
                    self.retjson['code']=10006
                    self.retjson['contents']=u'验证码验证失败'
