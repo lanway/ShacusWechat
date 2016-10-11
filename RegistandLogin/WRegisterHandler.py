@@ -74,7 +74,7 @@ class WRegisterHandler(BaseHandler):
                exist = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
                delta = datetime.datetime.now() - exist.VT
                if item.Vcode==code:
-                   if delta<datetime.timedelta(minutes=10):
+                   if delta>datetime.timedelta(minutes=10):
                         self.retjson['code']=10004
                         self.retjson['contents']=u'验证码验证成功'
                    else :
