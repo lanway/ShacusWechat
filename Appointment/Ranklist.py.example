@@ -8,7 +8,7 @@ from Database.models import get_db
 from sqlalchemy import desc
 
 from BaseHandlerh import BaseHandler
-from Database.tables import User, RankScore, AppointmentInfo
+from Database.tables import User
 from Userinfo import Usermodel
 from Userinfo.Ufuncs import Ufuncs
 from FileHandler.Upload import AuthKeyHandler

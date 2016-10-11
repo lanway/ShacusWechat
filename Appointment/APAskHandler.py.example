@@ -10,7 +10,6 @@ from sqlalchemy import desc
 import Userinfo
 from APmodel import APmodelHandler
 from BaseHandlerh import BaseHandler
-from Database.tables import Appointment, AppointEntry
 from Userinfo import Ufuncs
 
 

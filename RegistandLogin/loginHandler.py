@@ -11,7 +11,7 @@ from tornado.concurrent import Future
 from tornado.web import asynchronous
 
 from BaseHandlerh import BaseHandler
-from Database.tables import Appointment, User
+from Database.tables import  User
 from Userinfo import Usermodel
 from Userinfo.Ufuncs import Ufuncs
 from Userinfo.Usermodel import Model_daohanglan
@@ -77,26 +77,6 @@ class LoginHandler(BaseHandler):
         self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
         self.finish()
 
-    #@asynchronous
-    #@gen.coroutine
-    def bannerinit(self):
-        from FileHandler.Upload import AuthKeyHandler
-        bannertokens = []
-
-        authkeyhandler = AuthKeyHandler()
-        banner1 = authkeyhandler.download_url("banner/banner1.jpg")
-        banner2 = authkeyhandler.download_url("banner/banner2.jpg")
-        banner3 = authkeyhandler.download_url("banner/banner3.jpg")
-        banner4 = authkeyhandler.download_url("banner/banner4.jpg")
-        banner_json1 = {'imgurl': banner1, 'weburl': "http://www.shacus.cn/"}
-        banner_json2 = {'imgurl': banner2, 'weburl': "http://www.shacus.cn/"}
-        banner_json3 = {'imgurl': banner3, 'weburl': "http://www.shacus.cn/"}
-        banner_json4 = {'imgurl': banner4, 'weburl': "http://www.shacus.cn/"}
-        bannertokens.append(banner_json1)
-        bannertokens.append(banner_json2)
-        bannertokens.append(banner_json3)
-        bannertokens.append(banner_json4)
-        return bannertokens
 
     @asynchronous
     @gen.coroutine

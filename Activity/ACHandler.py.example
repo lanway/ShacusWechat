@@ -1,5 +1,4 @@
 # coding=utf-8
-from Activity.AcAuthHandler import AcAuthHandler, auth_handler
 from Database.tables import User
 from FileHandler.Upload import AuthKeyHandler
 
@@ -15,14 +14,9 @@ from Userinfo.Ufuncs import Ufuncs
 
 class ActivityCreate(BaseHandler):   #创建活动
     retjson={'code':'10300','contents':'None'}
-
-    def get_auth(self):
-        auth_handler = AcAuthHandler()
-        return auth_handler.get_auth()
-
     def post(self):
         ac_type = self.get_argument('type')
-        if ac_type == '10301':  # 活动第一个请求，用于同意发布活动，同时返回图片上传token
+        if ac_type == '10301':  #活动第一个请求，用于同意发布活动，同时返回图片上传token
             print "进入创建活动"
             m_user_phone = self.get_argument('username')
             m_auth_key = self.get_argument('auth_key')

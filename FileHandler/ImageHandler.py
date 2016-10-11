@@ -2,7 +2,7 @@
 import time
 
 from Database.models import get_db
-from Database.tables import UserImage,Image,AppointmentImage,ActivityImage, WAppointmentImage
+from Database.tables import UserImage,Image, WApImage
 
 '''
  创建者：兰威 黄鑫晨
@@ -25,7 +25,7 @@ class ImageHandler(object):
         '''
         imids = self.insert(list)
         for i in range(len(imids)):
-            image = WAppointmentImage(
+            image = WApImage(
                 WAPIapid=wap_id,
                 WAPIimid=imids[i],
                 WAPIurl=list[i]

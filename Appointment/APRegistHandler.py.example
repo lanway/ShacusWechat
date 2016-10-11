@@ -2,7 +2,7 @@
 import json
 
 from  BaseHandlerh import BaseHandler
-from Database.tables import User, AppointEntry, Appointment
+from Database.tables import User
 from Userinfo.Ufuncs import Ufuncs
 
 '''
