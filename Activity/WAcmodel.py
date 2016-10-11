@@ -23,7 +23,7 @@ class ACmodelHandler:
 
         auth = AuthKeyHandler()
         #get activityimg
-        aclurl = get_db().query(WAcImage).filter(WAcImage.ACIacid == activity.ACid).all()
+        aclurl = get_db().query(WAcImage).filter(WAcImage.WACIacid == activity.WACid).all()
         acurl = []
         for item in aclurl:
             Acurl = auth.download_url(item.WACIurl)
@@ -31,12 +31,14 @@ class ACmodelHandler:
 
 
 
+
         ac_simply_info = dict(
         WACid=activity.WACid,
         WACtitle=activity.WACtitle,
         WACstartT=activity.WACstartT.strftime('%Y-%m-%d %H:%M:%S'),
-        WAClikeN=activity.WAClikenumber,
-        WACregistN=activity.WACregistN,
+        WACprice = activity.WACprice,
+        WACjoinT = activity.WACjoinT.strftime('%Y-%m-%d %H:%M:%S'),
+        WACregistN = activity.WACregistN,
         Wacstatus = activity.WACstatus,
         WACimgurl= acurl,
         WUserimg = auth.download_url(userimg.UIurl)

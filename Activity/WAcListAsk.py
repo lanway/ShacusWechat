@@ -15,7 +15,7 @@ from Activity.WAcmodel import ACmodelHandler
 
 class AskActivity(BaseHandler): #关于用户的一系列活动
     retjson = {'code': '200', 'contents': 'none'}
-    def post(self):
+    def get(self):
             try:
                 data = self.db.query(WActivity).filter(WActivity.WACvalid == 1).order_by(desc(WActivity.WACcreateT)).limit(5).all()
                 retdata = []
@@ -27,3 +27,4 @@ class AskActivity(BaseHandler): #关于用户的一系列活动
                 print e
                 self.retjson['code']= '10304'
                 self.retjson['contents']='there is no activity'
+            self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))

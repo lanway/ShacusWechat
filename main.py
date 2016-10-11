@@ -24,6 +24,9 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
+from Activity.WAcListAsk import AskActivity
+from Activity.WAcregist import WAcregist
+from Activity.WAcquitregist import WAquitcregist
 # from ImageCallback import ImageCallback
 # from RegisterHandler import RegisterHandler
 # from Settings import PaswChange
@@ -47,7 +50,10 @@ class Application(tornado.web.Application):
 
           #   (r"/", WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
-             (r"/weixin/activity/create", AcCreateHandler)
+             (r"/weixin/activity/create", AcCreateHandler),
+             (r"/weixin/activity/aclist",AskActivity),
+             (r"/weixin/activity/regist",WAcregist),
+             (r"/weixin/activity/quitregist",WAquitcregist),
              # (r"/weixin/getsign", WgetSign),
              # (r"/weixin/appointment/ask", WAPCreatHandler),
              # (r"/weixin/appointment/list", WAPList)
