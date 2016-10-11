@@ -24,6 +24,7 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
+from  Activity.AcInfo import AcInfoHandler
 # from ImageCallback import ImageCallback
 # from RegisterHandler import RegisterHandler
 # from Settings import PaswChange
@@ -33,11 +34,11 @@ from Activity.AcCreateHandler import AcCreateHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
-#from Wechatserver.Wver import Wver
-#from Wechatserver.WBasic import WBasic
-#from Wechatserver.WgetSign import WgetSign
-#from Appointment.WAPCreatHandler import WAPCreatHandler
-#from Appointment.WAPList import WAPList
+from Wechatserver.Wver import Wver
+from Wechatserver.WBasic import WBasic
+from Wechatserver.WgetSign import WgetSign
+from Appointment.WAPCreatHandler import WAPCreatHandler
+from Appointment.WAPList import WAPList
 define("port", default=800, help="run on the given port", type=int)
 
 
@@ -47,10 +48,11 @@ class Application(tornado.web.Application):
 
           #   (r"/", WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
-             (r"/weixin/activity/create", AcCreateHandler)
-             # (r"/weixin/getsign", WgetSign),
-             # (r"/weixin/appointment/ask", WAPCreatHandler),
-             # (r"/weixin/appointment/list", WAPList)
+             (r"/weixin/activity/detail",AcInfoHandler),
+             (r"/weixin/activity/create", AcCreateHandler),
+             (r"/weixin/getsign", WgetSign),
+             (r"/weixin/appointment/ask", WAPCreatHandler),
+             (r"/weixin/appointment/list", WAPList)
         ]
         tornado.web.Application.__init__(self, handlers)
         self.db = scoped_session(sessionmaker(bind=engine,
