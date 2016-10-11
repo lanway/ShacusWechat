@@ -6,9 +6,11 @@
 '''
 from Database.models import get_db
 from FileHandler.Upload import AuthKeyHandler
+
+
 class WAPmodel(object):
 
-    def wap_model_simply_one(self,wap,picurl):
+    def wap_model_simply_one(self, wap, picurl):
         '''
 
         Args:
@@ -25,7 +27,6 @@ class WAPmodel(object):
             picurl=auth.download_url(picurl),
             id=wap.WAPid,
             detailurl='www.baidu.com'  #当前传的是一个假的值
-
         )
         return ret_ap
 

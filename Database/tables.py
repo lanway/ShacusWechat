@@ -20,20 +20,20 @@ class User(Base): # 用户表   #添加聊天专用chattoken
 
     Uid = Column(Integer, nullable=False, primary_key=True)  # 主键
     Upassword = Column(VARCHAR(16), nullable=False)
-    Utel = Column(CHAR(11),nullable=False,unique=True,)
-    Ualais = Column(VARCHAR(24),nullable=False,unique=True) # 昵称，可能为微信昵称
-    Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
+    Utel = Column(CHAR(11),nullable=False,unique=True)
+    Ualais = Column(VARCHAR(24),nullable=False,unique=True)  # 昵称，可能为微信昵称
+    Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
-    Uopenid = Column(VARCHAR(128),default=0)
-    Usession = Column(VARCHAR(32),default=0)
-    Umailbox = Column(VARCHAR(32))  #unique=True) # unique表示唯一性
+    Uopenid = Column(VARCHAR(128))
+    Umailbox = Column(VARCHAR(32))
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
-    Usex = Column(Boolean,nullable=False)
+    Usex = Column(Boolean, nullable=False)
     Usign = Column(VARCHAR(256))
-    Uauthkey = Column(VARCHAR(32))
-    Uchattoken = Column(VARCHAR(128), nullable=False)
+    Usessionid = Column(VARCHAR(32))    #用于验证用户
+
+
 
 
 class Verification(Base):  # 短信验证码及生成用户auth_key时间
@@ -158,13 +158,13 @@ class WActivity(Base):  #活动表
     WACcontent = Column(VARCHAR(256), nullable=False)  # 活动介绍
     WACfree = Column(Boolean, default=1)  # 是否免费，默认为免费
     WACprice = Column(VARCHAR(64))  # 价格描述
-    WACclosed = Column(Boolean, default=1, nullable=False)  # 活动是否已经结束
+    WACclosed = Column(Boolean, default=0, nullable=False)  # 活动是否已经结束,0为未结束，1为结束
     WACcreateT = Column(DateTime(timezone=True), default=func.now())  # 活动创建时间
     WACmaxp = Column(Integer,nullable=False, default=0)  # 活动最小人数
     WACminp = Column(Integer,nullable=False, default=100)  # 活动报名人上限
     WACregistN = Column(Integer,nullable=False, default=0)  # 报名人数
-    WACstatus =Column(Integer,nullable=False,default=0)  # 活动状态，1为报名中，2为进行中，3为已结束
-    WACvalid = Column(Boolean, nullable=False, default=1)  # 活动是否已经删除
+    WACstatus =Column(Integer, nullable=False, default=0)  # 活动状态，1为报名中，2为进行中，3为已结束
+    WACvalid = Column(Boolean, nullable=False, default=1)  # 活动是否已经删除, 1为有效
 
 
 class WAcImage(Base):
@@ -212,3 +212,14 @@ class WApCompanionImage(Base):
     WAPCimid = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'), primary_key=True)
     WAPCurl = Column(VARCHAR(128))  # 约拍伴侣图片链接
 
+class WAcAuth(Base):
+    '''
+    @author：黄鑫晨
+    @name: 记录发布活动权限的表
+    '''
+    __tablename__ = 'WAcAuth'
+
+    WAAid = Column(Integer, primary_key=True)
+    WAauth = Column(VARCHAR(32), nullable=False)
+    WAAacid = Column(Integer, ForeignKey('WActivity.WACid', onupdate='CASCADE'))  # 活动ID
+    WAAused = Column(Boolean, nullable=False, default=0)  # 为0则未用， 1则用过
