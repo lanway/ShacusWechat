@@ -88,7 +88,6 @@ class WRegisterHandler(BaseHandler):
                 self.retjson['contents']=u'该手机号码未发送验证码'
 
         elif type=='10003': #注册详细信息
-            session_id = self.request_handler.get_secure_cookie('session_id')
             m_password=self.get_argument('password')
             m_nick_name=self.get_argument('nickName')  # 昵称
             m_phone=self.get_argument('phone')
