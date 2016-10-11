@@ -39,7 +39,7 @@ def generate_verification_code(len=6):
 class WRegisterHandler(BaseHandler):
     print "进入regist"
     retjson = {'code': '400', 'contents': 'None'}
-    def post(self):
+    def get(self):
         type = self.get_argument('type', default='unsolved')
         if type == '10001':  # 验证手机号
             m_phone=self.get_argument('phone')
