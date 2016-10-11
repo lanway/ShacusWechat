@@ -13,7 +13,7 @@ from BaseHandlerh import BaseHandler
 from FileHandler.ImageHandler import ImageHandler
 from Userinfo.Ufuncs import Ufuncs
 
-class ActivityCreate(BaseHandler):   #创建活动
+class AcCreateHandler(BaseHandler):   #创建活动
     retjson={'code':'10300','contents':'None'}
 
     def get_auth(self):
