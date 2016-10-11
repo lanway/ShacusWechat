@@ -24,7 +24,8 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Ualais = Column(VARCHAR(24),nullable=False,unique=True) # 昵称，可能为微信昵称
     Uname = Column(VARCHAR(24),nullable=True) # 真实姓名
     Ulocation = Column(VARCHAR(128))
-
+    Uopenid = Column(VARCHAR(128),default=0)
+    Usession = Column(VARCHAR(32),default=0)
     Umailbox = Column(VARCHAR(32))  #unique=True) # unique表示唯一性
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
