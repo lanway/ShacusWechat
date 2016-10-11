@@ -1,6 +1,8 @@
 # coding=utf-8
 import json
 
+from tornado.escape import json_encode
+
 from BaseHandlerh import BaseHandler
 from Database.tables import WActivity
 
@@ -43,4 +45,6 @@ class AcInfoHandler(BaseHandler):
             print e
             self.retjson['code'] = '402'
             self.retjson['contents'] = '该活动不存在或已失效'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
