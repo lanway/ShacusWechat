@@ -10,20 +10,11 @@ import tornado.web
 from sqlalchemy.orm import scoped_session, sessionmaker
 from tornado.options import define, options
 
-# from Activity.ACHandler import ActivityCreate, ActivityRegister
-# from Activity.ACaskHandler import AskActivity
-# from Activity.ACentryHandler import AskEntry
-# from Appointment.APAskHandler import APaskHandler
-# from Appointment.APCreateHandler import APcreateHandler
-# from Appointment.APRegistHandler import APregistHandler
-# from Appointment.Ranklist import Ranklist
-# from Course.Chomepage import Chomepage
-# from Course.CourseAsk import CourseAsk
-# from Course.CourseLike import Courselike
-# from Course.Coursefav import Coursefav
+
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
+<<<<<<< HEAD
 
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
@@ -41,20 +32,32 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
 from Wechatserver.Wver import Wver
+=======
+from Activity.WAcListAsk import AskActivity
+from Activity.WAcregist import WAcregist
+from Activity.WAcquitregist import WAquitcregist
+from  Activity.AcInfo import AcInfoHandler
+
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
+
 define("port", default=80, help="run on the given port", type=int)
+
+
+from RegistandLogin.WRegisterHandler import WRegisterHandler
+from RegistandLogin.WloginHandler import WLoginHandler
+#define("port", default=800, help="run on the given port", type=int)
+
 
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
 
-          #   (r"/", WBasic),
+             (r"/", WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
-
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/activity/aclist",AskActivity),
              (r"/weixin/activity/regist",WAcregist),
@@ -64,7 +67,8 @@ class Application(tornado.web.Application):
              (r"/weixin/getsign", WgetSign),
              (r"/weixin/appointment/ask", WAPCreatHandler),
              (r"/weixin/appointment/list", WAPList),
-
+             (r"/weixin/regist",WRegisterHandler),
+             (r"/weixin/login", WLoginHandler)
         ]
         tornado.web.Application.__init__(self, handlers)
         self.db = scoped_session(sessionmaker(bind=engine,

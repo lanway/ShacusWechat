@@ -29,7 +29,7 @@ class AcAuthFunc(object):
 
 
 class AcAuthHandler(BaseHandler):
-    def post(self):
+    def get(self):
         auth_handler = AcAuthFunc()
         auth_string = auth_handler.get_auth()
         retjson = {'auth': auth_string}
@@ -41,4 +41,6 @@ class AcAuthHandler(BaseHandler):
             self.db.commit()
         except Exception, e:
             print e
-        self.write(json.dumps(retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)

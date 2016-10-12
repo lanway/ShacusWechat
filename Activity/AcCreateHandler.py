@@ -18,7 +18,7 @@ admin_id = 1
 class AcCreateHandler(BaseHandler):  # 创建活动
     retjson = {'code': '10300', 'contents': 'None'}
 
-    def post(self):
+    def get(self):
 
         auth = self.get_argument('auth')
         # 判断是否有权限

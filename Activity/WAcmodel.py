@@ -28,10 +28,6 @@ class ACmodelHandler:
         for item in aclurl:
             Acurl = auth.download_url(item.WACIurl)
             acurl.append(Acurl)
-
-
-
-
         ac_simply_info = dict(
         WACid=activity.WACid,
         WACtitle=activity.WACtitle,
