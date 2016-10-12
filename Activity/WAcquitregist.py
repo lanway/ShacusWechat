@@ -8,7 +8,7 @@ from BaseHandlerh import BaseHandler
 '''
 class WAquitcregist(BaseHandler):
     retjson= {'code':'200','contents':'null'}
-    def post(self):
+    def get(self):
         m_wacid = self.get_argument('wacid',default='null')
         m_phone = self.get_argument('phone',default='null')
         try:

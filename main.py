@@ -24,13 +24,13 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
-<<<<<<< HEAD
+
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
-=======
+
 from  Activity.AcInfo import AcInfoHandler
->>>>>>> ea07830a8da45215087dfa6727658755f89338a3
+
 # from ImageCallback import ImageCallback
 # from RegisterHandler import RegisterHandler
 # from Settings import PaswChange
@@ -45,7 +45,7 @@ from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
-define("port", default=800, help="run on the given port", type=int)
+define("port", default=80, help="run on the given port", type=int)
 
 
 class Application(tornado.web.Application):
