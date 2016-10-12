@@ -13,7 +13,7 @@ from Database.tables import WActivity
 '''
 
 class AcInfoHandler(BaseHandler):
-    retjson = {'code': '10300', 'contents': 'None'}
+    retjson = {'contents': 'None'}
 
     def get(self):
         acid = self.get_argument('acid')  # 活动id
@@ -23,6 +23,7 @@ class AcInfoHandler(BaseHandler):
             # 该活动存在
             if exist:
                 activity = dict(
+                    code=200,
                     id=exist.WACid,
                     sponsorid=exist.WACsponsorid,
                     location=exist.WAClocation,
@@ -43,8 +44,9 @@ class AcInfoHandler(BaseHandler):
                 self.retjson['contents'] = activity
         except Exception, e:
             print e
-            self.retjson['code'] = '402'
-            self.retjson['contents'] = '该活动不存在或已失效'
+            self.retjson['contents'] = dict(
+                code=402,
+                content='该活动不存在或已失效')
         callback = self.get_argument("jsoncallback")
         jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
         self.write(jsonp)
