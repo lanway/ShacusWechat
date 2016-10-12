@@ -15,7 +15,7 @@ from Database.tables import WActivity
 class AcInfoHandler(BaseHandler):
     retjson = {'code': '10300', 'contents': 'None'}
 
-    def post(self):
+    def get(self):
         acid = self.get_argument('acid')  # 活动id
         # 判断是否有权限
         try:
