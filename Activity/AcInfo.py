@@ -13,13 +13,13 @@ from Database.tables import WActivity
 '''
 
 class AcInfoHandler(BaseHandler):
-    retjson = {'contents': 'None'}
+    retjson = {}
 
     def get(self):
         acid = self.get_argument('acid')  # 活动id
         # 判断是否有权限
         try:
-            exist = self.db.query(WActivity).filter(WActivity.WACid == acid, WActivity.WACvalid==1).one()
+            exist = self.db.query(WActivity).filter(WActivity.WACid == acid, WActivity.WACvalid == 1).one()
             # 该活动存在
             if exist:
                 activity = dict(
@@ -41,7 +41,7 @@ class AcInfoHandler(BaseHandler):
                     registN=exist.WACregistN,
                     status=exist.WACstatus,
                 )
-                self.retjson['contents'] = activity
+                self.retjson = activity
         except Exception, e:
             print e
             self.retjson['contents'] = dict(
