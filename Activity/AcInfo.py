@@ -13,16 +13,17 @@ from Database.tables import WActivity
 '''
 
 class AcInfoHandler(BaseHandler):
-    retjson = {'code': '10300', 'contents': 'None'}
+    retjson = {}
 
-    def post(self):
+    def get(self):
         acid = self.get_argument('acid')  # 活动id
         # 判断是否有权限
         try:
-            exist = self.db.query(WActivity).filter(WActivity.WACid == acid, WActivity.WACvalid==1).one()
+            exist = self.db.query(WActivity).filter(WActivity.WACid == acid, WActivity.WACvalid == 1).one()
             # 该活动存在
             if exist:
                 activity = dict(
+                    code=200,
                     id=exist.WACid,
                     sponsorid=exist.WACsponsorid,
                     location=exist.WAClocation,
@@ -40,11 +41,12 @@ class AcInfoHandler(BaseHandler):
                     registN=exist.WACregistN,
                     status=exist.WACstatus,
                 )
-                self.retjson['contents'] = activity
+                self.retjson = activity
         except Exception, e:
             print e
-            self.retjson['code'] = '402'
-            self.retjson['contents'] = '该活动不存在或已失效'
+            self.retjson['contents'] = dict(
+                code=402,
+                content='该活动不存在或已失效')
         callback = self.get_argument("jsoncallback")
         jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
         self.write(jsonp)

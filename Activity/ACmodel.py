@@ -7,14 +7,14 @@ from Database.models import get_db
 '''
 class ACmodelHandler:
     @classmethod
-    def ac_Model_simply(clas,activity,url):
+    def ac_Model_simply(clas, activity, url):
         '''得到简单活动模型
         :return:  retjson
         '''
-        user_headimages = get_db().query(UserImage).filter(UserImage.UIuid == activity.ACsponsorid ).all()
+        user_headimages = get_db().query(UserImage).filter(UserImage.UIuid == activity.ACsponsorid).all()
         userimg=[]
         for user_headimage in user_headimages:
-            exist = get_db().query(Image).filter(Image.IMid == user_headimage.UIimid,Image.IMvalid == 1).all()
+            exist = get_db().query(Image).filter(Image.IMid == user_headimage.UIimid, Image.IMvalid == 1).all()
             if exist:
                 userimg = user_headimage
                 break;

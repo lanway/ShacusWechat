@@ -29,7 +29,7 @@ class AcAuthFunc(object):
 
 
 class AcAuthHandler(BaseHandler):
-    def post(self):
+    def get(self):
         auth_handler = AcAuthFunc()
         auth_string = auth_handler.get_auth()
         retjson = {'auth': auth_string}
