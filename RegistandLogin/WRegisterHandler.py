@@ -3,6 +3,7 @@
 @author 兰威
 type :用户注册
 '''
+import base64
 import hashlib
 import json
 import random
@@ -50,7 +51,7 @@ class WRegisterHandler(BaseHandler):
         if type == '10001':  # 验证手机号
             m_phone=self.get_argument('phone')
             try:
-                utel = md5(m_phone)
+                utel = base64.encodestring(m_phone)
                 user = self.db.query(User).filter(User.Utel == utel).one()
                 if user:
                     self.retjson['contents'] = u"该手机号已经被注册，请更换手机号或直接登录"
@@ -98,7 +99,7 @@ class WRegisterHandler(BaseHandler):
             m_phone=self.get_argument('phone')
             m_sex = self.get_argument('sex')    #性别
             try:
-                m_phone = md5(m_phone)
+                m_phone = base64.encodestring(m_phone)
                 m_password = md5(m_password)
                 same_nickname_user = self.db.query(User).filter(User.Ualais == m_nick_name).one()
                 if same_nickname_user:  # 该昵称已被使用
