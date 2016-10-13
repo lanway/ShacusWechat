@@ -1,4 +1,6 @@
 # coding=utf-8
+import base64
+
 from Database.models import get_db
 from Database.tables import UserImage, Image
 from FileHandler.Upload import AuthKeyHandler
@@ -85,3 +87,10 @@ def get_user_detail_from_user(user):
     )
     return user_model
 
+def wechat_user_model_simply(user):
+    retdata = dict(
+        Uid = user.Uid,
+        Utel = base64.decodestring(user.Utel),
+        Ualais = user.Ualais,
+        Usex = user.Usex,
+    )
