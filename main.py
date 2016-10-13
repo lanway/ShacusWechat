@@ -42,7 +42,7 @@ from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
-
+from Activity.WAcseeregist import WAcseeregist
 #define("port", default=80, help="run on the given port", type=int)
 
 
@@ -68,7 +68,8 @@ class Application(tornado.web.Application):
              (r"/weixin/appointment/ask", WAPCreatHandler),
              (r"/weixin/appointment/list", WAPList),
              (r"/weixin/regist",WRegisterHandler),
-             (r"/weixin/login", WLoginHandler)
+             (r"/weixin/login", WLoginHandler),
+             (r"/weixin/activity/registerlist",WAcseeregist)
         ]
         tornado.web.Application.__init__(self, handlers)
         self.db = scoped_session(sessionmaker(bind=engine,

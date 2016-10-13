@@ -1,5 +1,4 @@
-# coding=utf-8
-import base64
+#-*- coding:utf-8 -*-
 import json
 from Database.tables import  User, WAcEntry
 
@@ -21,7 +20,7 @@ class WAcseeregist(BaseHandler):
 
         try:
             u_id = self.db.query(User).filter(User.Utel == m_phone).one()
-            data = self.db.query(WAcEntry).filter(WAcEntry.WACEid == acid,WAcEntry.WACEregistvalid == 1).all()
+            data = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == acid,WAcEntry.WACEregistvalid == 1).all()
             retdata = []
             for item in data:
                 userid = item.WACEregisterid

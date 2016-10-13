@@ -87,10 +87,22 @@ def get_user_detail_from_user(user):
     )
     return user_model
 
+
+def decode_base64(data):
+    """Decode base64, padding being optional.
+:param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+"""
+    missing_padding = 4 - len(data) % 4
+    if missing_padding:
+        data += b'=' * missing_padding
+    return base64.decodestring(data)
+
 def wechat_user_model_simply(user):
     retdata = dict(
         Uid = user.Uid,
-        Utel = base64.decodestring(user.Utel),
+        Utel = decode_base64(user.Utel),
         Ualais = user.Ualais,
         Usex = user.Usex,
     )
+    return retdata
