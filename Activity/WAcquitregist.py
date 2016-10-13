@@ -22,6 +22,9 @@ class WAquitcregist(BaseHandler):
                         self.retjson['contents'] = '没有报名'
                     elif acregist.WACEregistvalid == 1:
                         acregist.WACEregistvalid = 0
+                        no = self.db.query(WActivity).filter(acregist.WACEacid == WActivity.WACid).all()
+                        no[0] -=1
+                        self.db.commit()
                         self.db.commit()
                         self.retjson['code']  = '10310'
                         self.retjson['contents']= '取消报名成功'
