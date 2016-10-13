@@ -2,6 +2,7 @@
 '''
 @author: 黄鑫晨
 '''
+import hashlib
 import json
 
 import tornado
@@ -16,6 +17,13 @@ from Userinfo import Usermodel
 from Userinfo.Ufuncs import Ufuncs
 from Userinfo.Usermodel import Model_daohanglan
 
+def md5(str):
+    import hashlib
+    m = hashlib.md5()
+    m.update(str)
+    return m.hexdigest()
+
+
 class WLoginHandler(BaseHandler):
 
     retjson = {'code': '', 'contents': u'未处理 '}
@@ -28,6 +36,8 @@ class WLoginHandler(BaseHandler):
 
         m_phone = self.get_argument('phone')
         m_password = self.get_argument('password')
+        m_phone = md5(m_phone)
+        m_password = md5(m_password)
         if not m_phone or not m_password:
             self.retjson['code'] = 400
             self.retjson['contents'] = 10105  # '用户名密码不能为空'
