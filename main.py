@@ -14,7 +14,7 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
-<<<<<<< HEAD
+
 
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
@@ -32,7 +32,7 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
 from Wechatserver.Wver import Wver
-=======
+
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
@@ -43,12 +43,12 @@ from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
 
-define("port", default=80, help="run on the given port", type=int)
+#define("port", default=80, help="run on the given port", type=int)
 
 
 from RegistandLogin.WRegisterHandler import WRegisterHandler
 from RegistandLogin.WloginHandler import WLoginHandler
-#define("port", default=800, help="run on the given port", type=int)
+define("port", default=800, help="run on the given port", type=int)
 
 
 

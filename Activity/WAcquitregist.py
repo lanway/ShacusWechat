@@ -34,4 +34,6 @@ class WAquitcregist(BaseHandler):
             print e
             self.retjson['contents'] = '10308'
             self.retjson['contents'] = '没有此用户'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
