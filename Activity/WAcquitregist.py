@@ -25,7 +25,7 @@ class WAquitcregist(BaseHandler):
                     elif acregist.WACEregistvalid == 1:
                         acregist.WACEregistvalid = 0
                         no = self.db.query(WActivity).filter(acregist.WACEacid == WActivity.WACid).all()
-                        no[0] -=1
+                        no[0].WACregistN -=1
                         self.db.commit()
                         self.db.commit()
                         self.retjson['code']  = '10310'
