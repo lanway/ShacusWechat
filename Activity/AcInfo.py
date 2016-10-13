@@ -15,10 +15,9 @@ from FileHandler.Upload import AuthKeyHandler
 
 
 def md5(str):
-    import hashlib
-    m = hashlib.md5()
-    m.update(str)
-    return m.hexdigest()
+    import base64
+    m = base64.encodestring(str)
+    return m
 
 
 
