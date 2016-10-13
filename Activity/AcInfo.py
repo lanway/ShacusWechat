@@ -36,7 +36,7 @@ class AcInfoHandler(BaseHandler):
 
             try:
                 acregist = self.db.query(WAcEntry).filter(
-                    WAcEntry.WACEacid == acid and WAcEntry.WACEregisterid == userid).one()
+                    WAcEntry.WACEacid == acid , WAcEntry.WACEregisterid == userid).one()
                 if acregist.WACEregistvalid == 1:
                     isregist = 1
                 elif acregist.WACEregistvalid == 0:
