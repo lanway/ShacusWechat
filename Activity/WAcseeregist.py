@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+import base64
 import json
 from Database.tables import  User, WAcEntry
 
@@ -7,6 +8,7 @@ from Database.tables import  User, WAcEntry
 '''
 from BaseHandlerh import  BaseHandler
 from Userinfo.Usermodel import wechat_user_model_simply
+from Userinfo.Usermodel import decode_base64
 class WAcseeregist(BaseHandler):
 
     '''
@@ -16,10 +18,8 @@ class WAcseeregist(BaseHandler):
     def get(self):
 
         acid = self.get_argument('acid')
-        m_phone = self.get_argument('phone')
-
+        acid = decode_base64(acid)
         try:
-            u_id = self.db.query(User).filter(User.Utel == m_phone).one()
             data = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == acid,WAcEntry.WACEregistvalid == 1).all()
             retdata = []
             for item in data:
