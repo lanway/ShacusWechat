@@ -13,24 +13,40 @@ from FileHandler.Upload import AuthKeyHandler
 @返回活动详细信息
 '''
 
+
+def md5(str):
+    import hashlib
+    m = hashlib.md5()
+    m.update(str)
+    return m.hexdigest()
+
+
+
 class AcInfoHandler(BaseHandler):
     retjson = {}
 
     def get(self):
         acid = self.get_argument('acid')  # 活动id
         m_phone = self.get_argument('phone') #用户手机
-        userinfo = self.db.query(User).filter(User.Utel == m_phone).one()  # 判断是否报名
+        m_phone = md5(m_phone)
+
         isregist = 0
         try:
-            acregist = self.db.query(WAcEntry).filter(
-                WAcEntry.WACEacid == acid and WAcEntry.WACEregisterid == m_phone).one()
-            if acregist.WACEregistvalid == 1:
-                isregist = 1
-            elif acregist.WACEregistvalid == 0:
+            userinfo = self.db.query(User).filter(User.Utel == m_phone).one()  # 判断是否报名
+            userid = userinfo.Uid
+
+            try:
+                acregist = self.db.query(WAcEntry).filter(
+                    WAcEntry.WACEacid == acid and WAcEntry.WACEregisterid == userid).one()
+                if acregist.WACEregistvalid == 1:
+                    isregist = 1
+                elif acregist.WACEregistvalid == 0:
+                    isregist = 0
+            except Exception, e:
                 isregist = 0
-        except Exception, e:
-            isregist = 0
-            print "没有报名"
+                print "没有报名"
+        except Exception,e:
+            print e
 
 
 

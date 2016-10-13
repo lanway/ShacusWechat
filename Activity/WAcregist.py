@@ -16,13 +16,15 @@ class WAcregist(BaseHandler):
             userinfo = self.db.query(User).filter(User.Utel==m_phone).one()
             userid = userinfo.Uid
             try:
-                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == m_phone).one()
+                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == userid).one()
                 if acregist:
                     if acregist.WACEregistvalid == 1:
                         self.retjson['contents'] = '10307'
                         self.retjson['contents'] = '已经报名'
                     elif acregist.WACEregistvalid == 0:
                         acregist.WACEregistvalid = 1
+                        no = self.db.query(WActivity).filter(acregist.WACEacid == WActivity.WACid).all()
+                        no[0] += 1
                         self.db.commit()
                         self.retjson['code']  = '10306'
                         self.retjson['contents']= '报名成功'
@@ -35,6 +37,10 @@ class WAcregist(BaseHandler):
                 )
                 self.db.merge(new_acregist)
                 try:
+                    acregist = self.db.query(WAcEntry).filter(
+                        WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == userid).one()
+                    no = self.db.query(WActivity).filter(acregist.WACEacid == WActivity.WACid).all()
+                    no[0] += 1
                     self.db.commit()
                     self.retjson['code'] = '10312'
                     self.retjson['contents'] = '报名成功'
