@@ -50,7 +50,7 @@ class WLoginHandler(BaseHandler):
                 if user:  # 用户存在
                     password = user.Upassword
                     if m_password == password:  # 密码正确
-                        self.retjson['contents'] = "登录成功"
+                        self.retjson['contents'] = m_phone
                         self.retjson['code'] = 10004  # success
                     else:
                         self.retjson['contents'] = u'密码错误'

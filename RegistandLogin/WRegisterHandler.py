@@ -134,7 +134,7 @@ class WRegisterHandler(BaseHandler):
                         self.db.merge(userImage)
                         self.db.commit()
                         # self.retjson['contents'] = retdata
-                        self.retjson['contents'] = "注册成功"
+                        self.retjson['contents'] = m_phone
                         self.retjson['code'] = 10004  # success
 
                     except Exception, e:
