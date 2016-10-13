@@ -27,7 +27,7 @@ class AcInfoHandler(BaseHandler):
     def get(self):
         acid = self.get_argument('acid')  # 活动id
         m_phone = self.get_argument('phone') #用户手机
-        m_phone = md5(m_phone)
+
 
         isregist = 0
         try:

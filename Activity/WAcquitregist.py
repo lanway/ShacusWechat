@@ -12,7 +12,7 @@ class WAquitcregist(BaseHandler):
     def get(self):
         m_wacid = self.get_argument('wacid',default='null')
         m_phone = self.get_argument('phone',default='null')
-        m_phone = base64.encodestring(m_phone)
+
         try:
             userinfo = self.db.query(User).filter(User.Utel==m_phone).one()
             userid = userinfo.Uid
