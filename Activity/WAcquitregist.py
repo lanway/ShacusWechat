@@ -17,7 +17,7 @@ class WAquitcregist(BaseHandler):
             userinfo = self.db.query(User).filter(User.Utel==m_phone).one()
             userid = userinfo.Uid
             try:
-                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == m_phone).one()
+                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == userid).one()
                 if acregist:
                     if acregist.WACEregistvalid == 0:
                         self.retjson['code'] = '10309'

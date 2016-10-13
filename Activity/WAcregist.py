@@ -13,7 +13,7 @@ class WAcregist(BaseHandler):
     def get(self):
         m_wacid = self.get_argument('wacid',default='null')
         m_phone = self.get_argument('phone',default='null')
-        m_phone=base64.encodestring(m_phone)
+        #m_phone=base64.encodestring(m_phone)
         try:
             userinfo = self.db.query(User).filter(User.Utel==m_phone).one()
             userid = userinfo.Uid
@@ -47,7 +47,7 @@ class WAcregist(BaseHandler):
                     self.retjson['code'] = '10312'
                     self.retjson['contents'] = '报名成功'
                 except Exception, e:
-                    self.db.roolback()
+                    self.db.rollback()
                     self.retjson['code'] = '10305'
                     self.retjson['contents'] = '服务器错误'
         except Exception,e:
