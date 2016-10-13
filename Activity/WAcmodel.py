@@ -39,4 +39,4 @@ class ACmodelHandler:
         WACimgurl= acurl,
         WUserimg = auth.download_url(userimg.UIurl)
         )
-        retdata.append(ac_simply_info)
+        return ac_simply_info

@@ -8,7 +8,7 @@ from BaseHandlerh import BaseHandler
 '''
 class WAquitcregist(BaseHandler):
     retjson= {'code':'200','contents':'null'}
-    def post(self):
+    def get(self):
         m_wacid = self.get_argument('wacid',default='null')
         m_phone = self.get_argument('phone',default='null')
         try:
@@ -34,4 +34,6 @@ class WAquitcregist(BaseHandler):
             print e
             self.retjson['contents'] = '10308'
             self.retjson['contents'] = '没有此用户'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)

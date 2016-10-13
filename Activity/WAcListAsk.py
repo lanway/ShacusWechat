@@ -20,9 +20,9 @@ class AskActivity(BaseHandler): #关于用户的一系列活动
                 data = self.db.query(WActivity).filter(WActivity.WACvalid == 1).order_by(desc(WActivity.WACcreateT)).limit(5).all()
                 retdata = []
                 for item in data:
-                        ACmodelHandler.ac_Model_simply(item,retdata)
+                        retdata01 = ACmodelHandler.ac_Model_simply(item,retdata)
                         self.retjson['code'] = '10303'
-                        self.retjson['contents'] = retdata
+                        self.retjson['contents'] =retdata01
             except Exception,e:
                 print e
                 self.retjson['code']= '10304'
