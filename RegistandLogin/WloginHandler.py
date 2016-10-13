@@ -38,6 +38,7 @@ class WLoginHandler(BaseHandler):
         m_phone = self.get_argument('phone')
         m_password = self.get_argument('password')
         m_phone = base64.encodestring(m_phone)
+        m_phone = m_phone.replace("\n","")
         m_password = md5(m_password)
         if not m_phone or not m_password:
             self.retjson['code'] = 400

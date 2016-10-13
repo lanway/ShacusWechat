@@ -100,6 +100,7 @@ class WRegisterHandler(BaseHandler):
             m_sex = self.get_argument('sex')    #性别
             try:
                 m_phone = base64.encodestring(m_phone)
+                m_phone = m_phone.replace("\n","")
                 m_password = md5(m_password)
                 same_nickname_user = self.db.query(User).filter(User.Ualais == m_nick_name).one()
                 if same_nickname_user:  # 该昵称已被使用
