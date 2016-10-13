@@ -1,4 +1,5 @@
 # coding=utf-8
+import base64
 import json
 
 from Database.tables import UserImage, Image,WActivity, WAcImage, User, WAcEntry
@@ -11,11 +12,12 @@ class WAquitcregist(BaseHandler):
     def get(self):
         m_wacid = self.get_argument('wacid',default='null')
         m_phone = self.get_argument('phone',default='null')
+
         try:
             userinfo = self.db.query(User).filter(User.Utel==m_phone).one()
             userid = userinfo.Uid
             try:
-                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == m_phone).one()
+                acregist = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == m_wacid and WAcEntry.WACEregisterid == userid).one()
                 if acregist:
                     if acregist.WACEregistvalid == 0:
                         self.retjson['code'] = '10309'

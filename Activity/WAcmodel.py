@@ -29,6 +29,7 @@ class ACmodelHandler:
             Acurl = auth.download_url(item.WACIurl)
             acurl.append(Acurl)
         ac_simply_info = dict(
+        code =200,
         WACid=activity.WACid,
         WACtitle=activity.WACtitle,
         WACstartT=activity.WACstartT.strftime('%Y-%m-%d %H:%M:%S'),
