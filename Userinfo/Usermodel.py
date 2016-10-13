@@ -103,6 +103,6 @@ def wechat_user_model_simply(user):
         Uid = user.Uid,
         Utel = decode_base64(user.Utel),
         Ualais = user.Ualais,
-        Usex = user.Usex,
+        Usex = int(user.Usex),
     )
     return retdata

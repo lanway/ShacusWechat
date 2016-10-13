@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import base64
 import json
-from Database.tables import  User, WAcEntry
+from Database.tables import  User, WAcEntry, WActivity
 
 '''
 @author:兰威
@@ -20,6 +20,7 @@ class WAcseeregist(BaseHandler):
         acid = self.get_argument('acid')
         acid = decode_base64(acid)
         try:
+            exist = self.db.query(WActivity).filter(WActivity.WACid == acid).one()
             data = self.db.query(WAcEntry).filter(WAcEntry.WACEacid == acid,WAcEntry.WACEregistvalid == 1).all()
             retdata = []
             for item in data:
@@ -34,8 +35,8 @@ class WAcseeregist(BaseHandler):
 
         except Exception,e:
             print e
-            self.retjson['code'] = '10400'
-            self.retjson['contents'] = '用户不存在'
+            self.retjson['code'] = '10401'
+            self.retjson['contents'] = '活动不存在'
         callback = self.get_argument("jsoncallback")
         jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
         self.write(jsonp)
