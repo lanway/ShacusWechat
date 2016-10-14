@@ -53,10 +53,10 @@ from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
 
 
+
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render(r"static/index.html")
-
+        self.render(r"index.html")
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -77,7 +77,14 @@ class Application(tornado.web.Application):
              (r"/weixin/login", WLoginHandler),
              (r"/weixin/activity/registerlist",WAcseeregist)
         ]
-        tornado.web.Application.__init__(self, handlers, static_path, template_path, debug=True)
+
+        settings = {
+            "static_path": os.path.join(os.path.dirname(__file__), "static"),
+            "template_path" : os.path.join(os.path.dirname(__file__), "static"),
+        }  # 配置静态文件路径
+
+        tornado.web.Application.__init__(self, handlers, **settings)
+
 
         self.db = scoped_session(sessionmaker(bind=engine,
                                               autocommit=False, autoflush=True,
