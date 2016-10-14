@@ -3,6 +3,8 @@
 @author: 黄鑫晨
 '''
 #!/usr/bin/env python
+import os
+
 import tornado.httpserver
 import  tornado.ioloop
 import  tornado.options
@@ -28,11 +30,15 @@ from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
 
 
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("index.html")
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
 
-             (r"/", WBasic),
+             (r"/", IndexHandler),
              (r"/weixin/activity/getauth", AcAuthHandler),
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/activity/aclist",AskActivity),
@@ -47,11 +53,15 @@ class Application(tornado.web.Application):
              (r"/weixin/login", WLoginHandler)
         ]
         tornado.web.Application.__init__(self, handlers)
+
         self.db = scoped_session(sessionmaker(bind=engine,
                                               autocommit=False, autoflush=True,
                                               expire_on_commit=False))
 
 # session负责执行内存中的对象和数据库表之间的同步工作 Session类有很多参数,使用sessionmaker是为了简化这个过程
+static_path = os.path.join(os.path.dirname(__file__), "static")
+
+
 if __name__ == "__main__":
     print "HI,I am in main "
     tornado.options.parse_command_line()

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提取活动</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" href="style/weui-0.4.3.css"/>
+  <link rel="stylesheet" href="style/weui-0.4.css"/>
+      <script src="scripts/zepto.min.js"></script>
+      <script src="scripts/iscroll.js"></script>
+      <!--<script src="http://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>-->
+      <!--第一段代码，全局的初始化-->
+      <script>
+      //预留,整个文档加载完时自动调用
+      window.onload=function()
+      {
+
+      }
+
+   
+      </script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+        <div class="weui_cells_title">提取活动信息</div>
+          <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">提取码</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="input_fetchcode" class="weui_input" placeholder="请输入提取码"/>
+                </div>
+            </div>
+            <div class="weui_cells_tips">请输入从平台获取的提取码，点击确定即可。生成的表格可以直接选中并复制到Excel中。</div>
+            <div class="weui_btn_area">
+                <a id="btn_get" class="weui_btn weui_btn_primary" onclick="manageFetch()" href="javascript:" id="btn">提取</a>
+            </div>  
+          </div>
+              <div id="joinnum" class="weui_cells_tips"></div>
+              <table class="weui-table weui-border-tb">
+                <thead>
+                <tr><th>用户昵称</th><th>用户手机</th><th>性别</th></tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+</body>
+</html>
+<!--第二段脚本，初始化并处理各功能模块的数据-->
+<script type="text/javascript" >
+
+function manageFetch(){
+
+  var fetchcode=document.getElementById("input_fetchcode").value;
+
+  $.getJSON("http://114.215.94.95:80/weixin/activity/registerlist?acid="+fetchcode+"&jsoncallback=?",
+  function(json){
+    //alert(json.code);
+    if (json.code==10400) {
+        var plist=json.contents;
+        document.getElementById("btn_get").innerHTML="已提取";
+        document.getElementById("joinnum").innerHTML="截至提取时，共有 "+plist.length+" 人报名";
+        for (var index in plist) {
+        //var temp=url;
+        //$preview = $('<li class="weui-uploader__file" style="background-image:url('+temp+')></li>');
+        //alert(piclist[index]);
+        var sex=(plist[index].Usex==1)?"男":"女";
+        $preview = $('<tr><td>'+plist[index].Ualais+'</td><td>'+plist[index].Utel+'</td><td>'+sex+'</td></tr>');
+        $('#tbody').append($preview);
+        }
+        return;
+
+    }
+    if (json.code==10401) {
+      alert("提取码错误！");
+      return;
+    }
+    alert("获取失败");
+  });
+
+}
+
+</script>
