@@ -30,7 +30,6 @@ class WLoginHandler(BaseHandler):
     retjson = {'code': '', 'contents': u'未处理 '}
 
 
-
     @asynchronous
     @gen.coroutine
     def get(self):
