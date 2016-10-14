@@ -56,7 +56,7 @@ define("port", default=800, help="run on the given port", type=int)
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html")
+        self.render(r"static/index.html")
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -77,7 +77,7 @@ class Application(tornado.web.Application):
              (r"/weixin/login", WLoginHandler),
              (r"/weixin/activity/registerlist",WAcseeregist)
         ]
-        tornado.web.Application.__init__(self, handlers)
+        tornado.web.Application.__init__(self, handlers, static_path=static_path)
 
         self.db = scoped_session(sessionmaker(bind=engine,
                                               autocommit=False, autoflush=True,
