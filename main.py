@@ -16,23 +16,49 @@ from tornado.options import define, options
 from Activity.AcAuthHandler import AcAuthHandler
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
+
+
+from Activity.WAcListAsk import AskActivity
+from Activity.WAcregist import WAcregist
+from Activity.WAcquitregist import WAquitcregist
+
+from  Activity.AcInfo import AcInfoHandler
+
+# from ImageCallback import ImageCallback
+# from RegisterHandler import RegisterHandler
+# from Settings import PaswChange
+# from Userinfo.UserFavoriteHandler import UserFavorite
+# from Userinfo.UserIndent import UserIndent
+# from Userinfo.UserInfo import UserInfo
+# from Userinfo.UserLike import FindUlike
+# from Userinfo.Userhomepager import Userhomepager
+# from loginHandler import LoginHandler
+from Wechatserver.Wver import Wver
+
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
 from  Activity.AcInfo import AcInfoHandler
+
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
+from Activity.WAcseeregist import WAcseeregist
+#define("port", default=80, help="run on the given port", type=int)
+
 
 from RegistandLogin.WRegisterHandler import WRegisterHandler
 from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
 
 
+<<<<<<< HEAD
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
+=======
+>>>>>>> f46e2017865784789db852994a9a3e9dd36bdf6d
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -50,7 +76,8 @@ class Application(tornado.web.Application):
              (r"/weixin/appointment/ask", WAPCreatHandler),
              (r"/weixin/appointment/list", WAPList),
              (r"/weixin/regist",WRegisterHandler),
-             (r"/weixin/login", WLoginHandler)
+             (r"/weixin/login", WLoginHandler),
+             (r"/weixin/activity/registerlist",WAcseeregist)
         ]
         tornado.web.Application.__init__(self, handlers)
 

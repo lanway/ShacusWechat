@@ -3,6 +3,7 @@
 @author 兰威
 type :用户注册
 '''
+import base64
 import hashlib
 import json
 import random
@@ -34,7 +35,11 @@ def generate_verification_code(len=6):
     myslice = random.sample(code_list, len) # 从list中随机获取6个元素，作为一个片断返回
     verification_code = ''.join(myslice) # list to string
     return verification_code
-
+def md5(str):
+    import hashlib
+    m = hashlib.md5()
+    m.update(str)
+    return m.hexdigest()
 
 
 class WRegisterHandler(BaseHandler):
@@ -46,7 +51,9 @@ class WRegisterHandler(BaseHandler):
         if type == '10001':  # 验证手机号
             m_phone=self.get_argument('phone')
             try:
-                user = self.db.query(User).filter(User.Utel == m_phone).one()
+                utel = base64.encodestring(m_phone)
+                utel = utel.replace('\n','')
+                user = self.db.query(User).filter(User.Utel == utel).one()
                 if user:
                     self.retjson['contents'] = u"该手机号已经被注册，请更换手机号或直接登录"
                     self.retjson['code'] = 10005
@@ -93,6 +100,9 @@ class WRegisterHandler(BaseHandler):
             m_phone=self.get_argument('phone')
             m_sex = self.get_argument('sex')    #性别
             try:
+                m_phone = base64.encodestring(m_phone)
+                m_phone = m_phone.replace("\n","")
+                m_password = md5(m_password)
                 same_nickname_user = self.db.query(User).filter(User.Ualais == m_nick_name).one()
                 if same_nickname_user:  # 该昵称已被使用
                     self.retjson['code'] = '10008'  # Request Timeout
@@ -126,7 +136,7 @@ class WRegisterHandler(BaseHandler):
                         self.db.merge(userImage)
                         self.db.commit()
                         # self.retjson['contents'] = retdata
-                        self.retjson['contents'] = "注册成功"
+                        self.retjson['contents'] = m_phone
                         self.retjson['code'] = 10004  # success
 
                     except Exception, e:
