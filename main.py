@@ -55,7 +55,7 @@ define("port", default=800, help="run on the given port", type=int)
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render(r"index.html")
+        self.render(r"static.index.html")
 
 
 class Application(tornado.web.Application):
