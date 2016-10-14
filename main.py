@@ -53,12 +53,10 @@ from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
 
 
-<<<<<<< HEAD
+
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
-=======
->>>>>>> f46e2017865784789db852994a9a3e9dd36bdf6d
 
 class Application(tornado.web.Application):
     def __init__(self):
