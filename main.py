@@ -89,7 +89,9 @@ class Application(tornado.web.Application):
                                               expire_on_commit=False))
 
 # session负责执行内存中的对象和数据库表之间的同步工作 Session类有很多参数,使用sessionmaker是为了简化这个过程
-static_path = os.path.join(os.path.dirname(__file__), "static")
+#template_path = os.path.join(os.path.dirname(__file__), "temploop")
+static_path = os.path.join(os.path.dirname(__file__), r"static")
+scripts_path = os.path.join(os.path.dirname(__file__), r"scripts")
 
 
 if __name__ == "__main__":

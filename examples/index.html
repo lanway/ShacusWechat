@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<div id ="typediv1" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">弹窗标题</strong></div>
+        <div class="weui-dialog__bd">弹窗内容，告知当前页面信息等</div>
+        <div class="weui-dialog__ft">
+            <a onclick="validate2()" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+        </div>
+    </div>
+</div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>WeUI</title>
+        <!-- 引入 WeUI -->
+        <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.0.0/weui.css"/>
+    </head>
+    <body>
+        <input type="hidden" name="timestamp" value="">
+        <input type="hidden" name="nonceStr" value="nonce">
+        <input type="hidden" name="signature" value="sign">
+        <!-- 使用 -->
+        <a id="AjaxGet" class="weui-btn weui-btn_primary">绿色按钮</a>
+    </body>
+</html>
+
+<script language="javascript">
+
+console.log('script');
+function validate2()
+{
+    console.log('hide');
+    document.getElementById("typediv1").style.display="none";//隐藏 
+
+}
+
+
+  document.querySelector('#AjaxGet').onclick = function () {
+    console.log('click');
+    document.getElementById("typediv1").style.display="";
+  };
+
+</script>
