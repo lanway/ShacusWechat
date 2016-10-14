@@ -52,6 +52,7 @@ class WRegisterHandler(BaseHandler):
             m_phone=self.get_argument('phone')
             try:
                 utel = base64.encodestring(m_phone)
+                utel = utel.replace('\n','')
                 user = self.db.query(User).filter(User.Utel == utel).one()
                 if user:
                     self.retjson['contents'] = u"该手机号已经被注册，请更换手机号或直接登录"
