@@ -190,7 +190,7 @@ alert("phone is "+phone);
 function checkCookie()
 {
 var username=getCookie('username');
-alert(username);
+alert(decodeURI(username));
 alert(encodeURI(phone));
 if (username!=null && username!="" && username==encodeURI(phone))
   {alert("login ");
