@@ -177,7 +177,7 @@ return ""
 
 function checkCookie()
 {
-username=getCookie('username');
+var username=getCookie('username');
 if (username!=null && username!="")
   {//alert('Welcome again '+username+'!')
    window.location.replace("static/main.html?vali="+username);}
