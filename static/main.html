@@ -183,6 +183,7 @@ if (document.cookie.length>0)
     c_start=c_start + c_name.length+1;
     var c_end=document.cookie.indexOf(";",c_start);
     if (c_end==-1) c_end=document.cookie.length;
+    alert("03");
     return unescape(document.cookie.substring(c_start,c_end));
     }
   }
@@ -196,6 +197,7 @@ alert("phone is "+phone);
 function checkCookie()
 {
 var username=getCookie('username');
+alter(username);
 if (username!=null && username!=""&& usename==phone)
   {alert('Welcome again '+username+'!');
   }
