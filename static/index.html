@@ -200,14 +200,6 @@ function setCookie(c_name, value, expiredays){
     });
 
     function manageRegist(){
-        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        if(!myreg.test(phone))
-        {
-        alert('请输入有效的手机号码');
-        return ;
-        }
-        //alert("正确的手机号");
-        //return;
       if (state==1) {
         alert("请先获取并验证验证码");
         return;
@@ -219,6 +211,14 @@ function setCookie(c_name, value, expiredays){
           alert('请输入正确的验证码');
           return;
         }
+         var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phone))
+        {   
+        alert('请输入有效的手机号码');
+        return ;
+        }
+        //alert("正确的手机号");
+        //return;
       $loadingToast.fadeIn(100);
       $.getJSON("http://114.215.94.95/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
       function(json){
