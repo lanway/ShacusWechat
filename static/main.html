@@ -182,7 +182,7 @@ if (document.cookie.length>0)
     alert("02");
     c_start=c_start + c_name.length+1;
     alert(c_start);
-    var c_end=document.cookie.indexOf(";",c_start);
+    var c_end=document.cookie.indexOf(":",c_start);
     alert(c_end);
     if (c_end==-1) c_end=document.cookie.length;
     alert("03");
