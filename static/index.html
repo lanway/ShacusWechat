@@ -206,13 +206,22 @@ function setCookie(c_name, value, expiredays){
       }
       if (state==2) {
         phone=document.getElementById("regist_phone").value;
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phone))
+        {
+        alert('请输入有效的手机号码！');
+        return;
+        }
+        alert("通过手机号");
+        return;
         var vercode=document.getElementById("regist_vercode").value;
         if (phone.length!=11){
           alert('请输入正确的手机号');
           return;
         }
-        if (vercode.length==0){
-          alert('请输入验证码');
+
+        if (vercode.length!=6){
+          alert('验证码位数错误');
           return;
         }
       $loadingToast.fadeIn(100);
@@ -299,8 +308,8 @@ function setCookie(c_name, value, expiredays){
     function manageLogin(){
       phone=document.getElementById("login_phone").value;
       var password=document.getElementById("login_password").value;
-     if (phone.length>11||phone.length==0){
-       alert('请输入正确的手机号');
+      if (phone.length>11||phone.length==0||password.length==0){
+       alert('请输入正确的手机号和密码');
        return;
       }
 
@@ -346,8 +355,8 @@ function setCookie(c_name, value, expiredays){
 
     function getVercode(){
      phone=document.getElementById("regist_phone").value;
-     if (phone.length>11||phone.length==0){
-       alert('请输入正确的手机号');
+     if (phone.length>11||phone.length==0||password.length==0){
+       alert('请输入正确的手机号和密码');
        return;
       }
 
