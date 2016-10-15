@@ -32,7 +32,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Usex = Column(Boolean, nullable=False)
     Usign = Column(VARCHAR(256))
     Usessionid = Column(VARCHAR(32))    #用于验证用户
-
+    Uvalid = Column(Integer, nullable=False, default=1)
 
 
 
@@ -128,6 +128,7 @@ class WApInfo(Base):
     WAImcomment = Column(VARCHAR(128))  # 模特对摄影师的评论
     WAIpcomment = Column(VARCHAR(128))  # 摄影师对模特的评论
     WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
+    WAIvalid = Column(Boolean, default=1, nullable=False)
 
 
 class WAppointEntry(Base):
@@ -199,6 +200,7 @@ class WApCompanions(Base):
     WAPCOrganintro = Column(VARCHAR(128), nullable=False)  # 组织/个人介绍
     WAPCServeintro = Column(VARCHAR(256), nullable=False)  # 提供服务介绍
     WAPCContact = Column(VARCHAR(128), nullable=False)  # 联系方式
+    WAPCvalid = Column(Boolean, default=1, nullable=False)
 
 
 class WApCompanionImage(Base):
@@ -211,6 +213,8 @@ class WApCompanionImage(Base):
     WAPCid = Column(Integer, ForeignKey('WApCompanions.WAPCid', onupdate='CASCADE'))
     WAPCimid = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'), primary_key=True)
     WAPCurl = Column(VARCHAR(128))  # 约拍伴侣图片链接
+    WAPCvalid = Column(Boolean, default=1, nullable=False)
+
 
 class WAcAuth(Base):
     '''
