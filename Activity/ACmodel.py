@@ -24,7 +24,7 @@ class ACmodelHandler:
         ACid=activity.ACid,
         ACtitle=activity.ACtitle,
         ACimgurl=auth.download_url(url),
-        ACstartT=activity.ACstartT.strftime('%Y-%m-%d %H:%M:%S'),
+        ACstartT=activity.ACstartT.strftime('%Y-%m-%d'),
         AClikeN=activity.AClikenumber,
         ACregistN=activity.ACregistN,
         Userimg = auth.download_url(userimg.UIurl)

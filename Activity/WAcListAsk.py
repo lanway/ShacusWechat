@@ -24,7 +24,7 @@ class AskActivity(BaseHandler): #关于用户的一系列活动
                         self.retjson['code'] = '10303'
                         retdata.append(retdata01)
                 self.retjson['contents'] =retdata
-            except Exception,e:
+            except Exception, e:
                 print e
                 self.retjson['code']= '10304'
                 self.retjson['contents']='there is no activity'
