@@ -187,11 +187,14 @@ if (document.cookie.length>0)
 return ""
 }
 
-alert("kaishi");
+
+
+var phone=GetQueryString("vali");
+alert("phone is "+phone);
 function checkCookie()
 {
 var username=getCookie('username');
-if (username!=null && username!="")
+if (username!=null && username!=""&& usename==phone)
   {alert('Welcome again '+username+'!');
   }
 else
@@ -200,8 +203,7 @@ else
   }
 }
 checkCookie();
-var phone=GetQueryString("vali");
-alert("phone is "+phone);
+
 
 /*//从服务器初始化教程数据
 $.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",//待更换的网络请求
