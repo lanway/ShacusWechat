@@ -159,8 +159,7 @@ function getCookie(name)
 function checkCookie()
 {
 var username=getCookie('username');
-alert(encodeURI(phone));
-if (username!=null && username!=""&&username==encodeURI(phone))
+if (username!=null && username!=""&&username==escape(phone))
   {//alert('Welcome again '+username+'!')
    }
 else
