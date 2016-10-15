@@ -191,7 +191,8 @@ function checkCookie()
 {
 var username=getCookie('username');
 alert(username);
-if (username!=null && username!="" && username==phone)
+alert(encodeURI(phone));
+if (username!=null && username!="" && username==encodeURI(phone))
   {alert("login ");
   }
 else
