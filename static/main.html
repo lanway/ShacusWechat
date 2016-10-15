@@ -177,7 +177,6 @@ function getCookie(name)
     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 
     if(arr=document.cookie.match(reg)){
-        alert(arr);
         return (arr[2]);}
     else
         return null;
@@ -190,16 +189,14 @@ alert("phone is "+phone);
 function checkCookie()
 {
 var username=getCookie('username');
-alert(decodeURI(username));
-alert(escape(phone));
 if (username!=null && username!="" && username==escape(phone))
-  {alert("login ");
+  {
   }
 else
   {alert("请先登录！");
-  //window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
+  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
   }
-  alert("05");
+
 }
 checkCookie();
 
