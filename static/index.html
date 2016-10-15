@@ -201,9 +201,9 @@ function setCookie(c_name, value, expiredays){
 
     function manageRegist(){
         var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        if(!myreg.test(phone)||password.length==0)
+        if(!myreg.test(phone))
         {
-        alert('请输入有效的手机号码和密码！');
+        alert('请输入有效的手机号码');
         return ;
         }
         //alert("正确的手机号");
@@ -259,7 +259,7 @@ function setCookie(c_name, value, expiredays){
           return;
         }
         if (password.length==0){
-          alert('请输入验证码');
+          alert('请输入密码');
           return;
         }
       $loadingToast.fadeIn(100);
