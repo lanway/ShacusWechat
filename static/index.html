@@ -248,6 +248,7 @@ function setCookie(c_name, value, expiredays){
         var nickname=document.getElementById("regist_nickname").value;
         var password=document.getElementById("regist_password").value;
         var sex=document.getElementById("sex").selectedIndex;
+        alert(sex);
         if (nickname.length>15||nickname.length<2){
           alert('姓名长度应该在2-15字符');
           return;
