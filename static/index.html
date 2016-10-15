@@ -13,9 +13,9 @@
       //预留,整个文档加载完时自动调用
       window.onload=function()
       {
-
+        checkCookie();
       }
-      function getCookie(c_name)
+function getCookie(c_name)
 {
 if (document.cookie.length>0)
   {
@@ -40,7 +40,7 @@ if (username!=null && username!="")
    window.location.replace("static/main.html?vali="+username);}
 
 }
-checkCookie();
+
 
    
       </script>
