@@ -200,13 +200,6 @@ function setCookie(c_name, value, expiredays){
     });
 
     function manageRegist(){
-      if (state==1) {
-        alert("请先获取并验证验证码");
-        return;
-      }
-      if (state==2) {
-        phone=document.getElementById("regist_phone").value;
-        var vercode=document.getElementById("regist_vercode").value;
         var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if(!myreg.test(phone))
         {
@@ -215,6 +208,13 @@ function setCookie(c_name, value, expiredays){
         }
         alert("正确的手机号");
         return;
+      if (state==1) {
+        alert("请先获取并验证验证码");
+        return;
+      }
+      if (state==2) {
+        phone=document.getElementById("regist_phone").value;
+        var vercode=document.getElementById("regist_vercode").value;
         if (vercode.length!=6){
           alert('请输入正确的验证码');
           return;
