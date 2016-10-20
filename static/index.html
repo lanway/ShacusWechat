@@ -13,8 +13,30 @@
       //预留,整个文档加载完时自动调用
       window.onload=function()
       {
-
+        checkCookie();
       }
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return (arr[2]);
+    else
+        return null;
+}
+
+
+function checkCookie()
+{
+var username=getCookie('username');
+if (username!=null && username!="")
+  {//alert('Welcome again '+username+'!')
+   window.location.replace("static/main.html?vali="+username);}
+
+}
+
 
    
       </script>
@@ -150,6 +172,18 @@ var $loadingToast = $('#loadingToast');
 var $finishToast = $('#finishToast');
 var phone=-1;
 
+//写cookies
+function setCookie(c_name, value, expiredays){
+ 　　　　var exdate=new Date();
+　　　　exdate.setDate(exdate.getDate() + expiredays);
+　　　　document.cookie=c_name+ "=" + value + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+        //alert(document.cookie);
+ 　　}
+
+
+
+
+
     $(function(){
       //$("#uploaderInput")
         $('#item_regist').on('click', function () {
@@ -173,14 +207,18 @@ var phone=-1;
       if (state==2) {
         phone=document.getElementById("regist_phone").value;
         var vercode=document.getElementById("regist_vercode").value;
-        if (phone.length!=11){
-          alert('请输入正确的手机号');
+        if (vercode.length!=6){
+          alert('请输入正确的验证码');
           return;
         }
-        if (vercode.length==0){
-          alert('请输入验证码');
-          return;
+         var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phone))
+        {   
+        alert('请输入有效的手机号码');
+        return ;
         }
+        //alert("正确的手机号");
+        //return;
       $loadingToast.fadeIn(100);
       $.getJSON("http://114.215.94.95/weixin/regist?type=10002&phone="+phone+"&code="+vercode+"&jsoncallback=?",
       function(json){
@@ -214,12 +252,14 @@ var phone=-1;
         var nickname=document.getElementById("regist_nickname").value;
         var password=document.getElementById("regist_password").value;
         var sex=document.getElementById("sex").selectedIndex;
+        if(sex) sex=0;
+        else sex=1;
         if (nickname.length>15||nickname.length<2){
           alert('姓名长度应该在2-15字符');
           return;
         }
         if (password.length==0){
-          alert('请输入验证码');
+          alert('请输入密码');
           return;
         }
       $loadingToast.fadeIn(100);
@@ -245,6 +285,7 @@ var phone=-1;
                 $finishToast.fadeOut(100);
             }, 1000);
             var token=json.contents;
+            setCookie('username',token,14);
             window.location.replace("static/main.html?vali="+token);
             //state=3;
             //return;
@@ -258,13 +299,16 @@ var phone=-1;
       }
     }
 
+
     function manageLogin(){
       phone=document.getElementById("login_phone").value;
       var password=document.getElementById("login_password").value;
-     if (phone.length>11||phone.length==0){
-       alert('请输入正确的手机号');
-       return;
-      }
+      var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phone)||password.length==0)
+        {
+        alert('请输入有效的手机号码和密码！');
+        return ;
+        }
 
      if ($loadingToast.css('display') != 'none') 
        return;
@@ -293,6 +337,7 @@ var phone=-1;
                 $finishToast.fadeOut(100);
             }, 1000);
         var token=json.contents;
+        setCookie('username',token,3);
         window.location.replace("static/main.html?vali="+token);
         //$("#yuepai_contents").val();
         //$("button_getvercode").setAttribute("disabled",true);
@@ -307,10 +352,14 @@ var phone=-1;
 
     function getVercode(){
      phone=document.getElementById("regist_phone").value;
-     if (phone.length>11||phone.length==0){
-       alert('请输入正确的手机号');
-       return;
-      }
+      var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phone))
+        {
+        alert('请输入有效的手机号码！');
+        return ;
+        }
+        //alert("正确的手机号");
+        //return;
 
      if ($loadingToast.css('display') != 'none') 
        return;

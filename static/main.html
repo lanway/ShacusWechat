@@ -45,7 +45,7 @@
         <div class="weui_tab_bd_item">
 
               <div id="tagnav" class="weui-navigator weui-navigator-wrapper">
-                <ul class="weui-navigator-list">
+                <!--<ul class="weui-navigator-list">
                      <li><a onclick="toJiaocheng1();">基础教程</a></li>
                      <li><a onclick="toJiaocheng2();">进阶教程</a></li>
 
@@ -88,7 +88,8 @@
                           <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
                       </div>
 
-                </ul>
+                </ul>-->
+                <img src="images/jiaocheng_holder.jpg" style="width: 100%;height: 100%;display: inline-table;">
             </div>
 
 
@@ -171,10 +172,38 @@
 <!--第二段脚本，初始化并处理各功能模块的数据-->
 <script type="text/javascript" >
 
+//读取cookies
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg)){
+        return (arr[2]);}
+    else
+        return null;
+}
+
 
 
 var phone=GetQueryString("vali");
 //alert("phone is "+phone);
+function checkCookie()
+{
+var username=getCookie('username');
+//alert("username "+username);
+//alert("phone "+phone);
+if (username!=null && username!="" && username==phone)
+  {
+  alert("您已经登陆过，现在进入系统");
+  }
+else
+  {alert("请先注册或用自己的账号登录！");
+  window.location.replace("https://mp.weixin.qq.com/s?__biz=MzIxMzUxMDAwMQ==&mid=100000017&idx=1&sn=37d70b9b791a7cc9164c04d565f45066&chksm=17b4f30f20c37a19913326a278655dd99b75add36fabe74ff5e3130a6a762016080032e7355c&scene=20&key=c3acc508db7203760d2b66304ade4d8bafc8a50dadac8750bbfc18bf8498e8628e2fdea0d060c8602f293eb6f86bca6e&ascene=7&uin=MTE1NjIyMTI4MQ%3D%3D&devicetype=android-19&version=26031b31&nettype=WIFI&pass_ticket=QbJniI9E%2Fz8wrPy7XDZAIc%2B5e1WLUcxm3p%2B3LfraU7d8A9mMbqLkHtITXKoSTgvj&wx_header=1");
+  }
+
+}
+checkCookie();
+
 
 /*//从服务器初始化教程数据
 $.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b068834b5007991b46b&type=http://shacuswechat2.tunnel.2bdata.com/WgetSign.html&jsoncallback=?",//待更换的网络请求
@@ -191,7 +220,7 @@ $.getJSON("http://114.215.94.95:800/weixin/getsign?appsecret=f1dad656a7269b06883
         $("#list_yuepai_2").append(str);
 
       });*/
-
+//alert("asd");
 //从服务器初始化活动数据
 $.getJSON("http://114.215.94.95/weixin/activity/aclist?jsoncallback=?",//待更换的网络请求
       function(json){//在这里处理返回的列表并填充进html中
