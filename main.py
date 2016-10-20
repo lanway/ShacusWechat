@@ -62,7 +62,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
 
-             (r"/", WBasic),
+             (r"/", IndexHandler),
              (r"/weixin/activity/getauth", AcAuthHandler),
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/activity/aclist",AskActivity),
