@@ -103,7 +103,7 @@ class WRegisterHandler(BaseHandler):
                 m_phone = base64.encodestring(m_phone)
                 m_phone = m_phone.replace("\n","")
                 m_password = md5(m_password)
-                same_nickname_user = self.db.query(User).filter(User.Uname == m_nick_name).one()
+                same_nickname_user = self.db.query(User).filter(User.Uname == m_nick_name).one()#临时判断
                 if same_nickname_user:  # 该昵称已被使用
                     self.retjson['code'] = '10008'  # Request Timeout
                     self.retjson['contents'] ="该昵称已被使用"
