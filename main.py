@@ -63,6 +63,7 @@ class Application(tornado.web.Application):
         handlers = [
 
              (r"/", IndexHandler),
+             (r"/veri",WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/activity/aclist",AskActivity),
