@@ -61,7 +61,7 @@ class IndexHandler(tornado.web.RequestHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-
+            #(r"/bai")
              (r"/", IndexHandler),
              (r"/weixin/activity/getauth", AcAuthHandler),
              (r"/weixin/activity/create", AcCreateHandler),
