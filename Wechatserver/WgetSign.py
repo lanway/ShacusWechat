@@ -31,7 +31,7 @@ class WgetSign(BaseHandler):
             ret = wjs.sign()
             callback = self.get_argument("jsoncallback")
             jsonp = "{jsfunc}({json});".format(jsfunc=callback,json=json_encode(ret))
-        self.write(jsonp)
+            self.write(jsonp)
 
 
 

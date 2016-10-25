@@ -93,6 +93,7 @@ class WAppointment(Base):
     __tablename__ = 'WAppointment'
 
     WAPid = Column(Integer, primary_key=True, nullable=False)
+    WAPsponsorid = Column(Integer,ForeignKey('User.Uid', onupdate='CASCADE')) #约拍请求发起者ID
     WAPtitle = Column(VARCHAR(24), nullable=False)  # 标题
     WAPlocation = Column(VARCHAR(128), nullable=False, default='')  # 地点描述
     WAPcontent = Column(VARCHAR(128), nullable=False, default='')  # 内容描述

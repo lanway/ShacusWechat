@@ -45,6 +45,7 @@ from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
 from Activity.WAcseeregist import WAcseeregist
+from Appointment.WAPdetail import WAPdetail
 #define("port", default=80, help="run on the given port", type=int)
 
 
@@ -76,7 +77,8 @@ class Application(tornado.web.Application):
              (r"/weixin/appointment/list", WAPList),
              (r"/weixin/regist",WRegisterHandler),
              (r"/weixin/login", WLoginHandler),
-             (r"/weixin/activity/registerlist",WAcseeregist)
+             (r"/weixin/activity/registerlist",WAcseeregist),
+            (r"/weixin/appointment/info",WAPdetail),
         ]
 
         settings = {

@@ -26,7 +26,9 @@ class WAPmodel(object):
             content=wap.WAPcontent[0:12],
             picurl=auth.download_url(picurl),
             id=wap.WAPid,
-            detailurl='www.baidu.com'  #当前传的是一个假的值
+            #detailurl='www.baidu.com'  #当前传的是一个假的值
+            sponsorid=wap.WAPsponsorid,
+            type=wap.WAPtype
         )
         return ret_ap
 
@@ -45,4 +47,37 @@ class WAPmodel(object):
             data = self.wap_model_simply_one(wap,picurl)
             retedate.append(data)
         return retedate
+    def wap_model_mutiple(self,wap,picurls,issp,isre):
+        '''
+
+        Args:
+            wap: 约拍实例
+            picurls: 约拍的图片组
+            issp:是否是发布者
+            isre:是否报名
+
+        Returns:
+
+        '''
+        auth = AuthKeyHandler()
+        picture_data = []
+        for pic in picurls:
+            picture_data.append(auth.download_url(pic))
+        ret_ap = dict(
+            title=wap.WAPtitle,
+            content=wap.WAPcontent,
+            picurl=picture_data,
+            id=wap.WAPid,
+            # detailurl='www.baidu.com'  #当前传的是一个假的值
+            sponsorid=wap.WAPsponsorid,
+            location=wap.WAPlocation,
+            free=wap.WAPfree,
+            time=wap.WAPtime,
+            type=int(wap.WAPtype),
+            registn=wap.WAPregistN,
+            status=wap.WAPstatus,
+            issponsorid=issp,
+            isregist=isre,
+        )
+        return ret_ap
 
