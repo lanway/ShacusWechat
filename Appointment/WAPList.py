@@ -18,8 +18,9 @@ class WAPList(BaseHandler):
     def get(self):
 
         try:
+            row = self.get_argument('row')
             wapmodel = WAPmodel()
-            waps = self.db.query(WAppointment).filter(WAppointment.WAPstatus == 0,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).limit(10).all()
+            waps = self.db.query(WAppointment).filter(WAppointment.WAPstatus !=3,WAppointment.WAPstatus !=4,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).offset(row).limit(10).all()
             picurls = []
             for wap in waps:
                 data = self.db.query(WApImage).filter(WApImage.WAPIapid == wap.WAPid).all()
