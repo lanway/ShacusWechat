@@ -11,7 +11,7 @@ from Database.tables import User, WApInfo
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '', 'sign': '','comments':''}
+    retjson = {'code': '', 'sign': '','comments':'','contents':''}
 
     def post(self):
         type = self.get_argument('type')
@@ -34,8 +34,25 @@ class UHandler(BaseHandler):
                     for each in asphotoers:
                         # 模特对摄影师的评论
                         if each.WAImcomment:
-                            comment = each.WAImcomment
-                            comments.append(comment)
+                            comment_content = each.WAImcomment
+                            score = each.WAIpscore  # 摄影师获得的评分
+                            comment_user_id = each.WAImid  # 模特的id
+                            try:
+                                model = self.db.query(User).filter(User.Uid == comment_user_id).one()
+                                model_name = model.Ualais
+                                comment_entry = dict(
+                                    comment=comment_content,
+                                    alais=model_name,
+                                    score=score
+                                )
+                                comments.append(comment_entry)
+                                self.retjson['code'] = '200'
+                                self.retjson['contents'] = u"成功"
+                            except Exception, e:
+                                self.retjson['code'] = ''
+                                self.retjson['contents'] = u"获取评论用户出错"
+
+
                 except Exception, e:
                     print e
                 try:
@@ -44,8 +61,23 @@ class UHandler(BaseHandler):
                     for each in asmodels:
                         # 摄影师对模特的评论:
                         if each.WAIpcomment:
-                            comment = each.WAIpcomment
-                            comments.append(comment)
+                            comment_content = each.WAIpcomment
+                            comment_user_id = each.WAIpid  # 摄影师的id
+                            score = each.WAImscore  # 模特获得的评分
+                            try:
+                                photoer = self.db.query(User).filter(User.Uid == comment_user_id).one()
+                                photoer_name = photoer.Ualais
+                                comment_entry = dict(
+                                    comment=comment_content,
+                                    alais=photoer_name,
+                                    score=score
+                                )
+                                comments.append(comment_entry)
+                                self.retjson['code'] = '200'
+                                self.retjson['contents'] = u"成功"
+                            except Exception,e:
+                                self.retjson['code'] = ''
+                                self.retjson['contents'] = u"获取评论用户出错"
                 except Exception, e:
                     print e
                 if comments:
