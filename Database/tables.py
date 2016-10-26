@@ -20,7 +20,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
 
     Uid = Column(Integer, nullable=False, primary_key=True)  # 主键
     Upassword = Column(VARCHAR(64), nullable=False)
-    Utel = Column(CHAR(32),nullable=False,unique=True)
+    Utel = Column(CHAR(32), nullable=False,unique=True)
     Ualais = Column(VARCHAR(24),nullable=False,unique=True)  # 昵称，可能为微信昵称
     Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
