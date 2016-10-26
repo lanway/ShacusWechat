@@ -14,6 +14,7 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
+from Appointment import WAPselect
 from Appointment.WAPlistmodel import WAPListmodel
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
@@ -86,7 +87,8 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/info",WAPdetail),
             (r"/weixin/appointment/regist",WAPregist),
             (r"/weixin/appointment/registcancel",WAPregistcancel),
-            (r"/weixin/appointment/selectlist",WAPselectlist)
+            (r"/weixin/appointment/selectlist",WAPselectlist),
+            (r"/weixin/appointment/select",WAPselect)
         ]
 
         settings = {
