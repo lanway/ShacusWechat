@@ -7,7 +7,7 @@
 import json
 
 from  BaseHandlerh import BaseHandler
-from Database.tables import WAppointEntry, WAppointment, WApImage
+from Database.tables import WAppointEntry, WAppointment, WApImage, User
 from WAPmodel import WAPmodel
 
 class WAPdetail(BaseHandler):
@@ -15,7 +15,7 @@ class WAPdetail(BaseHandler):
     retjson = {'code': '400', 'contents': 'None'}
     def get(self):
 
-        m_id = self.get_argument('uid')
+        phone = self.get_argument('phone')
         m_apid = self.get_argument('apid')
 
         isregist = 0
@@ -23,9 +23,11 @@ class WAPdetail(BaseHandler):
         wap_pic = []
         wapmodel = WAPmodel()
         try:
+            user = self.db.query(User).filter(User.Utel == phone).one
+            m_id = user.Uid
             date = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid == m_apid,WAppointEntry.WAEvalid == 1).all()
             for item in date:
-                if item.WAEregistID == int(m_id):
+                if item.W == int(m_id):
                     isregist =1
                     break
             wap = self.db.query(WAppointment).filter(WAppointment.WAPid == m_apid,WAppointment.WAPvalid == 1).one()
