@@ -15,7 +15,7 @@ from tornado.web import asynchronous
 from BaseHandlerh import BaseHandler
 from Database.tables import  User
 from Userinfo import Usermodel
-from Userinfo.Ufuncs import Ufuncs
+#from Userinfo.Ufuncs import Ufuncs
 from Userinfo.Usermodel import Model_daohanglan
 
 def md5(str):
