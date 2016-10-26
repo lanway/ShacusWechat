@@ -20,7 +20,8 @@ class WAPselect(BaseHandler):
         ap_id = self.get_argument("apid")
         type = self.get_argument('type')
 
-        uid = self.db.query(User).filter(User.Utel == phone).one()
+        user = self.db.query(User).filter(User.Utel == phone).one()
+        uid = user.Uid
         try:
             exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id).one()
             self.retjson['code'] = '10291'

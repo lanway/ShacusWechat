@@ -14,7 +14,7 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
-from Appointment import WAPselect
+from Appointment.WAPselect import WAPselect
 from Appointment.WAPlistmodel import WAPListmodel
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
