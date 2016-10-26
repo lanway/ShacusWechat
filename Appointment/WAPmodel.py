@@ -30,6 +30,7 @@ class WAPmodel(object):
             sponsorid=wap.WAPsponsorid,
             type=int(wap.WAPtype),
             status = wap.WAPstatus,
+            registn = wap.WAPregistN,
         )
         return ret_ap
 
