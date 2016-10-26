@@ -33,6 +33,7 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
+from Userinfo.WUserhomepager import UHandler
 from Wechatserver.Wver import Wver
 
 from Activity.WAcListAsk import AskActivity
@@ -75,7 +76,8 @@ class Application(tornado.web.Application):
              (r"/weixin/appointment/list", WAPList),
              (r"/weixin/regist",WRegisterHandler),
              (r"/weixin/login", WLoginHandler),
-             (r"/weixin/activity/registerlist",WAcseeregist)
+             (r"/weixin/activity/registerlist",WAcseeregist),
+            (r"/weixin/userpage/selfinfo", UHandler)
         ]
 
         settings = {

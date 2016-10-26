@@ -6,7 +6,7 @@ from Database.tables import UserImage, Image
 from FileHandler.Upload import AuthKeyHandler
 from Database.models import get_db
 from FileHandler.Upload import AuthKeyHandler
-from Userinfo.Ufuncs import Ufuncs
+#from Userinfo.Ufuncs import Ufuncs
 '''
 @author: 黄鑫晨 兰威
 '''

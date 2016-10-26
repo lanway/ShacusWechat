@@ -17,9 +17,11 @@ class UHandler(BaseHandler):
         type = self.get_argument('type')
         # 请求用户自己的个人主页
         if type == '1':
-            openid = self.get_argument('openid')
+            # openid = self.get_argument('openid')
+            id = self.get_argument('id')
             try:
-                user = self.db.query(User).filter(User.Uopenid == openid).one()
+                #user = self.db.query(User).filter(User.Uopenid == openid).one()
+                user = self.db.query(User).filter(User.Uid == id).one()
                 uid = user.Uid
                 sign = user.Usign
                 if sign:
