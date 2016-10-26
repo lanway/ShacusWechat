@@ -7,7 +7,8 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import WApInfo
+from Database.tables import WApInfo, User
+
 
 class APcommentHandler(BaseHandler):
     '''
@@ -24,37 +25,51 @@ class APcommentHandler(BaseHandler):
 
     def post(self):
         apid = self.get_argument("apid")  # 约拍id
-        uid = self.get_argument("uid")  # 评论用户的id
+        utel = self.get_argument("utel")  # 评论用户的手机号
+        comment = ''
         try:
-            # 约拍项
-            ap_info_entry = self.db.query(WApInfo).filter(WApInfo.WAIappoid == apid, WApInfo.WAIvalid == 1).one()
+            user = self.db.query(User).filter(User.Utel == utel).one()
+            uid = user.Uid
             try:
-                score = self.get_argument("score") # 评分
+                # 约拍项
+                ap_info_entry = self.db.query(WApInfo).filter(WApInfo.WAIappoid == apid, WApInfo.WAIvalid == 1).one()
                 try:
-                    comment = self.get_argument("comment")  # 评论
+                    score = self.get_argument("score") # 评分
+                    try:
+                        comment = self.get_argument("comment")  # 评论
+                    except Exception, e:
+                        self.retjson['contents'] = u"无评论内容！"
+                        print e
+                    # 模特评论摄影师
+                    if uid == ap_info_entry.WAImid:
+                        ap_info_entry.WAIpscore = score
+                        if comment:
+                            ap_info_entry.WAImcomment = comment
+                        self.commit()
+                        self.retjson['contents'] = u"评论成功！"
+                    # 摄影师评论模特
+                    elif uid == ap_info_entry.WAIpid:
+                        ap_info_entry.WAImscore = score
+                        if comment:
+                            ap_info_entry.WAIpcomment = comment
+                        self.commit()
+                        self.retjson['contents'] = u"评论成功！"
+                    # 用户Id不在该约拍中
+                    else:
+                        self.retjson['code'] = u'40002'
+                        self.retjson['contents'] = u'该用户未参加此次约拍'
                 except Exception, e:
                     print e
-                # 模特评论摄影师
-                if uid == ap_info_entry.WAImid:
-                    ap_info_entry.WAIpscore = score
-                    if comment:
-                        ap_info_entry.WAImcomment = comment
-                    self.commit()
-                # 摄影师评论模特
-                elif uid == ap_info_entry.WAIpid:
-                    ap_info_entry.WAImscore = score
-                    if comment:
-                        ap_info_entry.WAIpcomment = comment
-                    self.commit()
-                # 用户Id不在该约拍中
-                else:
-                    self.retjson['code'] = u'40002'
-                    self.retjson['contents'] = u'该用户未参加此次约拍'
-            except Exception, e:
-                print e
+                    self.retjson['code'] = u'40003'
+                    self.retjson['contents'] = u"无评分！"
+            except Exception,e:
+                self.retjson['code'] = u'40004'
+                self.retjson['contents'] = u"该约拍项不存在或已失效"
         except Exception,e:
-            self.retjson['code'] = u'40001'
-            self.retjson['contents'] = u"该约拍项不存在或已失效"
+            self.retjson['code'] = u'40005'
+            self.retjson['contents'] = u"该用户不存在"
+
+
         self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
 
 

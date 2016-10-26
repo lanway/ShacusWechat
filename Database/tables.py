@@ -128,6 +128,8 @@ class WApInfo(Base):
     WAIpscore = Column(Integer, default=0)  # 摄影师获得的得分
     WAImcomment = Column(VARCHAR(128))  # 模特对摄影师的评论
     WAIpcomment = Column(VARCHAR(128))  # 摄影师对模特的评论
+    WAImcommentT = Column(DateTime(timezone=True), default=func.now())  # 模特对摄影师的评论的时间
+    WAIpcommentT = Column(DateTime(timezone=True), default=func.now())  # 摄影师对模特的评论的时间
     WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
     WAIvalid = Column(Boolean, default=1, nullable=False)
 
