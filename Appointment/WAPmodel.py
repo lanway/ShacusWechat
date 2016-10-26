@@ -21,7 +21,7 @@ class WAPmodel(object):
 
         '''
         db = get_db()
-        user = db.query(User).filter(User.Uid == wap.WAPsponsorid)
+        user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
         u_alias = user.Ualais
         auth = AuthKeyHandler()
         ret_ap = dict(

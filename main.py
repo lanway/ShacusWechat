@@ -80,7 +80,7 @@ class Application(tornado.web.Application):
              (r"/weixin/getsign", WgetSign),
              (r"/weixin/appointment/ask", WAPCreatHandler),
              (r"/weixin/appointment/listphoto", WAPListphoto),
-            (r"weixin/appointment/listmodel",WAPListmodel),
+            (r"/weixin/appointment/listmodel",WAPListmodel),
              (r"/weixin/regist",WRegisterHandler),
              (r"/weixin/login", WLoginHandler),
              (r"/weixin/activity/registerlist",WAcseeregist),
