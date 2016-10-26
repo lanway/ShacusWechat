@@ -38,6 +38,7 @@ class APcommentHandler(BaseHandler):
                     try:
                         comment = self.get_argument("comment")  # 评论
                     except Exception, e:
+                        self.retjson['code'] = "40001"
                         self.retjson['contents'] = u"无评论内容！"
                         print e
                     # 模特评论摄影师
