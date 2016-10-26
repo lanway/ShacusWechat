@@ -33,4 +33,6 @@ class WAPListmodel(BaseHandler):
         except Exception,e:
             self.retjson['code'] = '10211'
             self.retjson['contents'] = '服务器错误'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
