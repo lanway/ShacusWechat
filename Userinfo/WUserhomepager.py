@@ -81,7 +81,7 @@ class UHandler(BaseHandler):
                                 self.retjson['code'] = '200'
                                 self.retjson['contents'] = u"成功"
                             except Exception,e:
-                                self.retjson['code'] = ''
+                                self.retjson['code'] = '40005'
                                 self.retjson['contents'] = u"获取评论用户出错"
                 except Exception, e:
                     print e
