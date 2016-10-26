@@ -14,6 +14,7 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
+from Appointment.WAPlistmodel import WAPListmodel
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
 
@@ -44,8 +45,12 @@ from  Activity.AcInfo import AcInfoHandler
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
-from Appointment.WAPList import WAPList
+from Appointment.WAPListphoto import WAPListphoto
 from Activity.WAcseeregist import WAcseeregist
+from Appointment.WAPdetail import WAPdetail
+from Appointment.WAPregist import WAPregist
+from Appointment.WAPregistcancel import WAPregistcancel
+from Appointment.WAPselectlist import WAPselectlist
 #define("port", default=80, help="run on the given port", type=int)
 
 
@@ -64,6 +69,7 @@ class Application(tornado.web.Application):
         handlers = [
             #(r"/bai")
              (r"/", IndexHandler),
+             #(r"/",WBasic),
              (r"/weixin/activity/getauth", AcAuthHandler),
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/activity/aclist",AskActivity),
@@ -73,11 +79,17 @@ class Application(tornado.web.Application):
              (r"/weixin/activity/create", AcCreateHandler),
              (r"/weixin/getsign", WgetSign),
              (r"/weixin/appointment/ask", WAPCreatHandler),
-             (r"/weixin/appointment/list", WAPList),
+             (r"/weixin/appointment/listphoto", WAPListphoto),
+            (r"weixin/appointment/listmodel",WAPListmodel),
              (r"/weixin/regist",WRegisterHandler),
              (r"/weixin/login", WLoginHandler),
              (r"/weixin/activity/registerlist",WAcseeregist),
-            (r"/weixin/userpage/selfinfo", UHandler)
+            (r"/weixin/userpage/selfinfo", UHandler),
+            (r"/weixin/appointment/info",WAPdetail),
+            (r"/weixin/appointment/regist",WAPregist),
+            (r"/weixin/appointment/registcancel",WAPregistcancel),
+            (r"/weixin/appointment/selectlist",WAPselectlist)
+
         ]
 
         settings = {
