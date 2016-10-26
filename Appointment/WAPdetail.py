@@ -15,7 +15,7 @@ class WAPdetail(BaseHandler):
     retjson = {'code': '400', 'contents': 'None'}
     def get(self):
 
-        m_id = self.get_argument('id')
+        m_id = self.get_argument('uid')
         m_apid = self.get_argument('apid')
 
         isregist = 0
