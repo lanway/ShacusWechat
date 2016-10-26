@@ -46,6 +46,9 @@ from Appointment.WAPCreatHandler import WAPCreatHandler
 from Appointment.WAPList import WAPList
 from Activity.WAcseeregist import WAcseeregist
 from Appointment.WAPdetail import WAPdetail
+from Appointment.WAPregist import WAPregist
+from Appointment.WAPregistcancel import WAPregistcancel
+from Appointment.WAPselectlist import WAPselectlist
 #define("port", default=80, help="run on the given port", type=int)
 
 
@@ -79,6 +82,9 @@ class Application(tornado.web.Application):
              (r"/weixin/login", WLoginHandler),
              (r"/weixin/activity/registerlist",WAcseeregist),
             (r"/weixin/appointment/info",WAPdetail),
+            (r"/weixin/appointment/regist",WAPregist),
+            (r"/weixin/appointment/registcancel",WAPregistcancel),
+            (r"/weixin/appointment/selectlist",WAPselectlist)
         ]
 
         settings = {
