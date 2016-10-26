@@ -2,12 +2,12 @@
 '''
 刷新微信access_token
 '''
-import ssl
 
 
 from Wconf import Wconf
 conf = Wconf.conf
 def GetActoken():
+
 
     conf.grant_access_token()
     conf.grant_jsapi_ticket()
