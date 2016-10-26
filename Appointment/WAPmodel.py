@@ -28,7 +28,8 @@ class WAPmodel(object):
             id=wap.WAPid,
             #detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
-            type=wap.WAPtype
+            type=int(wap.WAPtype),
+            status = wap.WAPstatus,
         )
         return ret_ap
 
@@ -71,7 +72,7 @@ class WAPmodel(object):
             # detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
             location=wap.WAPlocation,
-            free=wap.WAPfree,
+            free=int(wap.WAPfree),
             time=wap.WAPtime,
             type=int(wap.WAPtype),
             registn=wap.WAPregistN,

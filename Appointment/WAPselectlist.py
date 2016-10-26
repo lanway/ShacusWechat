@@ -18,7 +18,9 @@ class WAPselectlist(BaseHandler):
     def get(self):
 
         m_ap_id = self.get_argument('apid')
-        m_u_id = self.get_argument('uid')
+        phone = self.get_argument('phone')
+        user = self.db.query(User).filter(User.Utel == phone).one()
+        m_u_id = user.Uid
 
         try:
             exist = self.db.query(WAppointment).filter(WAppointment.WAPsponsorid == m_u_id,WAppointment.WAPid == m_ap_id).one()
