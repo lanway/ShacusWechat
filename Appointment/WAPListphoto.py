@@ -31,6 +31,7 @@ class WAPListphoto(BaseHandler):
 
 
         except Exception,e:
+            print e
             self.retjson['code'] = '10211'
             self.retjson['contents'] = '服务器错误'
         callback = self.get_argument("jsoncallback")
