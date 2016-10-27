@@ -24,48 +24,19 @@ from Activity.AcCreateHandler import AcCreateHandler
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
-
 from  Activity.AcInfo import AcInfoHandler
-
-# from ImageCallback import ImageCallback
-# from RegisterHandler import RegisterHandler
-# from Settings import PaswChange
-# from Userinfo.UserFavoriteHandler import UserFavorite
-# from Userinfo.UserIndent import UserIndent
-# from Userinfo.UserInfo import UserInfo
-# from Userinfo.UserLike import FindUlike
-# from Userinfo.Userhomepager import Userhomepager
-# from loginHandler import LoginHandler
-
-
 from Userinfo.Uaddimages import Uaddimages
-from Userinfo.Udeleteimages import Udeleteimages
-
-
-from Userinfo.Uaddimages import Uaddimages
-
-from Userinfo.UserAclist import UserAclist
-from Userinfo.UserAplist import UserAplist
-from Userinfo.WUserhomepager import UHandler
-
 from Userinfo.WUforgotpasswd import WUforgotpasswd
 from Userinfo.WUinfoHandler import UinfoHandler
-
-
-
 from Userinfo.WUinfoHandler import UinfoHandler
 from Userinfo.UserAclist import UserAclist
 from Userinfo.UserAplist import UserAplist
 from Userinfo.WUserhomepager import UHandler
-
-
 from Wechatserver.Wver import Wver
-
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
 from  Activity.AcInfo import AcInfoHandler
-
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
@@ -77,8 +48,6 @@ from Appointment.WAPregistcancel import WAPregistcancel
 from Appointment.WAPselectlist import WAPselectlist
 from Appointment.WAPfinish import WAPfinish
 #define("port", default=80, help="run on the given port", type=int)
-
-
 from RegistandLogin.WRegisterHandler import WRegisterHandler
 from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
@@ -120,7 +89,7 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/UserAclist", UserAclist),
             (r"/weixin/appointment/UserAplist", UserAplist),
             (r"/weixin/appointment/Uaddimages",Uaddimages),
-            (r"/weixin/appointment/Uaddimages", Udeleteimages),
+            #(r"/weixin/appointment/Udeleteimages", Udeleteimages),
             (r"/weixin/appointment/select",WAPselect),
             (r"/weixin/appointment/comment",APcommentHandler),
             (r"/weixin/appointment/finish",WAPfinish),
