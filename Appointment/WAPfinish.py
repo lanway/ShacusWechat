@@ -5,7 +5,7 @@
 @datatime：2016.10.27
 '''
 from BaseHandlerh import BaseHandler
-from Database.tables import User, WApInfo, WApFinish
+from Database.tables import User, WApInfo, WApFinish, WAppointment
 
 
 class WAPfinish(BaseHandler):
@@ -19,6 +19,8 @@ class WAPfinish(BaseHandler):
         user = self.db.query(User).filter(User.Utel == phone).one()
         u_id = user.Uid
         try:
+            ap = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
+            if ap.W
 
             try:
                 exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id,(WApInfo.WAImid == u_id or WApInfo.WAIpid == u_id)).one()
