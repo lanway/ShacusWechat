@@ -5,8 +5,8 @@
 @datatime：2016.10.10
 '''
 from Database.models import get_db
+from Database.tables import User
 from FileHandler.Upload import AuthKeyHandler
-
 
 class WAPmodel(object):
 
@@ -20,6 +20,9 @@ class WAPmodel(object):
         Returns: wap简单模型
 
         '''
+        db = get_db()
+        user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
+        u_alias = user.Ualais
         auth = AuthKeyHandler()
         ret_ap = dict(
             title=wap.WAPtitle,
@@ -27,8 +30,11 @@ class WAPmodel(object):
             picurl=auth.download_url(picurl),
             id=wap.WAPid,
             #detailurl='www.baidu.com'  #当前传的是一个假的值
-            sponsorid=wap.WAPsponsorid,
-            type=wap.WAPtype
+            #sponsorid=wap.WAPsponsorid,
+            alais=u_alias,
+            type=int(wap.WAPtype),
+            status = wap.WAPstatus,
+            registn = wap.WAPregistN,
         )
         return ret_ap
 
@@ -71,7 +77,7 @@ class WAPmodel(object):
             # detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
             location=wap.WAPlocation,
-            free=wap.WAPfree,
+            free=int(wap.WAPfree),
             time=wap.WAPtime,
             type=int(wap.WAPtype),
             registn=wap.WAPregistN,

@@ -12,14 +12,17 @@ sys.path.append("..")
 from Database.tables import WAppointment, WApImage
 from WAPmodel import WAPmodel
 
-class WAPList(BaseHandler):
+class WAPListmodel(BaseHandler):
 
     retjson = {'code': '', 'contents': ''}
     def get(self):
 
         try:
+            row = self.get_argument('row')
             wapmodel = WAPmodel()
-            waps = self.db.query(WAppointment).filter(WAppointment.WAPstatus == 0,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).limit(10).all()
+            #waps = self.db.query(WAppointment).filter(WAppointment.WAPtype==1,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).offset(row).limit(5).all()
+            waps = self.db.query(WAppointment).filter(WAppointment.WAPtype == 1, WAppointment.WAPvalid == 1).order_by(
+                WAppointment.WAPcreateT).limit(5).all()
             picurls = []
             for wap in waps:
                 data = self.db.query(WApImage).filter(WApImage.WAPIapid == wap.WAPid).all()
@@ -30,10 +33,9 @@ class WAPList(BaseHandler):
 
 
         except Exception,e:
+            print e
             self.retjson['code'] = '10211'
             self.retjson['contents'] = '服务器错误'
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
-
-
-
-
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)

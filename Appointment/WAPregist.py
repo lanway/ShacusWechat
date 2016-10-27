@@ -7,7 +7,7 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import WAppointment, WAppointEntry
+from Database.tables import WAppointment, WAppointEntry, User
 
 
 class WAPregist(BaseHandler):
@@ -19,8 +19,10 @@ class WAPregist(BaseHandler):
         self.retjson['code'] = '10274'
 
     def get(self):
-        u_id = self.get_argument('uid')
+        phone = self.get_argument('phone')
         ap_id = self.get_argument('apid')
+        user = self.db.query(User).filter(User.Utel == phone).one()
+        u_id = user.Uid
         appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id, WAppointment.WAPstatus == 0,WAppointment.WAPvalid==1).one()
         try:
                 exist = self.db.query(WAppointEntry). \
