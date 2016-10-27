@@ -93,11 +93,13 @@ class UHandler(BaseHandler):
         if comments:
             self.retjson['code'] = u'200'
             self.retjson['comments'] = comments
+            self.retjson['contents'] = u"获取个人主页成功"
         else:
             self.retjson['code'] = u'20002'
             self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
     def get(self):
+        self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页

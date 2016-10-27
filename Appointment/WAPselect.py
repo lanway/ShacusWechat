@@ -7,7 +7,7 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import User, WApInfo, WAppointment
+from Database.tables import User, WApInfo, WAppointment,WAppointEntry
 
 
 class WAPselect(BaseHandler):
@@ -48,6 +48,8 @@ class WAPselect(BaseHandler):
                 self.retjson['contents'] = '选择成功'
                 ap = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
                 ap.WAPstatus +=1
+                apentry = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid==ap_id,WAppointEntry.WAEregisterID == r_id).one()
+                apentry.WAEchoosed =1
                 self.db.commit()
             except Exception,e:
                 print e

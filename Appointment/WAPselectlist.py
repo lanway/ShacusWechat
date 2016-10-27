@@ -31,8 +31,8 @@ class WAPselectlist(BaseHandler):
                 user = self.db.query(User).filter(User.Uid == userid).one()
                 retdata_item = wechat_user_model_simply(user)
                 retdata.append(retdata_item)
-                self.retjson['code'] = '10281'
-                self.retjson['contents'] = retdata
+            self.retjson['code'] = '10281'
+            self.retjson['contents'] = retdata
 
 
         except Exception,e:
