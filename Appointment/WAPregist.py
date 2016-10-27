@@ -36,7 +36,7 @@ class WAPregist(BaseHandler):
                     appointment.WAPregistN += 1
                     self.db.commit()
                     self.retjson['contents'] = '报名成功'
-                    self.retjson['code'] = '10274'
+                    self.retjson['code'] = '10270'
         except Exception, e:
                 print e
                 print "插入之前"
