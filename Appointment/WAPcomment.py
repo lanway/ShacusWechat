@@ -28,6 +28,7 @@ class APcommentHandler(BaseHandler):
     def get(self):
         apid = self.get_argument("apid")  # 约拍id
         utel = self.get_argument("utel")  # 评论用户的手机号
+        callback = self.get_argument("jsoncallback")
         comment = ''
         try:
             user = self.db.query(User).filter(User.Utel == utel).one()
@@ -75,7 +76,8 @@ class APcommentHandler(BaseHandler):
                 self.retjson['contents'] = u"该约拍还未选择约拍对象或已失效"
         except Exception, e:
             self.retjson['code'] = u'40005'
-            self.retjson['contents'] = u"该用户不存在"
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        callback = self.get_argument("jsoncallback")
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
 
 
