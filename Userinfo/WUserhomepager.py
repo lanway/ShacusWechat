@@ -7,11 +7,85 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import User, WApInfo, WAppointment
+from Database.tables import User, WApInfo, WAppointment, Homepageimage
+from FileHandler.Upload import AuthKeyHandler
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '', 'sign': '', 'comments': '', 'contents': ''}
+    retjson = {'code': '', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
+
+    def get_comment(self, uid):
+        '''
+        获得用户的评论(被评)
+        Args:
+            uid: 用户Id
+
+        Returns:评论列表
+
+        '''
+
+        comments = []
+        try:
+            # 用户作为摄影师参加的约拍
+            asphotoers = self.db.query(WApInfo).filter(WApInfo.WAIpid == uid).all()
+            for each in asphotoers:
+                # 模特对摄影师的评论
+                if each.WAImcomment:
+                    comment_content = each.WAImcomment
+                    score = each.WAIpscore  # 摄影师获得的评分
+                    comment_user_id = each.WAImid  # 模特的id
+                    apid = each.WAIappoid
+
+                    try:
+                        model = self.db.query(User).filter(User.Uid == comment_user_id).one()
+                        appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == apid).one()
+                        ap_name = appointment.WAPtitle
+                        model_name = model.Ualais
+                        comment_entry = dict(
+                                comment=comment_content,
+                                alais=model_name,
+                                score=score,
+                                title=ap_name,
+                        )
+                        comments.append(comment_entry)
+                        self.retjson['code'] = '200'
+                        self.retjson['contents'] = u"成功"
+                    except Exception, e:
+                        self.retjson['code'] = u'40005'
+                        self.retjson['contents'] = u"获取评论用户出错"
+        except Exception, e:
+            print e
+            self.retjson['code'] = u'40002'
+            self.retjson['contents'] = u"该用户作为摄影师没有发布过约拍"
+        try:
+            # 用户作为模特参加的约拍
+            asmodels = self.db.query(WApInfo).filter(WApInfo.WAImid == uid).all()
+            for each in asmodels:
+                # 摄影师对模特的评论:
+                if each.WAIpcomment:
+                    comment_content = each.WAIpcomment
+                    comment_user_id = each.WAIpid  # 摄影师的id
+                    score = each.WAImscore  # 模特获得的评分
+                    try:
+                        photoer = self.db.query(User).filter(User.Uid == comment_user_id).one()
+                        photoer_name = photoer.Ualais
+                        comment_entry = dict(
+                            comment=comment_content,
+                            alais=photoer_name,
+                            score=score
+                        )
+                        comments.append(comment_entry)
+                        self.retjson['code'] = '200'
+                        self.retjson['contents'] = u"成功"
+                    except Exception, e:
+                        self.retjson['code'] = '40005'
+                        self.retjson['contents'] = u"获取评论用户出错"
+        except Exception, e:
+            print e
+            self.retjson['code'] = u'40003'
+            self.retjson['contents'] = u"该用户作为模特没有发布过约拍"
+        if comments:
+            self.retjson['comments'] = comments
 
     def post(self):
         type = self.get_argument('type')
@@ -27,73 +101,12 @@ class UHandler(BaseHandler):
                 sign = user.Usign
                 if sign:
                     self.retjson['sign'] = sign
-                # 获得用户的评论
-                comments = []
-                try:
-                    # 用户作为摄影师参加的约拍
-                    asphotoers = self.db.query(WApInfo).filter(WApInfo.WAIpid == uid).all()
-                    for each in asphotoers:
-                        # 模特对摄影师的评论
-                        if each.WAImcomment:
-                            comment_content = each.WAImcomment
-                            score = each.WAIpscore  # 摄影师获得的评分
-                            comment_user_id = each.WAImid  # 模特的id
-                            apid = each.WAIappoid
+                    self.get_comment(uid)
 
-                            try:
-                                model = self.db.query(User).filter(User.Uid == comment_user_id).one()
-                                appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == apid ).one()
-                                ap_name = appointment.WAPtitle
-                                model_name = model.Ualais
-                                comment_entry = dict(
-                                    comment=comment_content,
-                                    alais=model_name,
-                                    score=score,
-                                    title=ap_name
-                                )
-                                comments.append(comment_entry)
-                                self.retjson['code'] = '200'
-                                self.retjson['contents'] = u"成功"
-                            except Exception, e:
-                                self.retjson['code'] = u'40005'
-                                self.retjson['contents'] = u"获取评论用户出错"
-                except Exception, e:
-                    print e
-                self.retjson['code'] = u'40002'
-                self.retjson['contents'] = u"该用户作为摄影师没有发布过约拍"
-                try:
-                    # 用户作为模特参加的约拍
-                    asmodels = self.db.query(WApInfo).filter(WApInfo.WAImid == uid).all()
-                    for each in asmodels:
-                        # 摄影师对模特的评论:
-                        if each.WAIpcomment:
-                            comment_content = each.WAIpcomment
-                            comment_user_id = each.WAIpid  # 摄影师的id
-                            score = each.WAImscore  # 模特获得的评分
-                            try:
-                                photoer = self.db.query(User).filter(User.Uid == comment_user_id).one()
-                                photoer_name = photoer.Ualais
-                                comment_entry = dict(
-                                    comment=comment_content,
-                                    alais=photoer_name,
-                                    score=score
-                                )
-                                comments.append(comment_entry)
-                                self.retjson['code'] = '200'
-                                self.retjson['contents'] = u"成功"
-                            except Exception,e:
-                                self.retjson['code'] = '40005'
-                                self.retjson['contents'] = u"获取评论用户出错"
-                except Exception, e:
-                    print e
-                    self.retjson['code'] = u'40003'
-                    self.retjson['contents'] = u"该用户作为模特没有发布过约拍"
-                if comments:
-                    self.retjson['comments'] = comments
             except Exception, e:
                 print e
-            self.retjson['code'] = u'40001'
-            self.retjson['contents'] = u"该用户不存在"
+                self.retjson['code'] = u'40001'
+                self.retjson['contents'] = u"该用户不存在"
 
         # 看别人的个人主页
         elif type == '2':
@@ -104,15 +117,23 @@ class UHandler(BaseHandler):
                 if user:
                     try:
                         user_other = self.db.query(User).filter(User.Uid == uid_other).one()
+                        self.get_comment(uid_other)
 
+                        auth_key_handler = AuthKeyHandler()
+                        img_tokens = []
+                        try:
+                            u_homepage_imgs = self.db.query(Homepageimage).filter(Homepageimage.HPuser == uid_other).all()
 
-
+                            for each in u_homepage_imgs:
+                                img_url = each.HPimgurl
+                                img_tokens.append(auth_key_handler.download_url(img_url))
+                        except Exception, e:
+                            img_tokens = ''
+                        self.retjson['imgs'] = img_tokens
                     except Exception, e:
                         print e
                         self.retjson['code'] = u'40004'
                         self.retjson['contents'] = u"被看用户不存在"
-
-
             except Exception, e:
                 print e
                 self.retjson['code'] = u'40001'
