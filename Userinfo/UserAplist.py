@@ -31,8 +31,8 @@ class UserAplist(BaseHandler): #关于用户的一系列活动
                 wapmodel = WAPmodel()
                 for item in ap:
                     aplurl = self.db.query(WApImage).filter(WApImage.WAPIapid == item.WAPid).all()
-                    APurl = auth.download_url(aplurl[0].WAPIurl)
-                    retdata01 = wapmodel.wap_model_simply_one(item ,APurl)
+                   #APurl = auth.download_url(aplurl[0].WAPIurl)
+                    retdata01 = wapmodel.wap_model_simply_one(item ,aplurl[0].WAPIurl)
                     self.retjson['code'] = '10602'
                     retdata.append(retdata01)
                 self.retjson['contents'] = retdata
