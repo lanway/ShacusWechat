@@ -229,6 +229,18 @@ class WApCompanionImage(Base):
     WAPCvalid = Column(Boolean, default=1, nullable=False)
 
 
+class Homepageimage(Base):
+    '''
+    author:wjl
+    @name:个人主页的图片
+    '''
+    __tablename__ = 'Homepageimage'
+
+    HPIid = Column(Integer, primary_key=True)
+    HPuser = Column(Integer,ForeignKey('User.Uid',onupdate='CASCADE'))
+    HPUimage = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'))
+    HPimgurl = Column(VARCHAR(128))
+    HPimgvalid = Column(Boolean,default=1,nullable=False)
 class WAcAuth(Base):
     '''
     @author：黄鑫晨
@@ -240,3 +252,4 @@ class WAcAuth(Base):
     WAauth = Column(VARCHAR(32), nullable=False)
     WAAacid = Column(Integer, ForeignKey('WActivity.WACid', onupdate='CASCADE'))  # 活动ID
     WAAused = Column(Boolean, nullable=False, default=0)  # 为0则未用， 1则用过
+

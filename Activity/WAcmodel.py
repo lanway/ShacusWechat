@@ -11,8 +11,6 @@ class ACmodelHandler:
         '''得到简单活动模型
         :return:  retjson
         '''
-
-
         auth = AuthKeyHandler()
         #get activityimg
         aclurl = get_db().query(WAcImage).filter(WAcImage.WACIacid == activity.WACid).all()
