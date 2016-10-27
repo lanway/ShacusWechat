@@ -237,10 +237,12 @@ class Homepageimage(Base):
     __tablename__ = 'Homepageimage'
 
     HPIid = Column(Integer, primary_key=True)
-    HPuser = Column(Integer,ForeignKey('User.Uid',onupdate='CASCADE'))
+    HPuser = Column(Integer,ForeignKey('User.Uid', onupdate='CASCADE'))
     HPUimage = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'))
     HPimgurl = Column(VARCHAR(128))
     HPimgvalid = Column(Boolean,default=1,nullable=False)
+
+
 class WAcAuth(Base):
     '''
     @author：黄鑫晨

@@ -11,10 +11,11 @@ from Database.tables import User, WApInfo, WAppointment
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '', 'sign': '','comments':'','contents':''}
+    retjson = {'code': '', 'sign': '', 'comments': '', 'contents': ''}
 
     def post(self):
         type = self.get_argument('type')
+        callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页
         if type == '1':
             # openid = self.get_argument('openid')
@@ -93,7 +94,32 @@ class UHandler(BaseHandler):
                 print e
             self.retjson['code'] = u'40001'
             self.retjson['contents'] = u"该用户不存在"
-        self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
+
+        # 看别人的个人主页
+        elif type == '2':
+            utel = self.get_argument('utel')  # 发起请求的用户的加密后的手机号
+            uid_other = self.get_argument('uid')  # 被看个人主页的用户的Id
+            try:
+                user = self.db.query(User).filter(User.Utel == utel).one()
+                if user:
+                    try:
+                        user_other = self.db.query(User).filter(User.Uid == uid_other).one()
+
+
+
+                    except Exception, e:
+                        print e
+                        self.retjson['code'] = u'40004'
+                        self.retjson['contents'] = u"被看用户不存在"
+
+
+            except Exception, e:
+                print e
+                self.retjson['code'] = u'40001'
+                self.retjson['contents'] = u"请求用户不存在"
+        jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+        self.write(jsonp)
+
 
 
 

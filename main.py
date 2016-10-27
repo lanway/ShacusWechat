@@ -36,7 +36,9 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
+
 from Userinfo.WUforgotpasswd import WUforgotpasswd
+
 
 from Userinfo.WUinfoHandler import UinfoHandler
 from Userinfo.UserAclist import UserAclist
@@ -104,6 +106,8 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/comment",APcommentHandler),
             (r"/weixin/appointment/finish",WAPfinish),
             (r"/weixin/forgotpasswd",WUforgotpasswd),
+
+
         ]
 
         settings = {
