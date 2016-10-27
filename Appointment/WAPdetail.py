@@ -23,11 +23,11 @@ class WAPdetail(BaseHandler):
         wap_pic = []
         wapmodel = WAPmodel()
         try:
-            user = self.db.query(User).filter(User.Utel == phone).one
+            user = self.db.query(User).filter(User.Utel == phone).one()
             m_id = user.Uid
             date = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid == m_apid,WAppointEntry.WAEvalid == 1).all()
             for item in date:
-                if item.W == int(m_id):
+                if item.WAEregisterID == int(m_id):
                     isregist =1
                     break
             wap = self.db.query(WAppointment).filter(WAppointment.WAPid == m_apid,WAppointment.WAPvalid == 1).one()

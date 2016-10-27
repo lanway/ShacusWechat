@@ -133,6 +133,16 @@ class WApInfo(Base):
     WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
     WAIvalid = Column(Boolean, default=1, nullable=False)
 
+class WApFinish(Base):
+    '''
+    @author:兰威
+    @name:约拍结束表
+    '''
+    __tablename__ = 'WApFinish'
+    WAFid = Column(Integer, primary_key=True)
+    WAFapid=Column(Integer, ForeignKey('WAppointment.WAPid', onupdate="CASCADE"))  # 约拍id
+    WAFuid=Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))  # 报名人id
+    WAFfinishT = Column(DateTime(timezone=True), default=func.now())  # 结束时间
 
 class WAppointEntry(Base):
     '''
