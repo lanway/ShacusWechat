@@ -25,7 +25,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
     Uopenid = Column(VARCHAR(128))
-    Umailbox = Column(VARCHAR(32))
+    Umailbox = Column(VARCHAR(32))  # 邮箱
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
@@ -133,6 +133,16 @@ class WApInfo(Base):
     WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
     WAIvalid = Column(Boolean, default=1, nullable=False)
 
+class WApFinish(Base):
+    '''
+    @author:兰威
+    @name:约拍结束表
+    '''
+    __tablename__ = 'WApFinish'
+    WAFid = Column(Integer, primary_key=True)
+    WAFapid=Column(Integer, ForeignKey('WAppointment.WAPid', onupdate="CASCADE"))  # 约拍id
+    WAFuid=Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))  # 报名人id
+    WAFfinishT = Column(DateTime(timezone=True), default=func.now())  # 结束时间
 
 class WAppointEntry(Base):
     '''
@@ -227,10 +237,12 @@ class Homepageimage(Base):
     __tablename__ = 'Homepageimage'
 
     HPIid = Column(Integer, primary_key=True)
-    HPuser = Column(Integer,ForeignKey('User.Uid',onupdate='CASCADE'))
+    HPuser = Column(Integer,ForeignKey('User.Uid', onupdate='CASCADE'))
     HPUimage = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'))
     HPimgurl = Column(VARCHAR(128))
     HPimgvalid = Column(Boolean,default=1,nullable=False)
+
+
 class WAcAuth(Base):
     '''
     @author：黄鑫晨

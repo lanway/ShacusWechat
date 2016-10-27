@@ -18,7 +18,7 @@ from Userinfo import Usermodel
 #from Userinfo.Ufuncs import Ufuncs
 from Userinfo.Usermodel import Model_daohanglan
 
-def md5(str):
+def md5(str):  # 加密
     import hashlib
     m = hashlib.md5()
     m.update(str)
