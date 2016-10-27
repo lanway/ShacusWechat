@@ -28,7 +28,7 @@ class UinfoHandler(BaseHandler):
                 return 1
         return 0
 
-    def post(self):
+    def get(self):
         utel = self.get_argument('utel')
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
