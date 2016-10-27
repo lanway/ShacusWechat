@@ -1,6 +1,7 @@
 # -*— coding:utf-8 -*-
 '''
 author:wjl
+2016.10.27
 '''
 from BaseHandlerh import BaseHandler
 from Database.tables import User, WAppointment, Homepageimage
@@ -8,7 +9,7 @@ from FileHandler.ImageHandler import ImageHandler
 from Userinfo.UserImgHandler import UserImgHandler
 from Wechatserver.Wpichandler import Wpichandler
 
-class Uaddimages(BaseHandler):#用户在个人主页删除照片
+class Udeleteimages(BaseHandler):#用户在个人主页删除照片
     retjson={'code':'200','contents':'null'}
     def get(self):
         u_phone = self.get_argument('phone')
