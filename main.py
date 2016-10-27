@@ -55,6 +55,7 @@ from Appointment.WAPdetail import WAPdetail
 from Appointment.WAPregist import WAPregist
 from Appointment.WAPregistcancel import WAPregistcancel
 from Appointment.WAPselectlist import WAPselectlist
+from Appointment.WAPfinish import WAPfinish
 #define("port", default=80, help="run on the given port", type=int)
 
 
@@ -96,7 +97,9 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/UserAclist", UserAclist),
             (r"/weixin/appointment/UserAplist", UserAplist),
             (r"/weixin/appointment/select",WAPselect),
-            (r"/weixin/appointment/comment",APcommentHandler)
+            (r"/weixin/appointment/comment",APcommentHandler),
+            (r"/weixin/appointment/finish",WAPfinish),
+
 
         ]
 
