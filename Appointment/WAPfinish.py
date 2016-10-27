@@ -4,6 +4,8 @@
 @type：微信的约拍取消报名
 @datatime：2016.10.27
 '''
+import json
+
 from BaseHandlerh import BaseHandler
 from Database.tables import User, WApInfo, WApFinish, WAppointment
 
@@ -18,10 +20,11 @@ class WAPfinish(BaseHandler):
 
         user = self.db.query(User).filter(User.Utel == phone).one()
         u_id = user.Uid
-        try:
-            ap = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
-            if ap.W
-
+        ap = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
+        if ap.WAPstatus == 1:
+            self.retjson['code'] = '10302'
+            self.retjson['contents'] = '不能结束'
+        else:
             try:
                 exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id,(WApInfo.WAImid == u_id or WApInfo.WAIpid == u_id)).one()
                 try:
@@ -34,9 +37,15 @@ class WAPfinish(BaseHandler):
                         WAFuid = u_id
                     )
                     self.db.merge(new_item)
+                    ap.WAPstatus+=1
                     self.db.commit()
+                    self.retjson['code'] = '10303'
+                    self.retjson['contents'] = '结束成功'
             except Exception,e:
                 print e
                 self.retjson['code'] = '10300'
                 self.retjson['contents'] = '未参加此约拍'
+            callback = self.get_argument("jsoncallback")
+            jsonp = "{jsfunc}({json});".format(jsfunc=callback,json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
+            self.write(jsonp)
 
