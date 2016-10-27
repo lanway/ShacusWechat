@@ -14,6 +14,7 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
+from Appointment.WAPselect import WAPselect
 from Appointment.WAPcomment import APcommentHandler
 from Appointment.WAPlistmodel import WAPListmodel
 from Database.models import engine
@@ -35,7 +36,12 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
+<<<<<<< HEAD
 from Userinfo.WUinfoHandler import UinfoHandler
+=======
+from Userinfo.UserAclist import UserAclist
+from Userinfo.UserAplist import UserAplist
+>>>>>>> ca0768c51ec15584604116ebb23d1c283f6e7701
 from Userinfo.WUserhomepager import UHandler
 from Wechatserver.Wver import Wver
 
@@ -88,11 +94,23 @@ class Application(tornado.web.Application):
             (r"/weixin/login", WLoginHandler),
             (r"/weixin/activity/registerlist", WAcseeregist),
             (r"/weixin/userpage/selfinfo", UHandler),
+<<<<<<< HEAD
             (r"/weixin/appointment/info", WAPdetail),
             (r"/weixin/appointment/regist", WAPregist),
             (r"/weixin/appointment/registcancel", WAPregistcancel),
             (r"/weixin/appointment/selectlist", WAPselectlist),
             (r"/weixin/appointment/comment", APcommentHandler)
+=======
+            (r"/weixin/appointment/info",WAPdetail),
+            (r"/weixin/appointment/regist",WAPregist),
+            (r"/weixin/appointment/registcancel",WAPregistcancel),
+            (r"/weixin/appointment/selectlist",WAPselectlist),
+            (r"/weixin/appointment/UserAclist", UserAclist),
+            (r"/weixin/appointment/UserAplist", UserAplist),
+            (r"/weixin/appointment/select",WAPselect),
+            (r"/weixin/appointment/comment",APcommentHandler)
+
+>>>>>>> ca0768c51ec15584604116ebb23d1c283f6e7701
         ]
 
         settings = {
