@@ -6,6 +6,8 @@
 '''
 import json
 
+import time
+
 from BaseHandlerh import BaseHandler
 from Database.tables import WApInfo, User
 
@@ -46,14 +48,18 @@ class APcommentHandler(BaseHandler):
                         ap_info_entry.WAIpscore = score
                         if comment:
                             ap_info_entry.WAImcomment = comment
+                            ap_info_entry.WAImcommentT = time.strftime('%Y-%m-%d %H-%M-%S', time.localtime(time.time()))
                         self.commit()
+                        self.retjson['code'] = "200"
                         self.retjson['contents'] = u"评论成功！"
                     # 摄影师评论模特
                     elif uid == ap_info_entry.WAIpid:
                         ap_info_entry.WAImscore = score
                         if comment:
                             ap_info_entry.WAIpcomment = comment
+                            ap_info_entry.WAIpcommentT = time.strftime('%Y-%m-%d %H-%M-%S', time.localtime(time.time()))
                         self.commit()
+                        self.retjson['code'] = "200"
                         self.retjson['contents'] = u"评论成功！"
                     # 用户Id不在该约拍中
                     else:
@@ -64,13 +70,12 @@ class APcommentHandler(BaseHandler):
                     self.retjson['code'] = u'40003'
                     self.retjson['contents'] = u"无评分！"
             except Exception,e:
+                print e
                 self.retjson['code'] = u'40004'
-                self.retjson['contents'] = u"该约拍项不存在或已失效"
-        except Exception,e:
+                self.retjson['contents'] = u"该约拍还未选择约拍对象或已失效"
+        except Exception, e:
             self.retjson['code'] = u'40005'
             self.retjson['contents'] = u"该用户不存在"
-
-
         self.write(json.dumps(self.retjson, ensure_ascii=False, indent=2))
 
 

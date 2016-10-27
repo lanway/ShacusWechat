@@ -35,6 +35,7 @@ from  Activity.AcInfo import AcInfoHandler
 # from Userinfo.UserLike import FindUlike
 # from Userinfo.Userhomepager import Userhomepager
 # from loginHandler import LoginHandler
+from Userinfo.WUinfoHandler import UinfoHandler
 from Userinfo.WUserhomepager import UHandler
 from Wechatserver.Wver import Wver
 
@@ -71,28 +72,27 @@ class Application(tornado.web.Application):
             #(r"/bai")
             (r"/", IndexHandler),
             #(r"/",WBasic),
+            (r"/weixin/user/changeinfo", UinfoHandler),
             (r"/weixin/activity/getauth", AcAuthHandler),
             (r"/weixin/activity/create", AcCreateHandler),
-            (r"/weixin/activity/aclist",AskActivity),
-            (r"/weixin/activity/regist",WAcregist),
-            (r"/weixin/activity/quitregist",WAquitcregist),
-            (r"/weixin/activity/detail",AcInfoHandler),
+            (r"/weixin/activity/aclist", AskActivity),
+            (r"/weixin/activity/regist", WAcregist),
+            (r"/weixin/activity/quitregist", WAquitcregist),
+            (r"/weixin/activity/detail", AcInfoHandler),
             (r"/weixin/activity/create", AcCreateHandler),
             (r"/weixin/getsign", WgetSign),
             (r"/weixin/appointment/ask", WAPCreatHandler),
             (r"/weixin/appointment/listphoto", WAPListphoto),
-            (r"/weixin/appointment/listmodel",WAPListmodel),
-            (r"/weixin/regist",WRegisterHandler),
+            (r"/weixin/appointment/listmodel", WAPListmodel),
+            (r"/weixin/regist", WRegisterHandler),
             (r"/weixin/login", WLoginHandler),
-            (r"/weixin/activity/registerlist",WAcseeregist),
+            (r"/weixin/activity/registerlist", WAcseeregist),
             (r"/weixin/userpage/selfinfo", UHandler),
-            (r"/weixin/appointment/info",WAPdetail),
-            (r"/weixin/appointment/regist",WAPregist),
-            (r"/weixin/appointment/registcancel",WAPregistcancel),
-            (r"/weixin/appointment/selectlist",WAPselectlist),
-            (r"/weixin/appointment/comment",APcommentHandler)
-
-
+            (r"/weixin/appointment/info", WAPdetail),
+            (r"/weixin/appointment/regist", WAPregist),
+            (r"/weixin/appointment/registcancel", WAPregistcancel),
+            (r"/weixin/appointment/selectlist", WAPselectlist),
+            (r"/weixin/appointment/comment", APcommentHandler)
         ]
 
         settings = {

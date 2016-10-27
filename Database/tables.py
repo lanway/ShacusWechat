@@ -25,7 +25,7 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
     Uopenid = Column(VARCHAR(128))
-    Umailbox = Column(VARCHAR(32))
+    Umailbox = Column(VARCHAR(32))  # 邮箱
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
