@@ -12,7 +12,7 @@ from FileHandler.Upload import AuthKeyHandler
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
+    retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': ''}
 
     def get_comment(self, uid):
         '''
@@ -99,7 +99,7 @@ class UHandler(BaseHandler):
             self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
     def get(self):
-        self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
+        self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': ''}
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页
@@ -109,8 +109,11 @@ class UHandler(BaseHandler):
             try:
                 #user = self.db.query(User).filter(User.Uopenid == openid).one()
                 user = self.db.query(User).filter(User.Utel == utel).one()
+                u_alais = user.Ualais  # 用户自己的昵称
                 uid = user.Uid
                 sign = user.Usign
+                if u_alais:
+                    self.retjson['alais'] = u_alais  # 昵称
                 if sign:
                     self.retjson['sign'] = sign
                 self.get_comment(uid)
@@ -129,8 +132,9 @@ class UHandler(BaseHandler):
                 if user:
                     try:
                         user_other = self.db.query(User).filter(User.Uid == uid_other).one()
+                        u_alais_other = user_other.Ualais
+                        self.retjson['alais'] = u_alais_other
                         self.get_comment(uid_other)
-
                         auth_key_handler = AuthKeyHandler()
                         img_tokens = []
                         try:
