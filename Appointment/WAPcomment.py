@@ -25,7 +25,7 @@ class APcommentHandler(BaseHandler):
             self.retjson['code'] = u'500'
             self.retjson['contents'] = u"数据库提交错误"
 
-    def post(self):
+    def get(self):
         apid = self.get_argument("apid")  # 约拍id
         utel = self.get_argument("utel")  # 评论用户的手机号
         comment = ''

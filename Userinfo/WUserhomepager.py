@@ -97,7 +97,7 @@ class UHandler(BaseHandler):
             self.retjson['code'] = u'20002'
             self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
-    def post(self):
+    def get(self):
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页
