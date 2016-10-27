@@ -68,13 +68,17 @@ class UHandler(BaseHandler):
                     comment_content = each.WAIpcomment
                     comment_user_id = each.WAIpid  # 摄影师的id
                     score = each.WAImscore  # 模特获得的评分
+                    apid = each.WAIappoid
                     try:
                         photoer = self.db.query(User).filter(User.Uid == comment_user_id).one()
+                        appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == apid).one()
                         photoer_name = photoer.Ualais
+                        ap_name = appointment.WAPtitle
                         comment_entry = dict(
                             comment=comment_content,
                             alais=photoer_name,
-                            score=score
+                            score=score,
+                            title=ap_name,
                         )
                         comments.append(comment_entry)
                         self.retjson['code'] = '200'
