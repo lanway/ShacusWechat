@@ -86,6 +86,8 @@ class UHandler(BaseHandler):
             self.retjson['contents'] = u"该用户作为模特没有发布过约拍"
         if comments:
             self.retjson['comments'] = comments
+        else
+            self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
     def post(self):
         type = self.get_argument('type')
@@ -101,7 +103,7 @@ class UHandler(BaseHandler):
                 sign = user.Usign
                 if sign:
                     self.retjson['sign'] = sign
-                    self.get_comment(uid)
+                self.get_comment(uid)
 
             except Exception, e:
                 print e
