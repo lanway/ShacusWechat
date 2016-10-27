@@ -7,7 +7,7 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import WAppointEntry, WAppointment, User
+from Database.tables import WAppointEntry, WAppointment, User, WApInfo
 from Appointment.WAPusermodel import wechat_user_model_simply
 
 
@@ -29,10 +29,12 @@ class WAPselectlist(BaseHandler):
             for apentry in apentrys:
                 userid = apentry.WAEregisterID
                 user = self.db.query(User).filter(User.Uid == userid).one()
+                if apentry.WAEchoosed == 1:
+                    self.retjson["choosedid"] = userid
                 retdata_item = wechat_user_model_simply(user)
                 retdata.append(retdata_item)
-                self.retjson['code'] = '10281'
-                self.retjson['contents'] = retdata
+            self.retjson['code'] = '10281'
+            self.retjson['contents'] = retdata
 
 
         except Exception,e:
