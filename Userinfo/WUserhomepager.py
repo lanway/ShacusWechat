@@ -12,7 +12,7 @@ from FileHandler.Upload import AuthKeyHandler
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
+    retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': ''}
 
     def get_comment(self, uid):
         '''
@@ -29,6 +29,7 @@ class UHandler(BaseHandler):
             # 用户作为摄影师参加的约拍
             asphotoers = self.db.query(WApInfo).filter(WApInfo.WAIpid == uid).all()
             for each in asphotoers:
+                first = asphotoers[0]  # 如果是空直接抛出异常
                 # 模特对摄影师的评论
                 if each.WAImcomment:
                     comment_content = each.WAImcomment
@@ -60,6 +61,7 @@ class UHandler(BaseHandler):
         try:
             # 用户作为模特参加的约拍
             asmodels = self.db.query(WApInfo).filter(WApInfo.WAImid == uid).all()
+            first = asmodels[0]  # 如果是空直接抛出异常
             for each in asmodels:
                 # 摄影师对模特的评论:
                 if each.WAIpcomment:
@@ -85,8 +87,10 @@ class UHandler(BaseHandler):
             self.retjson['code'] = u'40003'
             self.retjson['contents'] = u"该用户作为模特没有发布过约拍"
         if comments:
+            self.retjson['code'] = u'200'
             self.retjson['comments'] = comments
-        else
+        else:
+            self.retjson['code'] = u'20002'
             self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
     def post(self):
