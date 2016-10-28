@@ -53,7 +53,7 @@ class WAPmodel(object):
             data = self.wap_model_simply_one(wap,picurl)
             retedate.append(data)
         return retedate
-    def wap_model_mutiple(self,wap,picurls,issp,isre):
+    def wap_model_mutiple(self,wap,picurls,issp,isre,isco):
         '''
 
         Args:
@@ -61,6 +61,7 @@ class WAPmodel(object):
             picurls: 约拍的图片组
             issp:是否是发布者
             isre:是否报名
+            isco:是否被选择
 
         Returns:
 
@@ -88,6 +89,7 @@ class WAPmodel(object):
             status=wap.WAPstatus,
             issponsorid=issp,
             isregist=isre,
+            ischoosed=isco,
         )
         return ret_ap
 

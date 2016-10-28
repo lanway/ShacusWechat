@@ -7,7 +7,7 @@
 import json
 
 from  BaseHandlerh import BaseHandler
-from Database.tables import WAppointEntry, WAppointment, WApImage, User
+from Database.tables import WAppointEntry, WAppointment, WApImage, User, WApInfo
 from WAPmodel import WAPmodel
 
 class WAPdetail(BaseHandler):
@@ -20,6 +20,7 @@ class WAPdetail(BaseHandler):
 
         isregist = 0
         issponsor = 0
+        ischoosed = 0
         wap_pic = []
         wapmodel = WAPmodel()
         try:
@@ -36,7 +37,18 @@ class WAPdetail(BaseHandler):
             wap_picturls = self.db.query(WApImage).filter(WApImage.WAPIapid == m_apid).all()
             for pic in wap_picturls:
                 wap_pic.append(pic.WAPIurl)
-            retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist)
+            type = wap.WAPtype
+            if type == 0:
+                apinfo = self.db.query(WApInfo).filter(WApInfo.WAImid == m_id,
+                                                            WApInfo.WAIappoid == m_apid).all()
+                if apinfo:
+                    ischoosed = 1
+            if type == 1:
+                apinfo = self.db.query(WApInfo).filter(WApInfo.WAIpid == m_id,
+                                                       WApInfo.WAIappoid == m_apid).all()
+                if apinfo:
+                    ischoosed = 1
+            retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist,ischoosed)
             self.retjson['contents'] = retdate
             self.retjson['code'] = '10401'
         except Exception,e:

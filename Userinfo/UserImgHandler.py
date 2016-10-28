@@ -3,27 +3,31 @@
 author:wjl
 2016.10.26
 '''
-from datetime import time
+import time
 
 from BaseHandlerh import BaseHandler
 from Database.models import get_db
 from Database.tables import Image, Homepageimage, User
 
 
-class UserImgHandler(BaseHandler):
+class UserImgHandler(object):
     def insert_Homepage_image(self,list,utel):
+
         try:
-            usertel = self.db.query(User).filter(User.Utel == utel).one()
+            db = get_db()
+            usertel = db.query(User).filter(User.Utel == utel).one()
             HPimg = self.insert(list)
 
             for i in range(len(HPimg)):
                 new_hpimg= Homepageimage(
 
-                HPuser = usertel.Utel,
+                HPuser = usertel.Uid,
                 HPUimage = HPimg[i],
                 HPimgurl = list[i],
                 HPimgvalid = True,
                 )
+                db.merge(new_hpimg)
+                db.commit()
         except Exception, e:
             print e
 
@@ -38,7 +42,10 @@ class UserImgHandler(BaseHandler):
                 db = get_db()
                 db.merge(image)
                 db.commit()
-                new_img = get_db().query(Image).filter(Image.IMname == img_name).one()
-                imid = new_img.IMid
-                new_imids.append(imid)
+                try:
+                    new_img = get_db().query(Image).filter(Image.IMname == img_name).one()
+                    imid = new_img.IMid
+                    new_imids.append(imid)
+                except Exception, e:
+                    print e
             return new_imids
