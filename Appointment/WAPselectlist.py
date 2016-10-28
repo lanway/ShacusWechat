@@ -23,7 +23,7 @@ class WAPselectlist(BaseHandler):
         m_u_id = user.Uid
 
         try:
-            exist = self.db.query(WAppointment).filter(WAppointment.WAPsponsorid == m_u_id,WAppointment.WAPid == m_ap_id).one()
+            #exist = self.db.query(WAppointment).filter(WAppointment.WAPsponsorid == m_u_id,WAppointment.WAPid == m_ap_id).one()
             apentrys = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid == m_ap_id,WAppointEntry.WAEvalid == 1).all()
             retdata = []
             for apentry in apentrys:
