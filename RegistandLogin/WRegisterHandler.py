@@ -13,7 +13,7 @@ from sqlalchemy import desc
 from tornado.escape import json_encode
 
 from  BaseHandlerh import BaseHandler
-from Database.tables import User,  Image, UserImage
+from Database.tables import User,  Image, UserImage, NewChoosed
 from Database.tables import Verification
 from Userinfo import Usermodel
 from Userinfo.Usermodel import user_login_fail_model
@@ -136,6 +136,17 @@ class WRegisterHandler(BaseHandler):
                         self.db.merge(userImage)
                         self.db.commit()
                         # self.retjson['contents'] = retdata
+                        new_choosed_entry = NewChoosed(
+                            uid=user.Uid,
+                            choosed=0
+                        )
+                        self.db.merge(new_choosed_entry)
+                        try:
+                            self.db.commit()
+                        except Exception, e:
+                            self.retjson['code'] = '500'
+                            self.retjson['contents'] = u'数据库提交失败'
+
                         self.retjson['contents'] = m_phone
                         self.retjson['code'] = 10004  # success
 
