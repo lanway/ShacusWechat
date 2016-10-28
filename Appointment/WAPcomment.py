@@ -37,7 +37,7 @@ class APcommentHandler(BaseHandler):
                 # 约拍项
                 ap_info_entry = self.db.query(WApInfo).filter(WApInfo.WAIappoid == apid, WApInfo.WAIvalid == 1).one()
                 try:
-                    score = self.get_argument("score") # 评分
+                    score = self.get_argument("score")  # 评分
                     try:
                         comment = self.get_argument("comment")  # 评论
                     except Exception, e:
