@@ -8,6 +8,8 @@ import json
 
 from BaseHandlerh import BaseHandler
 from Database.tables import User, WApInfo, WAppointment,WAppointEntry
+from Userinfo.Usermodel import decode_base64
+from messsage import selectmessage
 
 
 class WAPselect(BaseHandler):
@@ -22,6 +24,11 @@ class WAPselect(BaseHandler):
 
         user = self.db.query(User).filter(User.Utel == phone).one()
         uid = user.Uid
+        regiset = self.db.query(User).filter(User.Uid == r_id).one()
+        u_phone = decode_base64(phone)
+        r_phone = decode_base64(regiset.Utel)
+        appointment =self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
+        aptitle = appointment.WAPtitle
         try:
             exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id).one()
             self.retjson['code'] = '10291'
@@ -51,6 +58,7 @@ class WAPselect(BaseHandler):
                 apentry = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid==ap_id,WAppointEntry.WAEregisterID == r_id).one()
                 apentry.WAEchoosed =1
                 self.db.commit()
+                selectmessage(r_phone,aptitle,u_phone)
             except Exception,e:
                 print e
                 self.retjson['code'] = '10292'
