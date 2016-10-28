@@ -25,8 +25,8 @@ class WAPfinish(BaseHandler):
             self.retjson['code'] = '10302'
             self.retjson['contents'] = '不能结束'
         else:
-            try:
-                exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id,(WApInfo.WAImid == u_id or WApInfo.WAIpid == u_id)).one()
+            exist = self.db.query(WApInfo).filter(WApInfo.WAIappoid == ap_id).one()
+            if exist.WAImid == u_id or exist.WAIpid == u_id:
                 try:
                     exist = self.db.query(WApFinish).filter(WApFinish.WAFapid == ap_id,WApFinish.WAFuid == u_id).one()
                     self.retjson['code'] = '10301'
@@ -35,14 +35,13 @@ class WAPfinish(BaseHandler):
                     new_item = WApFinish(
                         WAFapid=ap_id,
                         WAFuid = u_id
-                    )
+                      )
                     self.db.merge(new_item)
                     ap.WAPstatus+=1
                     self.db.commit()
                     self.retjson['code'] = '10303'
                     self.retjson['contents'] = '结束成功'
-            except Exception,e:
-                print e
+            else:
                 self.retjson['code'] = '10300'
                 self.retjson['contents'] = '未参加此约拍'
             callback = self.get_argument("jsoncallback")
