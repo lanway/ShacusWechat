@@ -35,6 +35,7 @@ class UHandler(BaseHandler):
                     comment_content = each.WAImcomment
                     score = each.WAIpscore  # 摄影师获得的评分
                     comment_user_id = each.WAImid  # 模特的id
+                    mcommentT = each.WAImcommentT   # 模特对摄影师的评论的时间
                     apid = each.WAIappoid
 
                     try:
@@ -47,6 +48,8 @@ class UHandler(BaseHandler):
                                 alais=model_name,
                                 score=score,
                                 title=ap_name,
+                                time=mcommentT.strftime('%Y-%m-%d')
+
                         )
                         comments.append(comment_entry)
                         self.retjson['code'] = '200'
@@ -68,17 +71,21 @@ class UHandler(BaseHandler):
                     comment_content = each.WAIpcomment
                     comment_user_id = each.WAIpid  # 摄影师的id
                     score = each.WAImscore  # 模特获得的评分
+                    pcommentT = each.WAIpcommentT  # 摄影师对模特的评论的时间
+
                     apid = each.WAIappoid
                     try:
                         photoer = self.db.query(User).filter(User.Uid == comment_user_id).one()
                         appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == apid).one()
                         photoer_name = photoer.Ualais
+
                         ap_name = appointment.WAPtitle
                         comment_entry = dict(
                             comment=comment_content,
                             alais=photoer_name,
                             score=score,
                             title=ap_name,
+                            time=pcommentT.strftime('%Y-%m-%d')
                         )
                         comments.append(comment_entry)
                         self.retjson['code'] = '200'
