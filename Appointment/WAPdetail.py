@@ -7,7 +7,7 @@
 import json
 
 from  BaseHandlerh import BaseHandler
-from Database.tables import WAppointEntry, WAppointment, WApImage
+from Database.tables import WAppointEntry, WAppointment, WApImage, User, WApInfo
 from WAPmodel import WAPmodel
 
 class WAPdetail(BaseHandler):
@@ -15,17 +15,20 @@ class WAPdetail(BaseHandler):
     retjson = {'code': '400', 'contents': 'None'}
     def get(self):
 
-        m_id = self.get_argument('uid')
+        phone = self.get_argument('phone')
         m_apid = self.get_argument('apid')
 
         isregist = 0
         issponsor = 0
+        ischoosed = 0
         wap_pic = []
         wapmodel = WAPmodel()
         try:
+            user = self.db.query(User).filter(User.Utel == phone).one()
+            m_id = user.Uid
             date = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid == m_apid,WAppointEntry.WAEvalid == 1).all()
             for item in date:
-                if item.WAEregistID == int(m_id):
+                if item.WAEregisterID == int(m_id):
                     isregist =1
                     break
             wap = self.db.query(WAppointment).filter(WAppointment.WAPid == m_apid,WAppointment.WAPvalid == 1).one()
@@ -34,7 +37,18 @@ class WAPdetail(BaseHandler):
             wap_picturls = self.db.query(WApImage).filter(WApImage.WAPIapid == m_apid).all()
             for pic in wap_picturls:
                 wap_pic.append(pic.WAPIurl)
-            retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist)
+            type = wap.WAPtype
+            if type == 0:
+                apinfo = self.db.query(WApInfo).filter(WApInfo.WAImid == m_id,
+                                                            WApInfo.WAIappoid == m_apid).all()
+                if apinfo:
+                    ischoosed = 1
+            if type == 1:
+                apinfo = self.db.query(WApInfo).filter(WApInfo.WAIpid == m_id,
+                                                       WApInfo.WAIappoid == m_apid).all()
+                if apinfo:
+                    ischoosed = 1
+            retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist,ischoosed)
             self.retjson['contents'] = retdate
             self.retjson['code'] = '10401'
         except Exception,e:

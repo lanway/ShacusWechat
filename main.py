@@ -14,6 +14,9 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
+from Appointment.WAPselect import WAPselect
+from Appointment.WAPcomment import APcommentHandler
+from Appointment.WAPlistmodel import WAPListmodel
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
 
@@ -21,37 +24,31 @@ from Activity.AcCreateHandler import AcCreateHandler
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
-
 from  Activity.AcInfo import AcInfoHandler
-
-# from ImageCallback import ImageCallback
-# from RegisterHandler import RegisterHandler
-# from Settings import PaswChange
-# from Userinfo.UserFavoriteHandler import UserFavorite
-# from Userinfo.UserIndent import UserIndent
-# from Userinfo.UserInfo import UserInfo
-# from Userinfo.UserLike import FindUlike
-# from Userinfo.Userhomepager import Userhomepager
-# from loginHandler import LoginHandler
+from Userinfo.Uaddimages import Uaddimages
+from Userinfo.Udeleteimages import Udeleteimages
+from Userinfo.WUforgotpasswd import WUforgotpasswd
+from Userinfo.WUinfoHandler import UinfoHandler
+from Userinfo.WUinfoHandler import UinfoHandler
+from Userinfo.UserAclist import UserAclist
+from Userinfo.UserAplist import UserAplist
+from Userinfo.WUserhomepager import UHandler
 from Wechatserver.Wver import Wver
-
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
 from Activity.WAcquitregist import WAquitcregist
 from  Activity.AcInfo import AcInfoHandler
-
 from Wechatserver.WBasic import WBasic
 from Wechatserver.WgetSign import WgetSign
 from Appointment.WAPCreatHandler import WAPCreatHandler
-from Appointment.WAPList import WAPList
+from Appointment.WAPListphoto import WAPListphoto
 from Activity.WAcseeregist import WAcseeregist
 from Appointment.WAPdetail import WAPdetail
 from Appointment.WAPregist import WAPregist
 from Appointment.WAPregistcancel import WAPregistcancel
 from Appointment.WAPselectlist import WAPselectlist
+from Appointment.WAPfinish import WAPfinish
 #define("port", default=80, help="run on the given port", type=int)
-
-
 from RegistandLogin.WRegisterHandler import WRegisterHandler
 from RegistandLogin.WloginHandler import WLoginHandler
 define("port", default=800, help="run on the given port", type=int)
@@ -65,26 +62,42 @@ class IndexHandler(tornado.web.RequestHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-
-             (r"/", IndexHandler),
-             #(r"/",WBasic),
-             (r"/weixin/activity/getauth", AcAuthHandler),
-             (r"/weixin/activity/create", AcCreateHandler),
-             (r"/weixin/activity/aclist",AskActivity),
-             (r"/weixin/activity/regist",WAcregist),
-             (r"/weixin/activity/quitregist",WAquitcregist),
-             (r"/weixin/activity/detail",AcInfoHandler),
-             (r"/weixin/activity/create", AcCreateHandler),
-             (r"/weixin/getsign", WgetSign),
-             (r"/weixin/appointment/ask", WAPCreatHandler),
-             (r"/weixin/appointment/list", WAPList),
-             (r"/weixin/regist",WRegisterHandler),
-             (r"/weixin/login", WLoginHandler),
-             (r"/weixin/activity/registerlist",WAcseeregist),
+            #(r"/bai")
+            (r"/", IndexHandler),
+            #(r"/",WBasic),
+            (r"/weixin/user/changeinfo", UinfoHandler),
+            (r"/weixin/activity/getauth", AcAuthHandler),
+            (r"/weixin/activity/create", AcCreateHandler),
+            (r"/weixin/activity/aclist", AskActivity),
+            (r"/weixin/activity/regist", WAcregist),
+            (r"/weixin/activity/quitregist", WAquitcregist),
+            (r"/weixin/activity/detail", AcInfoHandler),
+            (r"/weixin/activity/create", AcCreateHandler),
+            (r"/weixin/getsign", WgetSign),
+            (r"/weixin/appointment/ask", WAPCreatHandler),
+            (r"/weixin/appointment/listphoto", WAPListphoto),
+            (r"/weixin/appointment/listmodel", WAPListmodel),
+            (r"/weixin/regist", WRegisterHandler),
+            (r"/weixin/login", WLoginHandler),
+            (r"/weixin/activity/registerlist", WAcseeregist),
+            (r"/weixin/userpage/selfinfo", UHandler),
             (r"/weixin/appointment/info",WAPdetail),
             (r"/weixin/appointment/regist",WAPregist),
             (r"/weixin/appointment/registcancel",WAPregistcancel),
-            (r"/weixin/appointment/selectlist",WAPselectlist)
+            (r"/weixin/appointment/selectlist",WAPselectlist),
+
+
+            (r"/weixin/appointment/UserAclist", UserAclist),
+            (r"/weixin/appointment/UserAplist", UserAplist),
+            (r"/weixin/appointment/Uaddimages",Uaddimages),
+            (r"/weixin/appointment/Udeleteimages", Udeleteimages),
+            (r"/weixin/appointment/select",WAPselect),
+            (r"/weixin/appointment/comment",APcommentHandler),
+            (r"/weixin/appointment/finish",WAPfinish),
+            (r"/weixin/forgotpasswd",WUforgotpasswd),
+
+
+
         ]
 
         settings = {

@@ -7,7 +7,7 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import WAppointment, WAppointEntry
+from Database.tables import WAppointment, WAppointEntry, User
 
 
 class WAPregist(BaseHandler):
@@ -19,9 +19,11 @@ class WAPregist(BaseHandler):
         self.retjson['code'] = '10274'
 
     def get(self):
-        u_id = self.get_argument('uid')
+        phone = self.get_argument('phone')
         ap_id = self.get_argument('apid')
-        appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id, WAppointment.WAPstatus == 0,WAppointment.WAPvalid==1).one()
+        user = self.db.query(User).filter(User.Utel == phone).one()
+        u_id = user.Uid
+        appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id, WAppointment.WAPstatus == 1,WAppointment.WAPvalid==1).one()
         try:
                 exist = self.db.query(WAppointEntry). \
                     filter(WAppointEntry.WAEregisterID == u_id, WAppointEntry.WAEapid == ap_id
@@ -34,7 +36,7 @@ class WAPregist(BaseHandler):
                     appointment.WAPregistN += 1
                     self.db.commit()
                     self.retjson['contents'] = '报名成功'
-                    self.retjson['code'] = '10273'
+                    self.retjson['code'] = '10270'
         except Exception, e:
                 print e
                 print "插入之前"

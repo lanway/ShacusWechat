@@ -7,7 +7,8 @@
 import json
 
 from BaseHandlerh import BaseHandler
-from Database.tables import WAppointment, WAppointEntry
+from Database.tables import WAppointment, WAppointEntry, User
+
 
 class WAPregistcancel(BaseHandler):
 
@@ -21,12 +22,14 @@ class WAPregistcancel(BaseHandler):
     def get(self):
 
         ap_id = self.get_argument("apid")
-        ap_user_id = self.get_argument("uid")
+        phone = self.get_argument("phone")
+        user = self.db.query(User).filter(User.Utel == phone).one()
+        ap_user_id = user.Uid
         try:
             exist = self.db.query(WAppointEntry).filter(
                 WAppointEntry.WAEregisterID == ap_user_id, WAppointEntry.WAEapid == ap_id).one()
             appointment = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
-            if appointment.WAPstatus == 0:  # 报名中：
+            if appointment.WAPstatus == 1:  # 报名中：
                 # todo 应该再加上和ap_id的验证
                 if exist.WAEvalid:
                     exist.WAEvalid = 0

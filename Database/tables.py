@@ -20,12 +20,12 @@ class User(Base): # 用户表   #添加聊天专用chattoken
 
     Uid = Column(Integer, nullable=False, primary_key=True)  # 主键
     Upassword = Column(VARCHAR(64), nullable=False)
-    Utel = Column(CHAR(32),nullable=False,unique=True)
+    Utel = Column(CHAR(32), nullable=False,unique=True)
     Ualais = Column(VARCHAR(24),nullable=False,unique=True)  # 昵称，可能为微信昵称
     Uname = Column(VARCHAR(24)) # 真实姓名
     Ulocation = Column(VARCHAR(128))
     Uopenid = Column(VARCHAR(128))
-    Umailbox = Column(VARCHAR(32))
+    Umailbox = Column(VARCHAR(32))  # 邮箱
     Ubirthday = Column(DateTime)
     Uscore = Column(Integer, default=0)
     UregistT = Column(DateTime(timezone=True), default=func.now())
@@ -93,7 +93,7 @@ class WAppointment(Base):
     __tablename__ = 'WAppointment'
 
     WAPid = Column(Integer, primary_key=True, nullable=False)
-    WAPsponsorid = Column(Integer,ForeignKey('User.Uid', onupdate='CASCADE')) #约拍请求发起者ID
+    WAPsponsorid = Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE')) #约拍请求发起者ID
     WAPtitle = Column(VARCHAR(24), nullable=False)  # 标题
     WAPlocation = Column(VARCHAR(128), nullable=False, default='')  # 地点描述
     WAPcontent = Column(VARCHAR(128), nullable=False, default='')  # 内容描述
@@ -103,7 +103,7 @@ class WAppointment(Base):
     WAPtype = Column(Boolean, nullable=False, default=0)  # 约拍类型，模特约摄影师(1)或摄影师约模特(0)
     WAPvalid = Column(Boolean, default=1, nullable=False)
     WAPregistN = Column(Integer, nullable=False, default=0)
-    WAPstatus = Column(Integer, nullable=False, default=0)  # 1为发布中，2为已确定（结束）
+    WAPstatus = Column(Integer, nullable=False, default=0)  # 1为发布中，2为已确定约拍对象(进行中) 3为一方已结束 4为两方都结束
 
 
 class WApImage(Base):
@@ -128,9 +128,21 @@ class WApInfo(Base):
     WAIpscore = Column(Integer, default=0)  # 摄影师获得的得分
     WAImcomment = Column(VARCHAR(128))  # 模特对摄影师的评论
     WAIpcomment = Column(VARCHAR(128))  # 摄影师对模特的评论
+    WAImcommentT = Column(DateTime(timezone=True), default=func.now())  # 模特对摄影师的评论的时间
+    WAIpcommentT = Column(DateTime(timezone=True), default=func.now())  # 摄影师对模特的评论的时间
     WAIappoid = Column(Integer, ForeignKey('WAppointment.WAPid', onupdate='CASCADE'))  # 约拍Id
     WAIvalid = Column(Boolean, default=1, nullable=False)
 
+class WApFinish(Base):
+    '''
+    @author:兰威
+    @name:约拍结束表
+    '''
+    __tablename__ = 'WApFinish'
+    WAFid = Column(Integer, primary_key=True)
+    WAFapid=Column(Integer, ForeignKey('WAppointment.WAPid', onupdate="CASCADE"))  # 约拍id
+    WAFuid=Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))  # 报名人id
+    WAFfinishT = Column(DateTime(timezone=True), default=func.now())  # 结束时间
 
 class WAppointEntry(Base):
     '''
@@ -147,7 +159,7 @@ class WAppointEntry(Base):
     WAEregistT = Column(DateTime(timezone=True), default=func.now())  # 报名时间
 
 
-class WActivity(Base):  #活动表
+class WActivity(Base):  # 活动表
     __tablename__ = 'WActivity'
 
     WACid = Column(Integer, nullable=False, primary_key=True)
@@ -217,6 +229,20 @@ class WApCompanionImage(Base):
     WAPCvalid = Column(Boolean, default=1, nullable=False)
 
 
+class Homepageimage(Base):
+    '''
+    author:wjl
+    @name:个人主页的图片
+    '''
+    __tablename__ = 'Homepageimage'
+
+    HPIid = Column(Integer, primary_key=True)
+    HPuser = Column(Integer,ForeignKey('User.Uid', onupdate='CASCADE'))
+    HPUimage = Column(Integer, ForeignKey('Image.IMid', onupdate='CASCADE'))
+    HPimgurl = Column(VARCHAR(128))
+    HPimgvalid = Column(Boolean,default=1,nullable=False)
+
+
 class WAcAuth(Base):
     '''
     @author：黄鑫晨
@@ -228,3 +254,17 @@ class WAcAuth(Base):
     WAauth = Column(VARCHAR(32), nullable=False)
     WAAacid = Column(Integer, ForeignKey('WActivity.WACid', onupdate='CASCADE'))  # 活动ID
     WAAused = Column(Boolean, nullable=False, default=0)  # 为0则未用， 1则用过
+
+
+class NewChoosed(Base):
+    '''
+    @author: 黄鑫晨
+    @introduction: 每次用户有新的被选中则记录, 登录后提示并清零
+    '''
+    __tablename__ = 'NewChoosed'
+
+    id = Column(Integer, primary_key=True)
+    uid = Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))
+    choosed = Column(Boolean, nullable=False, default=0)  # 0为没有新选择， 1则有新选择
+
+

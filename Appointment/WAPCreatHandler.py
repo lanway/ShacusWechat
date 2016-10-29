@@ -51,6 +51,7 @@ class WAPCreatHandler(BaseHandler):
                 WAPfree=W_price,
                 WAPtime=W_time,
                 WAPvalid=0,
+                WAPstatus=1,
             )
             self.db.merge(new_appointment)
             try:
