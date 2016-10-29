@@ -48,6 +48,23 @@ class WUforgotpasswd(BaseHandler):
         if type == '11001':
             m_phone = self.get_argument('phone')
             code = self.get_argument('code')
+            try:
+                item = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
+                # exist = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
+                # delta = datetime.datetime.now() - exist.VT
+                if item.Vcode == code:
+                    # if delta<datetime.timedelta(minutes=10):
+                    self.retjson['code'] = '11008'
+                    self.retjson['contents'] = u'验证成功'
+                else:
+                    self.retjson['code'] = '10006'
+                    self.retjson['contents'] = u'验证码验证失败'
+            except:
+                self.retjson['code'] = '10007'
+                self.retjson['contents'] = u'该手机号码未发送验证码'
+        if type == '11002':
+            m_phone = self.get_argument('phone')
+            code = self.get_argument('code')
             m_password = self.get_argument('password')
             try:
                 item = self.db.query(Verification).filter(Verification.Vphone == m_phone).one()
