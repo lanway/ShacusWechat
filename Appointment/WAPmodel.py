@@ -57,7 +57,7 @@ class WAPmodel(object):
         return retedate
 
 
-    def wap_model_mutiple(self,wap,picurls,issp,isre,isco):
+    def wap_model_mutiple(self,wap,picurls,issp,isre,isco,userlist):
         '''
 
         Args:
@@ -96,6 +96,7 @@ class WAPmodel(object):
             issponsorid=issp,
             isregist=isre,
             ischoosed=isco,
+            user=userlist,
         )
         return ret_ap
 
