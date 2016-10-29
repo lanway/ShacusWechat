@@ -29,20 +29,20 @@ class WAPtel(BaseHandler):
                 user = self.db.query(User).filter(User.Uid == w_rid).one()
                 phone = decode_base64(user.Utel)
                 self.retjson['code'] = '10410'
-                self.retjson['content'] = phone
+                self.retjson['contents'] = phone
             else:
                 self.retjson['code'] = '10411'
-                self.retjson['content'] = '无法获得'
+                self.retjson['contents'] = '无法获得'
         if w_type == 1:
             exist = self.db.query(WApInfo.WAIappoid == w_apid, WApInfo.WAIpid == w_rid, WApInfo.WAImid == w_uid ).all()
             if exist:
                 user = self.db.query(User).filter(User.Uid == w_rid).one()
                 phone = decode_base64(user.Utel)
                 self.retjson['code'] = '10410'
-                self.retjson['content'] = phone
+                self.retjson['contents'] = phone
             else:
                 self.retjson['code'] = '10411'
-                self.retjson['content'] = '无法获得'
+                self.retjson['contents'] = '无法获得'
         callback = self.get_argument("jsoncallback")
         jsonp = "{jsfunc}({json});".format(jsfunc=callback, json=json.dumps(self.retjson, ensure_ascii=False, indent=2))
         self.write(jsonp)

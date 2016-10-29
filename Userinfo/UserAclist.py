@@ -16,10 +16,10 @@ from Activity.WAcmodel import ACmodelHandler
 class UserAclist(BaseHandler): #关于用户的一系列活动
     retjson = {'code': '400', 'contents': 'none'}
     def get(self):
-        u_phone= self.get_argument('id')
+        u_id= self.get_argument('id')
         retdata = []
         try:
-            u_id = self.db.query(User).filter(User.Utel == u_phone).one()
+            u_id = self.db.query(User).filter(User.Uid == u_id).one()
             try:
                 data = self.db.query(WAcEntry).filter(WAcEntry.WACEregisterid == u_id.Uid).all()
                 for Ac1 in data:
