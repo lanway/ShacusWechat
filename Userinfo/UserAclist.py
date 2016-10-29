@@ -17,17 +17,20 @@ class UserAclist(BaseHandler): #关于用户的一系列活动
     retjson = {'code': '400', 'contents': 'none'}
     def get(self):
         u_phone= self.get_argument('id')
+        retdata = []
         try:
             u_id = self.db.query(User).filter(User.Utel == u_phone).one()
             try:
                 data = self.db.query(WAcEntry).filter(WAcEntry.WACEregisterid == u_id.Uid).all()
                 for Ac1 in data:
-                    ac = self.db.query(WActivity).filter(Ac1.WACEacid == WActivity.WACid).all()
-                retdata = []
-                for item in ac:
-                    retdata01 = ACmodelHandler.ac_Model_simply(item, retdata)
-                    self.retjson['code'] = '10600'
+                    ac = self.db.query(WActivity).filter(WActivity.WACid == Ac1.WACEacid ).one()
+                    retdata01 = ACmodelHandler.ac_Model_simply(ac, retdata)
                     retdata.append(retdata01)
+                myactivitys = self.db.query(WActivity).filter(WActivity.WACsponsorid == u_id.Uid).all()
+                for myactivity in myactivitys:
+                    retdata_item = ACmodelHandler.ac_Model_simply(myactivity, retdata)
+                    retdata.append(retdata_item)
+                self.retjson['code'] = '10600'
                 self.retjson['contents'] = retdata
             except Exception, e:
                 print e

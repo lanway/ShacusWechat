@@ -7,7 +7,7 @@
 import json
 import sys
 
-from Database.tables import WAppointment
+from Database.tables import WAppointment, User
 
 sys.path.append("..")
 from BaseHandlerh import BaseHandler
@@ -31,6 +31,8 @@ class WAPCreatHandler(BaseHandler):
         W_location = self.get_argument('location')
         W_content = self.get_argument('content')
         W_mediaIds = self.get_arguments('serverIds[]',strip=True)
+        W_phone = self.get_argument('phone')
+        W_uid = self.db.query(User).filter(User.Utel == W_phone ).one()
         #W_mediaIds = self.get_argument('serverIds')
         #print("我是一条漂亮的分割线————————————————————————————")
         #print W_mediaIds
@@ -52,6 +54,7 @@ class WAPCreatHandler(BaseHandler):
                 WAPtime=W_time,
                 WAPvalid=0,
                 WAPstatus=1,
+                WAPsponsorid=W_uid,
             )
             self.db.merge(new_appointment)
             try:
