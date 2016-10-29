@@ -58,17 +58,19 @@ class WAPdetail(BaseHandler):
                                                             WApInfo.WAIappoid == m_apid).all()
                 if apinfo:
                     ischoosed = 1
-                    r_id = apinfo.WAIpid
-                    user = self.db.query(User).filter(User.Uid == r_id).one()
-                    userlist = wechat_user_model_select_simply(user)
+                    for apinfos in apinfo :
+                        r_id = apinfos.WAIpid
+                        user = self.db.query(User).filter(User.Uid == r_id).one()
+                        userlist = wechat_user_model_select_simply(user)
             if type == 1:
                 apinfo = self.db.query(WApInfo).filter(WApInfo.WAIpid == m_id,
                                                        WApInfo.WAIappoid == m_apid).all()
                 if apinfo:
                     ischoosed = 1
-                    r_id = apinfo.WAImid
-                    user = self.db.query(User).filter(User.Uid == r_id).one()
-                    userlist = wechat_user_model_select_simply(user)
+                    for apinfos in apinfo:
+                        r_id = apinfos.WAImid
+                        user = self.db.query(User).filter(User.Uid == r_id).one()
+                        userlist = wechat_user_model_select_simply(user)
             retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist,ischoosed,userlist)
             self.retjson['contents'] = retdate
             self.retjson['code'] = '10401'
