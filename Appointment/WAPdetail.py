@@ -37,7 +37,7 @@ class WAPdetail(BaseHandler):
             wap = self.db.query(WAppointment).filter(WAppointment.WAPid == m_apid,WAppointment.WAPvalid == 1).one()
             if wap.WAPsponsorid == int(m_id):
                 issponsor = 1
-                if wap.WAPstatus == 2:
+                if wap.WAPstatus !=1 :
                     if wap.WAPtype == 0:
                         apinfo = self.db.query(WApInfo).filter(WApInfo.WAIappoid == m_apid,WApInfo.WAIpid == m_id).one()
                         r_id = apinfo.WAImid
