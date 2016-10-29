@@ -57,7 +57,7 @@ class WAPmodel(object):
         return retedate
 
 
-    def wap_model_mutiple(self,wap,picurls,issp,isre,isco):
+    def wap_model_mutiple(self,wap,picurls,issp,isre,isco,userlist):
         '''
 
         Args:
@@ -86,7 +86,7 @@ class WAPmodel(object):
             alias=u_alias,
             # detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
-            sex=u_sex,
+            sex=int(u_sex),
             location=wap.WAPlocation,
             free=int(wap.WAPfree),
             time=wap.WAPtime,
@@ -96,6 +96,7 @@ class WAPmodel(object):
             issponsorid=issp,
             isregist=isre,
             ischoosed=isco,
+            user=userlist,
         )
         return ret_ap
 

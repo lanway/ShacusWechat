@@ -16,10 +16,10 @@ from Activity.WAcmodel import ACmodelHandler
 class UserAclist(BaseHandler): #关于用户的一系列活动
     retjson = {'code': '400', 'contents': 'none'}
     def get(self):
-        u_phone= self.get_argument('id')
+        u_id= self.get_argument('id')
         retdata = []
         try:
-            u_id = self.db.query(User).filter(User.Utel == u_phone).one()
+            u_id = self.db.query(User).filter(User.Uid == u_id).one()
             try:
                 data = self.db.query(WAcEntry).filter(WAcEntry.WACEregisterid == u_id.Uid).all()
                 for Ac1 in data:
@@ -30,8 +30,12 @@ class UserAclist(BaseHandler): #关于用户的一系列活动
                 for myactivity in myactivitys:
                     retdata_item = ACmodelHandler.ac_Model_simply(myactivity, retdata)
                     retdata.append(retdata_item)
-                self.retjson['code'] = '10600'
-                self.retjson['contents'] = retdata
+                if retdata:
+                    self.retjson['code'] = '10600'
+                    self.retjson['contents'] = retdata
+                else:
+                    self.retjson['code'] = '10601'
+                    self.retjson['contents'] = '你还没有参加过任何活动'
             except Exception, e:
                 print e
                 self.retjson['code'] = '10601'
