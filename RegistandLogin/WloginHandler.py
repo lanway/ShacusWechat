@@ -47,30 +47,13 @@ class WLoginHandler(BaseHandler):
         else:
             try:
                 user = self.db.query(User).filter(User.Utel == m_phone).one()
-                new_choosed=0
-                try:
-                    new_choosed_entry = self.db.query(NewChoosed).filter(NewChoosed.uid == user.Uid).one()
-                    new_choosed = new_choosed_entry.choosed
 
-                except Exception, e:
-                    #  如果没有这项则插入
-                    new_choosed_entry = NewChoosed(
-                        uid=user.Uid,
-                        choosed=0
-                    )
-                    self.db.merge(new_choosed_entry)
-                    try:
-                        self.db.commit()
-                    except Exception, e:
-                        self.retjson['code'] = '500'
-                        self.retjson['contents'] = u'数据库提交失败'
                 if user:  # 用户存在
                     password = user.Upassword
                     if m_password == password:  # 密码正确
                         self.retjson['contents'] = dict(
                             phone=m_phone,
-                            id=user.Uid,
-                            newchoosed=new_choosed
+                            id=user.Uid
                         )
                         self.retjson['code'] = 10004  # success
                     else:

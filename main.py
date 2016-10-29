@@ -14,6 +14,7 @@ from tornado.options import define, options
 
 
 from Activity.AcAuthHandler import AcAuthHandler
+from Appointment.Newchoosed import NewChoosedHandler
 from Appointment.WAPselect import WAPselect
 from Appointment.WAPcomment import APcommentHandler
 from Appointment.WAPlistmodel import WAPListmodel
@@ -66,6 +67,7 @@ class Application(tornado.web.Application):
             (r"/", IndexHandler),
             #(r"/",WBasic),
             (r"/weixin/user/changeinfo", UinfoHandler),
+            (r"/weixin/user/newchoosed", NewChoosedHandler),
             (r"/weixin/activity/getauth", AcAuthHandler),
             (r"/weixin/activity/create", AcCreateHandler),
             (r"/weixin/activity/aclist", AskActivity),
@@ -89,12 +91,12 @@ class Application(tornado.web.Application):
 
             (r"/weixin/appointment/UserAclist", UserAclist),
             (r"/weixin/appointment/UserAplist", UserAplist),
-            (r"/weixin/appointment/Uaddimages",Uaddimages),
+            (r"/weixin/appointment/Uaddimages", Uaddimages),
             (r"/weixin/appointment/Udeleteimages", Udeleteimages),
-            (r"/weixin/appointment/select",WAPselect),
-            (r"/weixin/appointment/comment",APcommentHandler),
-            (r"/weixin/appointment/finish",WAPfinish),
-            (r"/weixin/forgotpasswd",WUforgotpasswd),
+            (r"/weixin/appointment/select", WAPselect),
+            (r"/weixin/appointment/comment", APcommentHandler),
+            (r"/weixin/appointment/finish", WAPfinish),
+            (r"/weixin/forgotpasswd", WUforgotpasswd),
 
 
 

@@ -53,6 +53,8 @@ class WAPmodel(object):
             data = self.wap_model_simply_one(wap,picurl)
             retedate.append(data)
         return retedate
+
+
     def wap_model_mutiple(self,wap,picurls,issp,isre,isco):
         '''
 
