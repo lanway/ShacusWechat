@@ -52,7 +52,7 @@ class WAPselect(BaseHandler):
             try:
                 self.db.commit()
                 self.retjson['code'] = '10293'
-                self.retjson['contents'] = '选择成功'
+                self.retjson['contents'] = r_phone
                 ap = self.db.query(WAppointment).filter(WAppointment.WAPid == ap_id).one()
                 ap.WAPstatus +=1
                 apentry = self.db.query(WAppointEntry).filter(WAppointEntry.WAEapid==ap_id,WAppointEntry.WAEregisterID == r_id).one()
