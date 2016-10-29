@@ -48,7 +48,7 @@ class UinfoHandler(BaseHandler):
                         self.retjson['code'] = '40001'
                         self.retjson['contents'] = u'邮箱格式错误'
 
-                if type == '2':  # 修改密码
+                elif type == '2':  # 修改密码
                     o_password = self.get_argument('old_password')
                     if old_password == md5(o_password):
                         new_password = self.get_argument('new_password')
@@ -60,8 +60,12 @@ class UinfoHandler(BaseHandler):
                         self.retjson['code'] = u'40002'
                         self.retjson['contents'] = u'旧密码错误'
 
-                if type == '3': # 修改个人签名
-                    print 'xiugaiger'
+                elif type == '3':  # 修改个人签名
+                    sign = self.get_argument('sign')  # 用户新签名
+                    user.Usign = sign
+                    self.commit()
+                    self.retjson['code'] = '200'
+                    self.retjson['contents'] = u'修改签名成功'
 
         except Exception, e:
             print e
