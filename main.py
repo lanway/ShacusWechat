@@ -29,6 +29,7 @@ from Activity.WAcquitregist import WAquitcregist
 from  Activity.AcInfo import AcInfoHandler
 from Userinfo.Uaddimages import Uaddimages
 from Userinfo.Udeleteimages import Udeleteimages
+from Userinfo.Upresentation import Upresentation
 from Userinfo.WUforgotpasswd import WUforgotpasswd
 from Userinfo.WUinfoHandler import UinfoHandler
 from Userinfo.WUinfoHandler import UinfoHandler
@@ -89,6 +90,7 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/regist",WAPregist),
             (r"/weixin/appointment/registcancel",WAPregistcancel),
             (r"/weixin/appointment/selectlist",WAPselectlist),
+            (r"/weixin/user/selfpresentation", Upresentation),
 
 
             (r"/weixin/appointment/UserAclist", UserAclist),

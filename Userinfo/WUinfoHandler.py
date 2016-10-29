@@ -12,6 +12,7 @@ from BaseHandlerh import BaseHandler
 from Database.tables import User
 from RegistandLogin.WloginHandler import md5
 
+
 class UinfoHandler(BaseHandler):
     retjson = {'code':'', 'contents':''}
 
