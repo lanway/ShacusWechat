@@ -3,7 +3,8 @@
 author:黄鑫晨
 2016.10.28
 '''
-
+import sys
+sys.path.append("..")
 from Database.models import get_db
 from BaseHandlerh import BaseHandler
 from Database.tables import User, NewChoosed
