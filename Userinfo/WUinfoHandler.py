@@ -58,6 +58,10 @@ class UinfoHandler(BaseHandler):
                     else:  # 旧密码错误
                         self.retjson['code'] = u'40002'
                         self.retjson['contents'] = u'旧密码错误'
+
+                if type == '3': # 修改个人签名
+                    print 'xiugaiger'
+
         except Exception, e:
             print e
             self.retjson['code'] = '40000'
