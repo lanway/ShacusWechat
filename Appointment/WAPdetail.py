@@ -43,7 +43,7 @@ class WAPdetail(BaseHandler):
                         r_id = apinfo.WAImid
                         user = self.db.query(User).filter(User.Uid == r_id).one()
                         userlist = wechat_user_model_select_simply(user)
-                    if wap.WAPtype == 0:
+                    if wap.WAPtype == 1:
                         apinfo = self.db.query(WApInfo).filter(WApInfo.WAIappoid == m_apid,
                                                                WApInfo.WAImid == m_id).one()
                         r_id = apinfo.WAIpid
