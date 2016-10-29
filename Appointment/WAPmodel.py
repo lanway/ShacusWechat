@@ -71,6 +71,7 @@ class WAPmodel(object):
         db = get_db()
         user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
         u_alias = user.Ualais
+        u_sex = user.Usex
         auth = AuthKeyHandler()
         picture_data = []
         for pic in picurls:
@@ -83,6 +84,7 @@ class WAPmodel(object):
             alias=u_alias,
             # detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
+            sex=u_sex,
             location=wap.WAPlocation,
             free=int(wap.WAPfree),
             time=wap.WAPtime,
