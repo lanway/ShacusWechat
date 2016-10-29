@@ -30,8 +30,12 @@ class UserAclist(BaseHandler): #关于用户的一系列活动
                 for myactivity in myactivitys:
                     retdata_item = ACmodelHandler.ac_Model_simply(myactivity, retdata)
                     retdata.append(retdata_item)
-                self.retjson['code'] = '10600'
-                self.retjson['contents'] = retdata
+                if retdata:
+                    self.retjson['code'] = '10600'
+                    self.retjson['contents'] = retdata
+                else:
+                    self.retjson['code'] = '10601'
+                    self.retjson['contents'] = '你还没有参加过任何活动'
             except Exception, e:
                 print e
                 self.retjson['code'] = '10601'
