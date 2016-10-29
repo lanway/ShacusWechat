@@ -10,31 +10,43 @@ from sqlalchemy import desc
 
 
 from BaseHandlerh import  BaseHandler
-from Database.tables import WActivity, User, WAcImage, UserImage, Image, WAcEntry, WAppointEntry, WApImage, WAppointment
+from Database.tables import  User,  WAppointEntry, WApImage, WAppointment
 from Appointment.WAPmodel import WAPmodel
 from FileHandler.Upload import AuthKeyHandler
 
 
+class UserAplist(BaseHandler): #关于用户的一系列约拍
 
-class UserAplist(BaseHandler): #关于用户的一系列活动
     retjson = {'code': '400', 'contents': 'none'}
     def get(self):
         u_phone = self.get_argument('phone')
+        aps = []
         try:
-            userinfo = self.db.query(User).filter(User.Utel==u_phone).one()
+            userinfo = self.db.query(User).filter(User.Utel == u_phone).one()
+            uid = userinfo.Uid
             try:
-                data = self.db.query(WAppointEntry).filter(WAppointEntry.WAEregisterID == userinfo.Uid).all()
-                for item02 in data:
-                    ap = self.db.query(WAppointment).filter(item02.WAEapid == WAppointment.WAPid)
+                try:
+                    as_register_entries = self.db.query(WAppointEntry).filter(WAppointEntry.WAEregisterID == uid).all()
+                    for item02 in as_register_entries:
+                        ap = self.db.query(WAppointment).filter(item02.WAEapid == WAppointment.WAPid).one()
+                        aps.append(ap)
+                except Exception, e:
+                    print "未参加过约拍"
+                try:
+                    as_sponsors_entries = self.db.query(WAppointment).filter(WAppointment.WAPsponsorid == uid).all()
+                    for appointment in as_sponsors_entries:
+                        aps.append(appointment)
+                except Exception, e:
+                    print "未发起过约拍"
                 retdata = []
                 auth = AuthKeyHandler()
                 wapmodel = WAPmodel()
-                for item in ap:
+                for item in aps:
                     aplurl = self.db.query(WApImage).filter(WApImage.WAPIapid == item.WAPid).all()
-                   #APurl = auth.download_url(aplurl[0].WAPIurl)
+                    #APurl = auth.download_url(aplurl[0].WAPIurl)
                     retdata01 = wapmodel.wap_model_simply_one(item ,aplurl[0].WAPIurl)
-                    self.retjson['code'] = '10602'
                     retdata.append(retdata01)
+                self.retjson['code'] = '10602'
                 self.retjson['contents'] = retdata
             except Exception, e:
                 print e

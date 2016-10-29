@@ -261,6 +261,8 @@ class NewChoosed(Base):
     @author: 黄鑫晨
     @introduction: 每次用户有新的被选中则记录, 登录后提示并清零
     '''
+    __tablename__ = 'NewChoosed'
+
     id = Column(Integer, primary_key=True)
     uid = Column(Integer, ForeignKey('User.Uid', onupdate='CASCADE'))
     choosed = Column(Boolean, nullable=False, default=0)  # 0为没有新选择， 1则有新选择
