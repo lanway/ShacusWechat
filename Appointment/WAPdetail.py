@@ -40,13 +40,13 @@ class WAPdetail(BaseHandler):
                 if wap.WAPstatus == 2:
                     if wap.WAPtype == 0:
                         apinfo = self.db.query(WApInfo).filter(WApInfo.WAIappoid == m_apid,WApInfo.WAIpid == m_id).one()
-                        r_id = apinfo.WApImid
+                        r_id = apinfo.WAImid
                         user = self.db.query(User).filter(User.Uid == r_id).one()
                         userlist = wechat_user_model_select_simply(user)
                     if wap.WAPtype == 0:
                         apinfo = self.db.query(WApInfo).filter(WApInfo.WAIappoid == m_apid,
                                                                WApInfo.WAImid == m_id).one()
-                        r_id = apinfo.WApIpid
+                        r_id = apinfo.WAIpid
                         user = self.db.query(User).filter(User.Uid == r_id).one()
                         userlist = wechat_user_model_select_simply(user)
             wap_picturls = self.db.query(WApImage).filter(WApImage.WAPIapid == m_apid).all()
@@ -58,7 +58,7 @@ class WAPdetail(BaseHandler):
                                                             WApInfo.WAIappoid == m_apid).all()
                 if apinfo:
                     ischoosed = 1
-                    r_id = apinfo.WApIpid
+                    r_id = apinfo.WAIpid
                     user = self.db.query(User).filter(User.Uid == r_id).one()
                     userlist = wechat_user_model_select_simply(user)
             if type == 1:
@@ -66,7 +66,7 @@ class WAPdetail(BaseHandler):
                                                        WApInfo.WAIappoid == m_apid).all()
                 if apinfo:
                     ischoosed = 1
-                    r_id = apinfo.WApImid
+                    r_id = apinfo.WAImid
                     user = self.db.query(User).filter(User.Uid == r_id).one()
                     userlist = wechat_user_model_select_simply(user)
             retdate = wapmodel.wap_model_mutiple(wap,wap_pic,issponsor,isregist,ischoosed,userlist)
