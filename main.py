@@ -17,6 +17,7 @@ from Activity.AcAuthHandler import AcAuthHandler
 from Appointment.WAPselect import WAPselect
 from Appointment.WAPcomment import APcommentHandler
 from Appointment.WAPlistmodel import WAPListmodel
+from Appointment.WAPtel import WAPtel
 from Database.models import engine
 from Activity.AcCreateHandler import AcCreateHandler
 
@@ -33,6 +34,7 @@ from Userinfo.WUinfoHandler import UinfoHandler
 from Userinfo.UserAclist import UserAclist
 from Userinfo.UserAplist import UserAplist
 from Userinfo.WUserhomepager import UHandler
+from Userinfo.WUserjudge import WUserjudge
 from Wechatserver.Wver import Wver
 from Activity.WAcListAsk import AskActivity
 from Activity.WAcregist import WAcregist
@@ -95,6 +97,8 @@ class Application(tornado.web.Application):
             (r"/weixin/appointment/comment",APcommentHandler),
             (r"/weixin/appointment/finish",WAPfinish),
             (r"/weixin/forgotpasswd",WUforgotpasswd),
+            (r"/weixin/appointment/tel",WAPtel),
+            (r"/weixin/user/judge",WUserjudge)
 
 
 

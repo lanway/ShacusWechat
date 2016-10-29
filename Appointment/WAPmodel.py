@@ -23,6 +23,7 @@ class WAPmodel(object):
         db = get_db()
         user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
         u_alias = user.Ualais
+        u_sex = user.Usex
         auth = AuthKeyHandler()
         ret_ap = dict(
             title=wap.WAPtitle,
@@ -32,6 +33,7 @@ class WAPmodel(object):
             #detailurl='www.baidu.com'  #当前传的是一个假的值
             #sponsorid=wap.WAPsponsorid,
             alais=u_alias,
+            sex=u_sex,
             type=int(wap.WAPtype),
             status = wap.WAPstatus,
             registn = wap.WAPregistN,
