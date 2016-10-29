@@ -86,7 +86,7 @@ class WAPmodel(object):
             alias=u_alias,
             # detailurl='www.baidu.com'  #当前传的是一个假的值
             sponsorid=wap.WAPsponsorid,
-            sex=u_sex,
+            sex=int(u_sex),
             location=wap.WAPlocation,
             free=int(wap.WAPfree),
             time=wap.WAPtime,
