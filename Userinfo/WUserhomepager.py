@@ -12,7 +12,7 @@ from FileHandler.Upload import AuthKeyHandler
 
 
 class UHandler(BaseHandler):
-    retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': ''}
+    retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': '', 'sex': ''}
 
     def get_comment(self, uid):
         '''
@@ -106,7 +106,7 @@ class UHandler(BaseHandler):
             self.retjson['contents'] = u"他还没有评论哦，来做第一个沙发"
 
     def get(self):
-        self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': ''}
+        self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': '', 'sex': ''}
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页
@@ -117,12 +117,15 @@ class UHandler(BaseHandler):
                 #user = self.db.query(User).filter(User.Uopenid == openid).one()
                 user = self.db.query(User).filter(User.Utel == utel).one()
                 u_alais = user.Ualais  # 用户自己的昵称
+                usex = user.Usex
                 uid = user.Uid
                 sign = user.Usign
                 if u_alais:
                     self.retjson['alais'] = u_alais  # 昵称
                 if sign:
                     self.retjson['sign'] = sign
+                if usex:
+                    self.retjson['sex'] = int(usex)
                 self.get_comment(uid)
 
             except Exception, e:
@@ -140,13 +143,16 @@ class UHandler(BaseHandler):
                     try:
                         user_other = self.db.query(User).filter(User.Uid == uid_other).one()
                         u_alais_other = user_other.Ualais
-                        self.retjson['alais'] = u_alais_other
+                        usex = user_other.Usex
+                        if usex:
+                            self.retjson['sex'] = int(usex)
+                        if u_alais_other:
+                            self.retjson['alais'] = u_alais_other
                         self.get_comment(uid_other)
                         auth_key_handler = AuthKeyHandler()
                         img_tokens = []
                         try:
                             u_homepage_imgs = self.db.query(Homepageimage).filter(Homepageimage.HPuser == uid_other).all()
-
                             for each in u_homepage_imgs:
                                 img_url = each.HPimgurl
                                 img_tokens.append(auth_key_handler.download_url(img_url))
