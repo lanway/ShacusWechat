@@ -27,7 +27,7 @@ class WAPListmodel(BaseHandler):
             for wap in waps:
                 data = self.db.query(WApImage).filter(WApImage.WAPIapid == wap.WAPid).all()
                 picurls.append(data[0].WAPIurl)
-            retdata =  wapmodel.wap_model_simply_more(waps,picurls)
+            retdata = wapmodel.wap_model_simply_more(waps, picurls)
             self.retjson['code'] = '10210'
             self.retjson['contents'] = retdata
 
