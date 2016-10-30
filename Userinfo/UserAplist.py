@@ -45,16 +45,15 @@ class UserAplist(BaseHandler): #关于用户的一系列约拍
                     for item in aps:
                         aplurl = self.db.query(WApImage).filter(WApImage.WAPIapid == item.WAPid).all()
                     #APurl = auth.download_url(aplurl[0].WAPIurl)
-                        retdata01 = wapmodel.wap_model_simply_one(item, aplurl[0].WAPIurl)
-                        retdata.append(retdata01)
+                        if aplurl:
+                            retdata01 = wapmodel.wap_model_simply_one(item, aplurl[0].WAPIurl)
+                            retdata.append(retdata01)
                     self.retjson['code'] = '200'
                     self.retjson['contents'] = retdata
                 except Exception, e:
                     print e
                     self.retjson['code'] = '10605'
                     self.retjson['contents'] = '该约拍没有图片'
-
-
             except Exception, e:
                 print e
                 self.retjson['code'] = '10603'
