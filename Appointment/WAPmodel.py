@@ -24,7 +24,7 @@ class WAPmodel(object):
         try:
             user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
             wap_size = len(wap.WAPcontent)
-
+            # 增加判断
             if wap_size>=12:
                 content_length = wap.WAPcontent[0:12]
             else:
