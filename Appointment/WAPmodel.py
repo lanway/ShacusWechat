@@ -21,24 +21,35 @@ class WAPmodel(object):
 
         '''
         db = get_db()
-        user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
-        u_alias = user.Ualais
-        u_sex = user.Usex
-        auth = AuthKeyHandler()
-        ret_ap = dict(
-            title=wap.WAPtitle,
-            content=wap.WAPcontent[0:12],
-            picurl=auth.download_url(picurl),
-            id=wap.WAPid,
-            #detailurl='www.baidu.com'  #当前传的是一个假的值
-            #sponsorid=wap.WAPsponsorid,
-            alais=u_alias,
-            sex=int(u_sex),
-            type=int(wap.WAPtype),
-            status = wap.WAPstatus,
-            registn = wap.WAPregistN,
-        )
-        return ret_ap
+        try:
+            user = db.query(User).filter(User.Uid == wap.WAPsponsorid).one()
+            wap_size = len(wap.WAPcontent)
+
+            if wap_size>=12:
+                content_length = wap.WAPcontent[0:12]
+            else:
+                content_length = wap.WAPcontent
+
+            u_alias = user.Ualais
+            u_sex = user.Usex
+            auth = AuthKeyHandler()
+            ret_ap = dict(
+                title=wap.WAPtitle,
+                content=content_length,
+                picurl=auth.download_url(picurl),
+                id=wap.WAPid,
+                #detailurl='www.baidu.com'  #当前传的是一个假的值
+                #sponsorid=wap.WAPsponsorid,
+                alais=u_alias,
+                sex=int(u_sex),
+                type=int(wap.WAPtype),
+                status = wap.WAPstatus,
+                registn = wap.WAPregistN,
+            )
+            return ret_ap
+        except Exception, e:
+            print e
+
 
     def wap_model_simply_more(self,waps,picurls):
         '''

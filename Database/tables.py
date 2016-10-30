@@ -35,7 +35,6 @@ class User(Base): # 用户表   #添加聊天专用chattoken
     Uvalid = Column(Integer, nullable=False, default=1)
 
 
-
 class Verification(Base):  # 短信验证码及生成用户auth_key时间
     __tablename__ = 'Verification'
 

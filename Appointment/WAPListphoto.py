@@ -20,14 +20,14 @@ class WAPListphoto(BaseHandler):
         try:
             row = self.get_argument('row')
             wapmodel = WAPmodel()
-            waps = self.db.query(WAppointment).filter(WAppointment.WAPtype==0,WAppointment.WAPvalid == 1).order_by(WAppointment.WAPcreateT).offset(row).limit(5).all()
-            #waps = self.db.query(WAppointment).filter(WAppointment.WAPtype == 0, WAppointment.WAPvalid == 1).order_by(
-             #   WAppointment.WAPcreateT).limit(5).all()
+            waps = self.db.query(WAppointment).filter(WAppointment.WAPtype==0,WAppointment.WAPvalid == 1).all()
+            # waps = self.db.query(WAppointment).filter(WAppointment.WAPtype == 0, WAppointment.WAPvalid == 1).order_by(
+            #    WAppointment.WAPcreateT).limit(5).all()
             picurls = []
             for wap in waps:
                 data = self.db.query(WApImage).filter(WApImage.WAPIapid == wap.WAPid).all()
                 picurls.append(data[0].WAPIurl)
-            retdata =  wapmodel.wap_model_simply_more(waps,picurls)
+            retdata =  wapmodel.wap_model_simply_more(waps, picurls)
             self.retjson['code'] = '10210'
             self.retjson['contents'] = retdata
 

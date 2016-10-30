@@ -107,6 +107,8 @@ class UHandler(BaseHandler):
 
     def get(self):
         self.retjson = {'code': '200', 'sign': '', 'comments': '', 'imgs': '', 'contents': '', 'alais': '', 'sex': ''}
+        argument = self.get_argument()
+        print argument
         type = self.get_argument('type')
         callback = self.get_argument("jsoncallback")
         # 请求用户自己的个人主页
